@@ -1,0 +1,12 @@
+sudo: false
+
+notifications:
+  email: false
+
+language: nodejs
+
+cache: yarn
+
+script:
+  - yarn lint
+  - yarn test
