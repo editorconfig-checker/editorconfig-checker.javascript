@@ -18,7 +18,9 @@
     "url": "https://github.com/editorconfig-checker/editorconfig-checker.javascript/issues"
   },
   "homepage": "https://github.com/editorconfig-checker/editorconfig-checker.javascript#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^19.0.2",
     "xo": "^0.18.0"
   }
 }
