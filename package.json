@@ -2,8 +2,9 @@
   "name": "editorconfig-checker.javascript",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "lint": "xo src/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/editorconfig-checker/editorconfig-checker.javascript/issues"
   },
-  "homepage": "https://github.com/editorconfig-checker/editorconfig-checker.javascript#readme"
+  "homepage": "https://github.com/editorconfig-checker/editorconfig-checker.javascript#readme",
+  "dependencies": {
+    "xo": "^0.18.0"
+  }
 }
