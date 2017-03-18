@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "lint": "xo src/**/*.js",
+    "lint": "./Build/Scripts/lint.sh",
     "postinstall": "./Build/Scripts/postinstall.sh",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "./Build/Scripts/test.sh"
   },
   "repository": {
     "type": "git",
