@@ -3,7 +3,7 @@ sudo: false
 notifications:
   email: false
 
-language: nodei_js
+language: node_js
 
 cache: yarn
 
