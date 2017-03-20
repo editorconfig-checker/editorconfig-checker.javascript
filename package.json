@@ -24,9 +24,15 @@
     "url": "https://github.com/editorconfig-checker/editorconfig-checker.javascript/issues"
   },
   "homepage": "https://github.com/editorconfig-checker/editorconfig-checker.javascript#readme",
+  "xo": {
+    "envs": [
+      "jest"
+    ]
+  },
   "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.24.0",
+    "babel-jest": "^19.0.0",
     "babel-preset-es2015": "^6.24.0",
     "jest": "^19.0.2",
     "xo": "^0.18.0"

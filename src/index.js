@@ -1,4 +1,6 @@
-import sum from './sum';
+import editorconfigExists from './utils/file-utils';
 
-console.log('hello world');
-console.log(sum(1, 2));
+const cwd = process.cwd();
+
+// No editorconfig no fun
+!editorconfigExists(cwd) && console.error(`ERROR: no .editorconfig found in ${cwd}`) && process.exit(1);
