@@ -1,5 +1,6 @@
 import fs from 'fs';
 
-const editorconfigExists = cwd => fs.existsSync(cwd + '/.editorconfig');
+const editorconfigPath = () => `${process.cwd()}/.editorconfig`;
+const fileExists = file => fs.existsSync(file);
 
-export default editorconfigExists;
+export {fileExists, editorconfigPath};

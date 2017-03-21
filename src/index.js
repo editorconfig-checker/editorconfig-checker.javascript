@@ -1,6 +1,15 @@
-import editorconfigExists from './utils/file-utils';
+import iniparser from 'iniparser';
 
-const cwd = process.cwd();
+import {fileExists, editorconfigPath} from './utils/file-utils';
 
 // No editorconfig no fun
-!editorconfigExists(cwd) && console.error(`ERROR: no .editorconfig found in ${cwd}`) && process.exit(1);
+!fileExists('../' + editorconfigPath()) && (console.error(`ERROR: no .editorconfig found: ${editorconfigPath()}`) || process.exit(1));
+
+iniparser.parse(editorconfigPath(), (err, data) => {
+	if (err) {
+		console.log( err );
+	} else {
+		console.log( data );
+		console.log( editorconfigPath() );
+	}
+});
