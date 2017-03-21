@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-jest src
+jest --watch src
