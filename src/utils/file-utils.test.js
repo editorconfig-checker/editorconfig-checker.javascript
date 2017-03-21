@@ -4,7 +4,7 @@ test('editorconfig exist in project-root', () => {
 	expect(fileExists(editorconfigPath())).toBeTruthy();
 });
 
-test('editorconfig does not exist in Build dir', () => {
+test('editorconfig does not exist in some other dir', () => {
 	expect(fileExists('../' + editorconfigPath())).toBeFalsy();
 });
 
