@@ -16,14 +16,18 @@ const finder = new FindFiles({
 });
 
 finder.on('match', (strPath, stat) => {
-    console.log(strPath);
+	console.log(strPath);
+	console.log(stat);
 });
 
-finder.on("patherror", function(err, strPath) {
-    console.log("Error for Path " + strPath + " " + err)  // Note that an error in accessing a particular file does not stop the whole show
+finder.on('patherror', (err, strPath) => {
+	console.log(`Error for Path ${strPath} ${err}`);
 });
-finder.on("error", function(err) {
-    console.log("Global Error " + err);
+
+finder.on('error', err => {
+	console.log(`Global Error ${err}`);
 });
+
+console.log(editorconfig);
 
 finder.startSearch();
