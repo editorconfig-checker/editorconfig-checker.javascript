@@ -19,24 +19,57 @@ test('editorconfigPath ends with .editorconfig', () => {
 
 test('filterFiles should return true when not matching file', () => {
 	const filterOptions = {
-		regex: 'notIndex.js$'
+		regex: 'notIndex.js$',
+		dots: true
 	};
+
 	expect(filterFiles('/some/path/index.js', filterOptions)).toBeTruthy();
 });
 
-test('filterFile should return false when matching file', () => {
+test('filterFiles should return false when matching file', () => {
 	const filterOptions = {
-		regex: 'index.js$'
+		regex: 'index.js$',
+		dots: true
 	};
+
 	expect(filterFiles('/some/path/index.js', filterOptions)).toBeFalsy();
+});
+
+test('filterFiles should return true for dotfile when dotfile option is true', () => {
+	const filterOptions = {
+		regex: 'www',
+		dots: true
+	};
+
+	expect(filterFiles('/some/path/.index.js', filterOptions)).toBeTruthy();
+});
+
+test('filterFiles should return false for dotfile when dotfile option is false', () => {
+	const filterOptions = {
+		regex: 'www',
+		dots: false
+	};
+
+	expect(filterFiles('/some/path/.index.js', filterOptions)).toBeFalsy();
+});
+
+test('filterFiles should return false for dotfile when dotfile option is true but regex matches', () => {
+	const filterOptions = {
+		regex: 'index.js$',
+		dots: false
+	};
+
+	expect(filterFiles('/some/path/.index.js', filterOptions)).toBeFalsy();
 });
 
 test('fileNotEmpty should return true for src/index.js', () => {
 	const stat = fs.statSync('src/index.js');
+
 	expect(fileNotEmpty(stat)).toBeTruthy();
 });
 
 test('fileNotEmpty should return false for Build/TestFiles/emptyFile.js', () => {
 	const stat = fs.statSync('Build/TestFiles/emptyFile.js');
+
 	expect(fileNotEmpty(stat)).toBeFalsy();
 });
