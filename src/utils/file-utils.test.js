@@ -17,9 +17,15 @@ test('editorconfigPath ends with .editorconfig', () => {
 });
 
 test('should return true when not matching file', () => {
-	expect(filterFiles('/some/path/index.js', 'notIndex.js$')).toBeTruthy();
+	const filterOptions = {
+		regex: 'notIndex.js$'
+	};
+	expect(filterFiles('/some/path/index.js', filterOptions)).toBeTruthy();
 });
 
 test('should return false when matching file', () => {
-	expect(filterFiles('/some/path/index.js', 'index.js$')).toBeFalsy();
+	const filterOptions = {
+		regex: 'index.js$'
+	};
+	expect(filterFiles('/some/path/index.js', filterOptions)).toBeFalsy();
 });

@@ -8,7 +8,9 @@ import {fileExists, filterFiles, editorconfigPath} from './utils/file-utils';
 
 const editorconfig = iniparser.parseSync(editorconfigPath());
 
-const filterOptions = '.*index.js$';
+const filterOptions = {
+	regex: '.*index.js$'
+}
 
 const finder = new FindFiles({
 	rootFolder: 'src',
