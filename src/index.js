@@ -1,15 +1,22 @@
 import iniparser from 'iniparser';
+import FindFiles from 'node-find-files';
 
 import {fileExists, editorconfigPath} from './utils/file-utils';
 
 // No editorconfig no fun
 !fileExists(editorconfigPath()) && (console.error(`ERROR: no .editorconfig found: ${editorconfigPath()}`) || process.exit(1));
 
-iniparser.parse(editorconfigPath(), (err, data) => {
-	if (err) {
-		console.log( err );
-	} else {
-		console.log( data );
-		console.log( editorconfigPath() );
+const editorconfig = iniparser.parseSync(editorconfigPath());
+
+const finder = new FindFiles({
+	rootFolder: process.cwd() + '/src',
+	filterFunction: (path, stat) => {
+		return stat.isFile();
 	}
 });
+
+finder.on('match', (strPath, stat) => {
+    console.log(strPath);
+});
+
+finder.startSearch();

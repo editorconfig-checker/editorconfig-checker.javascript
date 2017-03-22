@@ -33,7 +33,8 @@
     ]
   },
   "dependencies": {
-    "iniparser": "^1.0.5"
+    "iniparser": "^1.0.5",
+    "node-find-files": "^0.0.4"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
