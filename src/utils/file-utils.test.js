@@ -1,4 +1,5 @@
-import {fileExists, filterFiles, editorconfigPath} from './file-utils';
+import fs from 'fs';
+import {fileExists, fileNotEmpty, filterFiles, editorconfigPath} from './file-utils';
 
 test('editorconfig exist in project-root', () => {
 	expect(fileExists(editorconfigPath())).toBeTruthy();
@@ -16,16 +17,26 @@ test('editorconfigPath ends with .editorconfig', () => {
 	expect(editorconfigPathEnd).toEqual('.editorconfig');
 });
 
-test('should return true when not matching file', () => {
+test('filterFiles should return true when not matching file', () => {
 	const filterOptions = {
 		regex: 'notIndex.js$'
 	};
 	expect(filterFiles('/some/path/index.js', filterOptions)).toBeTruthy();
 });
 
-test('should return false when matching file', () => {
+test('filterFile should return false when matching file', () => {
 	const filterOptions = {
 		regex: 'index.js$'
 	};
 	expect(filterFiles('/some/path/index.js', filterOptions)).toBeFalsy();
+});
+
+test('fileNotEmpty should return true for src/index.js', () => {
+	const stat = fs.statSync('src/index.js');
+	expect(fileNotEmpty(stat)).toBeTruthy();
+});
+
+test('fileNotEmpty should return false for Build/TestFiles/emptyFile.js', () => {
+	const stat = fs.statSync('Build/TestFiles/emptyFile.js');
+	expect(fileNotEmpty(stat)).toBeFalsy();
 });

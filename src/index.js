@@ -1,7 +1,7 @@
 import iniparser from 'iniparser';
 import FindFiles from 'node-find-files';
 
-import {fileExists, filterFiles, editorconfigPath} from './utils/file-utils';
+import {fileExists, fileNotEmpty, filterFiles, editorconfigPath} from './utils/file-utils';
 
 // No editorconfig no fun
 !fileExists(editorconfigPath()) && (console.error(`ERROR: no .editorconfig found: ${editorconfigPath()}`) || process.exit(1));
@@ -9,17 +9,18 @@ import {fileExists, filterFiles, editorconfigPath} from './utils/file-utils';
 const editorconfig = iniparser.parseSync(editorconfigPath());
 
 const filterOptions = {
-	regex: '.*index.js$'
+	regex: '.*index.js$',
+	dots: true
 }
 
 const finder = new FindFiles({
 	rootFolder: 'src',
-	filterFunction: (file, stat) => stat.isFile() && filterFiles(file, filterOptions)
+	filterFunction: (file, stat) => fileNotEmpty(stat) && filterFiles(file, filterOptions)
 });
 
 finder.on('match', (strPath, stat) => {
 	console.log(strPath);
-	console.log(stat);
+	console.log(stat.size);
 });
 
 finder.on('patherror', (err, strPath) => {
