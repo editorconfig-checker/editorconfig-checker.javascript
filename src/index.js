@@ -11,7 +11,7 @@ const editorconfig = iniparser.parseSync(editorconfigPath());
 const filterOptions = '.*index.js$';
 
 const finder = new FindFiles({
-	rootFolder: process.cwd() + '/src',
+	rootFolder: 'src',
 	filterFunction: (file, stat) => stat.isFile() && filterFiles(file, filterOptions)
 });
 
