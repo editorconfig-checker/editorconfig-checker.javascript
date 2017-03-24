@@ -1,7 +1,7 @@
 import fs from 'fs';
 
 // Not exported
-const filterDotfiles = (file, dots) => dots || !file.includes('/.');
+const filterDotfiles = (file, dots) => dots || !(file.indexOf('.') === 0 || file.includes('/.'));
 
 // Exported
 const editorconfigPath = () => `${process.cwd()}/.editorconfig`;

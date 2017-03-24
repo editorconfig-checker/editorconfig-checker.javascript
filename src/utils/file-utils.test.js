@@ -44,6 +44,15 @@ test('filterFiles should return true for dotfile when dotfile option is true', (
 	expect(filterFiles('/some/path/.index.js', filterOptions)).toBeTruthy();
 });
 
+test('filterFiles should return true for dotfile when dotfile option is true and dotfile is in rootdir', () => {
+	const filterOptions = {
+		regex: 'www',
+		dots: true
+	};
+
+	expect(filterFiles('.index.js', filterOptions)).toBeTruthy();
+});
+
 test('filterFiles should return false for dotfile when dotfile option is false', () => {
 	const filterOptions = {
 		regex: 'www',
@@ -53,13 +62,23 @@ test('filterFiles should return false for dotfile when dotfile option is false',
 	expect(filterFiles('/some/path/.index.js', filterOptions)).toBeFalsy();
 });
 
-test('filterFiles should return false for dotfile when dotfile option is true but regex matches', () => {
+test('filterFiles should return false for dotfile when dotfile option is false and dotfile is in rootdir', () => {
+	const filterOptions = {
+		regex: 'www',
+		dots: false
+	};
+
+	expect(filterFiles('.index.js', filterOptions)).toBeFalsy();
+});
+
+test('filterFiles should return false for dotfile when dotfile option is true and regex matches', () => {
 	const filterOptions = {
 		regex: 'index.js$',
 		dots: false
 	};
 
 	expect(filterFiles('/some/path/.index.js', filterOptions)).toBeFalsy();
+	expect(filterFiles('.index.js', filterOptions)).toBeFalsy();
 });
 
 test('fileNotEmpty should return true for src/index.js', () => {

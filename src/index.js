@@ -9,12 +9,12 @@ import {fileExists, fileNotEmpty, filterFiles, editorconfigPath} from './utils/f
 const editorconfig = iniparser.parseSync(editorconfigPath());
 
 const filterOptions = {
-	regex: '.*index.js$',
+	regex: '.git|node_modules|coverage|dist',
 	dots: true
 }
 
 const finder = new FindFiles({
-	rootFolder: 'src',
+	rootFolder: '.',
 	filterFunction: (file, stat) => fileNotEmpty(stat) && filterFiles(file, filterOptions)
 });
 
@@ -24,11 +24,11 @@ finder.on('match', (strPath, stat) => {
 });
 
 finder.on('patherror', (err, strPath) => {
-	console.log(`Error for Path ${strPath} ${err}`);
+	console.error(`Error for Path ${strPath} ${err}`);
 });
 
 finder.on('error', err => {
-	console.log(`Global Error ${err}`);
+	console.error(`Global Error ${err}`);
 });
 
 console.log(editorconfig);
