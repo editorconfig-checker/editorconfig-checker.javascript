@@ -11,7 +11,7 @@ const editorconfig = iniparser.parseSync(editorconfigPath());
 const filterOptions = {
 	regex: '.git|node_modules|coverage|dist',
 	dots: true
-}
+};
 
 const finder = new FindFiles({
 	rootFolder: '.',
