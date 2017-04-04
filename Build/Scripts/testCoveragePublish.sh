@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-jest --coverage src && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+yarn test:coverage && ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
