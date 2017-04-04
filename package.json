@@ -13,6 +13,7 @@
     "test": "./Build/Scripts/test.sh",
     "test:watch": "./Build/Scripts/testWatch.sh",
     "test:coverage": "./Build/Scripts/testCoverage.sh",
+    "test:coverage:publish": "./Build/Scripts/testCoveragePublish.sh",
     "watch": "yarn build:watch & yarn test:watch",
     "postinstall": "./Build/Scripts/postinstall.sh"
   },
@@ -40,6 +41,7 @@
     "babel-cli": "^6.24.0",
     "babel-jest": "^19.0.0",
     "babel-preset-es2015": "^6.24.0",
+    "coveralls": "^2.13.0",
     "jest": "^19.0.2",
     "xo": "^0.19.0"
   }
