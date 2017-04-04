@@ -1,10 +1,14 @@
+#!/usr/bin/env node
+
 import iniparser from 'iniparser';
 import FindFiles from 'node-find-files';
 
 import {fileExists, fileNotEmpty, filterFiles, editorconfigPath} from './utils/file-utils';
 
 // No editorconfig no fun
+/* eslint-disable no-unused-expressions */
 !fileExists(editorconfigPath()) && (console.error(`ERROR: no .editorconfig found: ${editorconfigPath()}`) || process.exit(1));
+/* eslint-enable */
 
 const editorconfig = iniparser.parseSync(editorconfigPath());
 
