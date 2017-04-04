@@ -4,10 +4,11 @@ import iniparser from 'iniparser';
 import FindFiles from 'node-find-files';
 
 import {fileExists, fileNotEmpty, filterFiles, editorconfigPath} from './utils/file-utils';
+import {log, info, error} from './logger/logger';
 
 // No editorconfig no fun
 /* eslint-disable no-unused-expressions */
-!fileExists(editorconfigPath()) && (console.error(`ERROR: no .editorconfig found: ${editorconfigPath()}`) || process.exit(1));
+!fileExists(editorconfigPath()) && (error(`ERROR: no .editorconfig found: ${editorconfigPath()}`) || process.exit(1));
 /* eslint-enable */
 
 const editorconfig = iniparser.parseSync(editorconfigPath());
@@ -23,18 +24,19 @@ const finder = new FindFiles({
 });
 
 finder.on('match', (strPath, stat) => {
-	console.log(strPath);
-	console.log(stat.size);
+	log(strPath);
+	info('just test output');
+	error(stat.size);
 });
 
 finder.on('patherror', (err, strPath) => {
-	console.error(`Error for Path ${strPath} ${err}`);
+	error(`Error for Path ${strPath} ${err}`);
 });
 
 finder.on('error', err => {
-	console.error(`Global Error ${err}`);
+	error(`Global Error ${err}`);
 });
 
-console.log(editorconfig);
+log(editorconfig);
 
 finder.startSearch();
