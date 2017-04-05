@@ -4,7 +4,8 @@ import iniparser from 'iniparser';
 import FindFiles from 'node-find-files';
 
 import {fileExists, fileNotEmpty, filterFiles, editorconfigPath} from './utils/file-utils';
-import {log, info, error} from './logger/logger';
+import {log, error} from './logger/logger';
+import validateFile from './validation/validation-processor';
 
 // No editorconfig no fun
 if (!fileExists(editorconfigPath())) {
@@ -14,7 +15,7 @@ if (!fileExists(editorconfigPath())) {
 
 const editorconfig = iniparser.parseSync(editorconfigPath());
 let checkedFiles = 0;
-const errors = 1;
+let errors = 0;
 
 const filterOptions = {
 	regex: '.git|node_modules|coverage|dist',
@@ -26,11 +27,9 @@ const finder = new FindFiles({
 	filterFunction: (file, stat) => fileNotEmpty(stat) && filterFiles(file, filterOptions)
 });
 
-finder.on('match', (strPath, stat) => {
-	log(strPath);
-	info('just test output');
-	error(stat.size);
+finder.on('match', file => {
 	checkedFiles++;
+	errors += validateFile(file, editorconfig);
 });
 
 finder.on('patherror', (err, strPath) => {
@@ -54,7 +53,5 @@ finder.on('complete', () => {
 		}
 	}
 });
-
-log(editorconfig);
 
 finder.startSearch();
