@@ -37,6 +37,7 @@ test('should return true if text has the right amount of leftpadding space', () 
 });
 
 test('should return false if text has not the right amount of leftpadding space', () => {
+	console.error = jest.fn();
 	const line = '   Hello';
 	const lineNumber = 1;
 	const file = 'sample.txt';
@@ -46,9 +47,11 @@ test('should return false if text has not the right amount of leftpadding space'
 	};
 
 	expect(validate(line,lineNumber, file, editorconfig)).toBeFalsy();
+	expect(console.error).toBeCalled();
 });
 
 test('should return false if text has left padding tabs', () => {
+	console.error = jest.fn();
 	const line = ' \tHello';
 	const lineNumber = 1;
 	const file = 'sample.txt';
@@ -58,9 +61,11 @@ test('should return false if text has left padding tabs', () => {
 	};
 
 	expect(validate(line,lineNumber, file, editorconfig)).toBeFalsy();
+	expect(console.error).toBeCalled();
 });
 
 test('should return false if text has left padding tabs', () => {
+	console.error = jest.fn();
 	const line = '\tHello';
 	const lineNumber = 1;
 	const file = 'sample.txt';
@@ -70,4 +75,5 @@ test('should return false if text has left padding tabs', () => {
 	};
 
 	expect(validate(line,lineNumber, file, editorconfig)).toBeFalsy();
+	expect(console.error).toBeCalled();
 });
