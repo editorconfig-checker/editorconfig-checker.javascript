@@ -25,12 +25,12 @@ test('should return true if text starts directly no matter of indent_style', () 
 });
 
 test('should return true if text has the right amount of leftpadding space', () => {
-	const line = '    Hello';
+	const line = '  Hello';
 	const lineNumber = 1;
 	const file = 'sample.txt';
 	const editorconfig = {
 		indent_style: 'space',
-		indent_size: 4
+		indent_size: 2
 	};
 
 	expect(validate(line,lineNumber, file, editorconfig)).toBeTruthy();
@@ -49,7 +49,7 @@ test('should return false if text has not the right amount of leftpadding space'
 });
 
 test('should return false if text has left padding tabs', () => {
-	const line = ' \tHello1';
+	const line = ' \tHello';
 	const lineNumber = 1;
 	const file = 'sample.txt';
 	const editorconfig = {

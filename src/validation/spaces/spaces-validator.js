@@ -1,15 +1,21 @@
+import {error} from '../../logger/logger';
+
 const validate = (line, lineNumber, file, editorconfig) => {
 	if (editorconfig.indent_style === 'space') {
 		if (editorconfig.indent_size) {
 			if (line.match(/^( *)\w/)) {
-				// Not the right amount
 				// TODO: Handling block comments(*)
-				return line.match(/^( *)\w/)[1].length % editorconfig.indent_size === 0;
+				if (!(line.match(/^( *)\w/)[1].length % editorconfig.indent_size === 0)) {
+					error(`Not the right amount of leftpadding spaces in ${file} on line ${lineNumber}`);
+					return false;
+				}
 			}
 		}
 
-		// If false mixed
-		return line.match(/^ *\w/);
+		if (!line.match(/^ *\w/)) {
+			error(`Mixed indentation in ${file} on line ${lineNumber}`);
+			return false;
+		}
 	}
 
 	return true;
