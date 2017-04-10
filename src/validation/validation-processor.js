@@ -1,6 +1,7 @@
 const validateFile = (file, editorconfig) => {
 	console.log(editorconfig);
 	console.log(file);
+
 	return 0;
 };
 
