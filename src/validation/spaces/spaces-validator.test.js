@@ -12,6 +12,18 @@ test('should return true if text starts directly no matter of indent_style', () 
 	expect(validate(line,lineNumber, file, editorconfig)).toBeTruthy();
 });
 
+test('should return true if line is empty', () => {
+	const line = '';
+	const lineNumber = 1;
+	const file = 'sample.txt';
+	const editorconfig = {
+		indent_style: 'space',
+		indent_size: 4
+	};
+
+	expect(validate(line,lineNumber, file, editorconfig)).toBeTruthy();
+});
+
 test('should return true if text starts directly no matter of indent_style', () => {
 	const line = 'Hello';
 	const lineNumber = 1;
@@ -38,6 +50,18 @@ test('should return true if comment starts directly no matter of indent_style', 
 
 test('should return true if comment has the right amount of leftpadding space', () => {
 	const line = '  Hello';
+	const lineNumber = 1;
+	const file = 'sample.txt';
+	const editorconfig = {
+		indent_style: 'space',
+		indent_size: 2
+	};
+
+	expect(validate(line,lineNumber, file, editorconfig)).toBeTruthy();
+});
+
+test('should return true if its in middle ob a block comment', () => {
+	const line = '   * Hello';
 	const lineNumber = 1;
 	const file = 'sample.txt';
 	const editorconfig = {
