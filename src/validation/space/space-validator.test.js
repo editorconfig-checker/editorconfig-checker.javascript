@@ -1,4 +1,4 @@
-import validate from './spaces-validator';
+import validate from './space-validator';
 
 test('should return true if text starts directly no matter of indent_style', () => {
 	const line = 'Hello';
@@ -37,7 +37,7 @@ test('should return true if text starts directly no matter of indent_style', () 
 });
 
 test('should return true if comment starts directly no matter of indent_style', () => {
-	const line = '/Hello';
+	const line = '//Hello';
 	const lineNumber = 1;
 	const file = 'sample.txt';
 	const editorconfig = {
@@ -49,7 +49,7 @@ test('should return true if comment starts directly no matter of indent_style', 
 });
 
 test('should return true if comment has the right amount of leftpadding space', () => {
-	const line = '  Hello';
+	const line = '  //Hello';
 	const lineNumber = 1;
 	const file = 'sample.txt';
 	const editorconfig = {
