@@ -167,3 +167,49 @@ test('should return false if text has left padding tabs', () => {
 	expect(validate(line,lineNumber, file, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
+
+test('should return true if no indent_size is given', () => {
+	const line = '   Hello';
+	const lineNumber = 1;
+	const file = 'sample.txt';
+	const editorconfig = {
+		indent_style: 'space'
+	};
+
+	expect(validate(line,lineNumber, file, editorconfig)).toBeTruthy();
+});
+
+test('should return true if indent_size is 0', () => {
+	const line = '   Hello';
+	const lineNumber = 1;
+	const file = 'sample.txt';
+	const editorconfig = {
+		indent_style: 'space',
+		indent_size: 0
+	};
+
+	expect(validate(line,lineNumber, file, editorconfig)).toBeTruthy();
+});
+
+test('should return false string starts with tab and indent_size is 0', () => {
+	const line = "\tHello";
+	const lineNumber = 1;
+	const file = 'sample.txt';
+	const editorconfig = {
+		indent_style: 'space',
+		indent_size: 0
+	};
+
+	expect(validate(line,lineNumber, file, editorconfig)).toBeFalsy();
+});
+
+test('should return false if string starts with tab and no indent_size is given', () => {
+	const line = "\tHello";
+	const lineNumber = 1;
+	const file = 'sample.txt';
+	const editorconfig = {
+		indent_style: 'space'
+	};
+
+	expect(validate(line,lineNumber, file, editorconfig)).toBeFalsy();
+});
