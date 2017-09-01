@@ -1,19 +1,12 @@
 #!/usr/bin/env node
 
-import iniparser from 'iniparser';
 import FindFiles from 'node-find-files';
 
-import {fileExists, fileNotEmpty, filterFiles, editorconfigPath} from './utils/file-utils';
+import {fileNotEmpty, filterFiles} from './utils/file-utils';
 import {log, error} from './logger/logger';
 import validateFile from './validation/validation-processor';
+import getEditorconfigForFile from './editorconfig/editorconfig';
 
-// No editorconfig no fun
-if (!fileExists(editorconfigPath())) {
-	error(`ERROR: no .editorconfig found: ${editorconfigPath()}`);
-	process.exit(1);
-}
-
-const editorconfig = iniparser.parseSync(editorconfigPath());
 let checkedFiles = 0;
 let errors = 0;
 
@@ -24,12 +17,13 @@ const filterOptions = {
 
 const finder = new FindFiles({
 	rootFolder: '.',
-	filterFunction: (file, stat) => fileNotEmpty(stat) && filterFiles(file, filterOptions)
+	filterFunction: (filePath, stat) => fileNotEmpty(stat) && filterFiles(filePath, filterOptions)
 });
 
-finder.on('match', file => {
+finder.on('match', filePath => {
+	const editorconfig = getEditorconfigForFile(filePath);
 	checkedFiles++;
-	errors += validateFile(file, editorconfig);
+	errors += validateFile(filePath, editorconfig);
 });
 
 finder.on('patherror', (err, strPath) => {

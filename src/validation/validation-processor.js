@@ -1,6 +1,6 @@
-const validateFile = (file, editorconfig) => {
+const validateFile = (filePath, editorconfig) => {
 	console.log(editorconfig);
-	console.log(file);
+	console.log(filePath);
 
 	return 0;
 };
