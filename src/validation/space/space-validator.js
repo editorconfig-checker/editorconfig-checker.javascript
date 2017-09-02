@@ -3,8 +3,8 @@ import {error} from '../../logger/logger';
 const validate = (line, lineNumber, filePath, editorconfig) => {
 	if (line.length > 0 && editorconfig.indent_style === 'space') {
 		if (editorconfig.indent_size) {
-			if (line.match(/^( *)[\w\/]/)) {
-				const indentSize = line.match(/^( *)[\w\/\*]/)[1].length;
+			if (line.match(/^( *)[\w/]/)) {
+				const indentSize = line.match(/^( *)[\w/*]/)[1].length;
 				if (indentSize % editorconfig.indent_size !== 0 && line[indentSize] !== '*') {
 					error(`Not the right amount of left-padding spaces in ${filePath} on line ${lineNumber}`);
 					return false;
@@ -12,13 +12,13 @@ const validate = (line, lineNumber, filePath, editorconfig) => {
 			}
 		}
 
-		if (!line.match(/^ *[\w\/\*]/)) {
+		if (!line.match(/^ *[^\s]+/)) {
 			error(`Mixed indentation in ${filePath} on line ${lineNumber}`);
 			return false;
 		}
 	}
 
 	return true;
-}
+};
 
 export default validate;

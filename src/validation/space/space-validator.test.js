@@ -5,11 +5,11 @@ test('should return true if text starts directly no matter of indent_style', () 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 4
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if line is empty', () => {
@@ -17,11 +17,11 @@ test('should return true if line is empty', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 4
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if text starts directly no matter of indent_style', () => {
@@ -29,11 +29,11 @@ test('should return true if text starts directly no matter of indent_style', () 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'tab',
-		indent_size: 4
+		indent_style: 'tab', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if comment starts directly no matter of indent_style', () => {
@@ -41,11 +41,11 @@ test('should return true if comment starts directly no matter of indent_style', 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'tab',
-		indent_size: 4
+		indent_style: 'tab', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if comment has the right amount of leftpadding space', () => {
@@ -53,11 +53,11 @@ test('should return true if comment has the right amount of leftpadding space', 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 2
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 2 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if its in middle ob a block comment', () => {
@@ -65,11 +65,11 @@ test('should return true if its in middle ob a block comment', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 2
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 2 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if comment has the right amount of leftpadding space', () => {
@@ -77,11 +77,11 @@ test('should return true if comment has the right amount of leftpadding space', 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 2
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 2 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return false if text has not the right amount of leftpadding space', () => {
@@ -90,11 +90,11 @@ test('should return false if text has not the right amount of leftpadding space'
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 4
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
 
@@ -104,11 +104,11 @@ test('should return false if comment has not the right amount of leftpadding spa
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 4
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
 
@@ -118,11 +118,11 @@ test('should return false if text has left padding tabs', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 4
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
 
@@ -132,11 +132,11 @@ test('should return false if comment has left padding tabs', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 4
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
 
@@ -146,11 +146,11 @@ test('should return false if text has left padding tabs', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 4
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
 
@@ -160,11 +160,11 @@ test('should return false if text has left padding tabs', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 4
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
 
@@ -173,10 +173,10 @@ test('should return true if no indent_size is given', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space'
+		indent_style: 'space' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if indent_size is 0', () => {
@@ -184,32 +184,32 @@ test('should return true if indent_size is 0', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 0
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 0 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return false string starts with tab and indent_size is 0', () => {
-	const line = "\tHello";
+	const line = '\tHello';
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space',
-		indent_size: 0
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 0 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 });
 
 test('should return false if string starts with tab and no indent_size is given', () => {
-	const line = "\tHello";
+	const line = '\tHello';
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'space'
+		indent_style: 'space' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 });

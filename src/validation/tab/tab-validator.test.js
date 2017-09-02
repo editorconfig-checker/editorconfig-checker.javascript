@@ -5,10 +5,10 @@ test('should return true if text starts directly no matter of indent_style', () 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'tab',
+		indent_style: 'tab' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if text starts after one tab', () => {
@@ -16,10 +16,10 @@ test('should return true if text starts after one tab', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'tab',
+		indent_style: 'tab' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return false if text starts after space', () => {
@@ -28,10 +28,10 @@ test('should return false if text starts after space', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'tab',
+		indent_style: 'tab' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
 
@@ -40,10 +40,10 @@ test('should return true if is comment', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'tab',
+		indent_style: 'tab' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if line is empty', () => {
@@ -51,10 +51,10 @@ test('should return true if line is empty', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'tab',
+		indent_style: 'tab' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return false if mixed indentation', () => {
@@ -63,9 +63,9 @@ test('should return false if mixed indentation', () => {
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		indent_style: 'tab',
+		indent_style: 'tab' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });

@@ -5,10 +5,10 @@ test('should return true if trim_trailing_whitespace is set to false and string 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		trim_trailing_whitespace: false
+		trim_trailing_whitespace: false // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if trim_trailing_whitespace is set to false and string has trailing whitespace(space)', () => {
@@ -16,10 +16,10 @@ test('should return true if trim_trailing_whitespace is set to false and string 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		trim_trailing_whitespace: false
+		trim_trailing_whitespace: false // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if trim_trailing_whitespace is set to false and string has trailing whitespace(tab)', () => {
@@ -27,10 +27,10 @@ test('should return true if trim_trailing_whitespace is set to false and string 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		trim_trailing_whitespace: false
+		trim_trailing_whitespace: false // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return true if trim_trailing_whitespace is set to false and string has no trailing whitespace', () => {
@@ -38,10 +38,10 @@ test('should return true if trim_trailing_whitespace is set to false and string 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		trim_trailing_whitespace: true
+		trim_trailing_whitespace: true // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeTruthy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeTruthy();
 });
 
 test('should return false if trim_trailing_whitespace is set to true and string has trailing whitespace(tab)', () => {
@@ -50,10 +50,10 @@ test('should return false if trim_trailing_whitespace is set to true and string 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		trim_trailing_whitespace: true
+		trim_trailing_whitespace: true // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });
 
@@ -63,9 +63,9 @@ test('should return false if trim_trailing_whitespace is set to true and string 
 	const lineNumber = 1;
 	const filePath = 'sample.txt';
 	const editorconfig = {
-		trim_trailing_whitespace: true
+		trim_trailing_whitespace: true // eslint-disable-line camelcase
 	};
 
-	expect(validate(line,lineNumber, filePath, editorconfig)).toBeFalsy();
+	expect(validate(line, lineNumber, filePath, editorconfig)).toBeFalsy();
 	expect(console.error).toBeCalled();
 });

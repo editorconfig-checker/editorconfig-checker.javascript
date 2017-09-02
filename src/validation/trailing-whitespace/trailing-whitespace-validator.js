@@ -9,6 +9,6 @@ const validate = (line, lineNumber, filePath, editorconfig) => {
 	}
 
 	return true;
-}
+};
 
 export default validate;
