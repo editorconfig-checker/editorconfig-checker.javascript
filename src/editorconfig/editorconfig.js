@@ -19,8 +19,8 @@ const getEditorconfigForFile = filePath => {
 	} while (currentPath.includes(rootDir) && !editorconfig.root);
 
 	return Object.keys(editorconfig)
-		.filter(item => minimatch(path.basename(filePath), item))
-		.map(item => editorconfig[item])
+		.filter(glob => minimatch(path.basename(filePath), glob))
+		.map(glob => editorconfig[glob])
 		.reduce((acc, curr) => Object.assign({}, acc, curr), {});
 };
 
