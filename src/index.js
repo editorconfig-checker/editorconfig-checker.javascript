@@ -11,7 +11,7 @@ let checkedFiles = 0;
 let errors = 0;
 
 const filterOptions = {
-	regex: '.git|node_modules|coverage|dist|.png|.lock',
+	regex: '.git|node_modules|coverage|TestFiles|dist|.png|.lock',
 	dots: true
 };
 
