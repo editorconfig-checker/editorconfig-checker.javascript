@@ -1,4 +1,5 @@
 import path from 'path';
+import minimatch from 'minimatch';
 import iniparser from 'iniparser';
 import {fileExists} from '../utils/file-utils';
 
@@ -15,9 +16,12 @@ const getEditorconfigForFile = filePath => {
 			editorconfig = Object.assign({}, iniparser.parseSync(editorconfigPath), editorconfig);
 		}
 		currentPath = path.dirname(currentPath);
-	} while (currentPath.includes(rootDir));
+	} while (currentPath.includes(rootDir) && !editorconfig.root);
 
-	return editorconfig;
+	return Object.keys(editorconfig)
+		.filter(item => minimatch(path.basename(filePath), item))
+		.map(item => editorconfig[item])
+		.reduce((acc, curr) => Object.assign({}, acc, curr), {});
 };
 
 export default getEditorconfigForFile;
