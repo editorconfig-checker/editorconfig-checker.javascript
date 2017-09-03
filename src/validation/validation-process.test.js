@@ -37,3 +37,15 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 
 	expect(validateFile(filePath, editorconfig)).toEqual(2);
 });
+
+test(`should return an integer greater 0 for an invalid file`, () => {
+	console.error = jest.fn();
+	const filePath = `${process.cwd()}/Build/TestFiles/ValidationProcessor/noFinalNewline.js`;
+
+	const editorconfig = {
+		end_of_line: 'lf', // eslint-disable-line camelcase
+		insert_final_newline: 'true' // eslint-disable-line camelcase
+	};
+
+	expect(validateFile(filePath, editorconfig)).toEqual(1);
+});

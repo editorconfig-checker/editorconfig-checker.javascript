@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-xo
+xo --ignore=Build/TestFiles/ValidationProcessor/noFinalNewline.js
