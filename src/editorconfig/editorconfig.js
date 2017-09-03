@@ -2,6 +2,7 @@ import path from 'path';
 import minimatch from 'minimatch';
 import iniparser from 'iniparser';
 import {fileExists} from '../utils/file-utils';
+import mergeDeep from '../utils/merge-deep';
 
 const getEditorconfigForFile = filePath => {
 	const rootDir = process.cwd();
@@ -13,7 +14,7 @@ const getEditorconfigForFile = filePath => {
 	do {
 		const editorconfigPath = `${currentPath}/.editorconfig`;
 		if (fileExists(editorconfigPath)) {
-			editorconfig = Object.assign({}, iniparser.parseSync(editorconfigPath), editorconfig);
+			editorconfig = mergeDeep({}, iniparser.parseSync(editorconfigPath), editorconfig);
 		}
 		currentPath = path.dirname(currentPath);
 	} while (currentPath.includes(rootDir) && !editorconfig.root);
