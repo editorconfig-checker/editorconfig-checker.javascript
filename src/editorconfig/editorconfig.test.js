@@ -36,3 +36,25 @@ test(`should compose rules`, () => {
 
 	expect(editorconfig).toEqual(expected);
 });
+
+test(`should get root rules`, () => {
+	const editorconfig = getEditorconfig('1/someFile.php');
+
+	const expected = {
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: '2' // eslint-disable-line camelcase
+	};
+
+	expect(editorconfig).toEqual(expected);
+});
+
+test(`should get root rules`, () => {
+	const editorconfig = getEditorconfig('2/someFile.php');
+
+	const expected = {
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: '2' // eslint-disable-line camelcase
+	};
+
+	expect(editorconfig).toEqual(expected);
+});
