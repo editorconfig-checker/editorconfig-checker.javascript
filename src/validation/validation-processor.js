@@ -6,6 +6,7 @@ import validateTab from './tab/tab-validator';
 import validateSpaces from './space/space-validator';
 import validateTrailingWhitespace from './trailing-whitespace/trailing-whitespace-validator';
 import validateFinalNewline from './final-newline/final-newline-validator';
+import validateEndOfLine from './line-ending/line-ending-validator';
 
 const validateFile = (filePath, editorconfig) => {
 	const fileContent = fs.readFileSync(filePath).toString();
@@ -32,6 +33,9 @@ const validateFile = (filePath, editorconfig) => {
 		}
 	});
 
+	if (!validateEndOfLine(fileContent, filePath, editorconfig)) {
+		errors++;
+	}
 	if (!validateFinalNewline(fileContent, filePath, editorconfig)) {
 		errors++;
 	}
