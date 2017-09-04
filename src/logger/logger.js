@@ -1,4 +1,9 @@
 const log = msg => {
+	// White
+	console.log('%s', msg);
+};
+
+const success = msg => {
 	// Green
 	console.log('\u001B[32m%s\u001B[0m', msg);
 };
@@ -13,4 +18,4 @@ const error = msg => {
 	console.error('\u001B[31m%s\u001B[0m', msg);
 };
 
-export {log, info, error};
+export {log, success, info, error};

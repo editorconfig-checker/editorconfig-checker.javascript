@@ -1,8 +1,14 @@
-import {log, info, error} from './logger';
+import {log, success, info, error} from './logger';
 
 test(`log should call console.log();`, () => {
 	console.log = jest.fn();
 	log('some log;');
+	expect(console.log).toBeCalled();
+});
+
+test(`log should call console.log();`, () => {
+	console.log = jest.fn();
+	success('some log;');
 	expect(console.log).toBeCalled();
 });
 

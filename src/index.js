@@ -3,7 +3,7 @@
 import FindFiles from 'node-find-files';
 
 import {fileNotEmpty, filterFiles} from './utils/file-utils';
-import {log, error} from './logger/logger';
+import {log, success, error} from './logger/logger';
 import validateFile from './validation/validation-processor';
 import getEditorconfigForFile from './editorconfig/editorconfig';
 
@@ -37,7 +37,7 @@ finder.on('error', err => {
 finder.on('complete', () => {
 	log('all done');
 	if (errors === 0) {
-		log(`sucessfully checked ${checkedFiles} files`);
+		success(`sucessfully checked ${checkedFiles} files`);
 	} else {
 		error(`${errors} occured! See log above and fix errors`);
 		if (errors < 254) {
