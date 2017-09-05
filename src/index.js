@@ -24,6 +24,17 @@ const printUsage = () => {
 	log('    will print all files which are checked to stdout');
 };
 
+const printErrors = errors => {
+	for (const err in errors) {
+		if (errors[err].length === 0) {
+			continue;
+		}
+
+		error(err);
+		errors[err].forEach(errMsg => error(`\t${errMsg}`));
+	}
+};
+
 const parseOptions = {
 	string: ['e', 'exclude'],
 	boolean: ['dotfiles', 'help', 'ignore-defaults', 'list-files'],
@@ -33,7 +44,7 @@ const parseOptions = {
 const args = parseArgs(process.argv.slice(2), parseOptions);
 
 let checkedFiles = 0;
-let errors = 0;
+let errors = {};
 
 const filterOptions = {
 	regex: getExcludeStringFromArgs(args),
@@ -57,8 +68,10 @@ args._.forEach((folder, index, folders) => {
 			info(filePath);
 		}
 		const editorconfig = getEditorconfigForFile(filePath);
+		const error = {};
+		error[filePath] = validateFile(filePath, editorconfig);
+		errors = Object.assign({}, errors, error);
 		checkedFiles++;
-		errors += validateFile(filePath, editorconfig);
 	});
 
 	finder.on('patherror', (err, strPath) => {
@@ -71,11 +84,13 @@ args._.forEach((folder, index, folders) => {
 
 	finder.on('complete', () => {
 		if (index === folders.length - 1) {
+			const errorCount = Object.keys(errors).reduce((acc, err) => (acc + errors[err].length), 0);
 			info('all done');
-			if (errors === 0) {
+			if (errorCount === 0) {
 				success(`sucessfully checked ${checkedFiles} files`);
 			} else {
-				error(`${errors} occured! See log above and fix errors`);
+				printErrors(errors);
+				error(`${errorCount} errors occured! See log above and fix errors`);
 				if (errors < 254) {
 					process.exit(errors);
 				} else {

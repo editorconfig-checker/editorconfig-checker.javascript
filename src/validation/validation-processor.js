@@ -9,6 +9,7 @@ import validateFinalNewline from './final-newline/final-newline-validator';
 import validateEndOfLine from './line-ending/line-ending-validator';
 
 const validateFile = (filePath, editorconfig) => {
+	const errors = [];
 	const fileContent = fs.readFileSync(filePath).toString();
 	let fileContentArray = [];
 
@@ -18,29 +19,18 @@ const validateFile = (filePath, editorconfig) => {
 		fileContentArray = fileContent.split('\n');
 	}
 
-	let errors = 0;
-
 	fileContentArray.forEach((line, lineNumber) => {
 		lineNumber++;
-		if (!validateTab(line, lineNumber, filePath, editorconfig)) {
-			errors++;
-		}
-		if (!validateSpaces(line, lineNumber, filePath, editorconfig)) {
-			errors++;
-		}
-		if (!validateTrailingWhitespace(line, lineNumber, filePath, editorconfig)) {
-			errors++;
-		}
+		errors.push(validateTab(line, lineNumber, editorconfig));
+		errors.push(validateSpaces(line, lineNumber, editorconfig));
+		errors.push(validateTab(line, lineNumber, editorconfig));
+		errors.push(validateTrailingWhitespace(line, lineNumber, editorconfig));
 	});
 
-	if (!validateEndOfLine(fileContent, filePath, editorconfig)) {
-		errors++;
-	}
-	if (!validateFinalNewline(fileContent, filePath, editorconfig)) {
-		errors++;
-	}
+	errors.push(validateEndOfLine(fileContent, editorconfig));
+	errors.push(validateFinalNewline(fileContent, editorconfig));
 
-	return errors;
+	return errors.filter((error, index, errorArray) => error.length > 0 && errorArray.indexOf(error) === index);
 };
 
 export default validateFile;

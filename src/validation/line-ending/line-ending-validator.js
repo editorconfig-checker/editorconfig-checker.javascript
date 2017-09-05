@@ -1,8 +1,6 @@
-import {error} from '../../logger/logger';
-
 import getEndOfLineChar from '../../utils/line-ending-utils';
 
-const validate = (fileContent, filePath, editorconfig) => {
+const validate = (fileContent, editorconfig) => {
 	if (editorconfig.end_of_line) {
 		const expectedEolChar = getEndOfLineChar(editorconfig.end_of_line);
 		const expectedEols = fileContent.split(expectedEolChar).length;
@@ -17,12 +15,11 @@ const validate = (fileContent, filePath, editorconfig) => {
 		};
 
 		if (!isValid(expectedEols, lfEols, crEols, crlfEols)) {
-			error(`Not the right line ending in ${filePath}`);
-			return false;
+			return 'Wrong line endings or new final newline';
 		}
 	}
 
-	return true;
+	return '';
 };
 
 export default validate;
