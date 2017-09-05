@@ -16,7 +16,8 @@
     "test:coverage": "./Build/Scripts/testCoverage.sh",
     "test:coverage:publish": "./Build/Scripts/testCoveragePublish.sh",
     "watch": "yarn build:watch & yarn test:watch",
-    "postinstall": "./Build/Scripts/postinstall.sh"
+    "postinstall": "./Build/Scripts/postinstall.sh",
+    "prepublish": "./Build/Scripts/prepublish.sh"
   },
   "repository": {
     "type": "git",
