@@ -11,3 +11,147 @@
 
 
 ### WIP
+
+
+## Installation
+
+Installation via npm/yarn is recommended:
+
+```
+yarn add editorconfig-checker
+./node_modules/.bin/editorconfig-checker
+
+npm install --save-dev editorconfig-checker
+./node_modules/.bin/editorconfig-checker
+
+# or in a npm-script just
+editorconfig-checker
+```
+
+Otherwise you could clone the repository and execute the script manually.
+
+```
+git clone git@github.com:editorconfig-checker/editorconfig-checker.javascript.git
+./editorconfig-checker.javascript/bin/editorconfig-checker
+```
+
+## Usage
+
+If you installed it via npm you have a binary in your `node_modules/.bin` folder called `editorconfig-checker`.
+Then you could create a script in your `package.json` like this:
+
+```json
+"scripts": {
+    "lint:editorconfig": "editorconfig-checker src/*"
+}
+```
+
+You could also check for single files with explicit call them e.g. `editorconfig-checker src/index.php`
+Shell globbing is possible for example: `editorconfig-checker ./src/EditorconfigChecker/{Cli,Fix}/*`
+
+If you want to filter the files you could do this via the `-e|--exclude` parameter
+
+__CAUTION__ after using this parameter you __HAVE TO__ write a single
+regular expression or string or your files you want to check will be interpreted as the exclude pattern.
+
+If you use a regular expression you should __always__ put single quotes around it
+because the special characters(e.g. `|`, `*`, `.` or whatever) will be interpreted by your shell before if you don't.
+
+Some examples:
+```sh
+# will filter all files with json extension
+editorconfig-checker -e '\\.json$' ./*
+editorconfig-checker --exclude '\\.json$' ./*
+
+# will only filter all files which has TestFiles in their name
+editorconfig-checker -e TestFiles ./*
+editorconfig-checker --exclude TestFiles ./*
+
+# will filter all files which has TestFiles in their name and json as extension
+editorconfig-checker -e 'TestFiles|\\.json$' ./*
+editorconfig-checker --exclude 'TestFiles|\\.json$' ./*
+
+# will filter all files which has TestFiles in their name and exclude dotfiles
+editorconfig-checker -d -e TestFiles  ./*
+editorconfig-checker --dotfiles --exclude TestFiles  ./*
+
+# will filter all files which has TestFiles in their name and exclude dotfiles and will try to fix issues if they occur
+editorconfig-checker -d -e TestFiles  ./*
+editorconfig-checker --dotfiles --exclude TestFiles  ./*
+
+# will don't use default excludes and filter all files which has TestFiles in their name
+editorconfig-checker -i -d -e TestFiles  ./*
+editorconfig-checker --ignore-defaults --dotfiles --exclude TestFiles  ./*
+```
+
+If you just want to filter for one string you don't have to worry and if you want to filter for more strings you could also pass the `-e|--exclude` option more than once like this:
+
+```sh
+./node_modules/.bin/editorconfig-checker -e node_modules -e myBinary -e someGeneratedFile -e myPicture ./*
+./node_modules/.bin/editorconfig-checker --exclude node_modules --exclude myBinary --exclude someGeneratedFile --exclude myPicture ./*
+```
+
+If you installed it manually you would have to do something like this:
+
+```sh
+<PATH/TO/ROOT/OF/THIS/REPOS>/bin/editorconfig-checker src/*.js
+```
+
+The exit value is 0 if no error occurred and 1 to 254 - every error adds 1 to the exit value.
+255 means that there is more than 254 violations of your `.editorconfig` rules.
+
+Usage output:
+```
+Usage:
+editorconfig-checker [OPTIONS] <FILE>|<FILEGLOB>
+available options:
+-d, --dotfiles
+    use this flag if you want to exclude dotfiles
+-e <PATTERN>, --exclude <PATTERN>
+    string or regex to filter files which should not be checked
+-i, --ignore-defaults
+    will ignore default excludes, see README for details
+-h, --help
+    will print this help text
+-l, --list-files
+    will print all files which are checked to stdout
+```
+
+
+## Default ignores:
+
+```
+'vendor',
+'node_modules',
+'coverage',
+'\.git',
+'\.DS_Store',
+'\.gif$',
+'\.png$',
+'\.bmp$',
+'\.jpg$',
+'\.svg$',
+'\.ico$',
+'\.lock$',
+'\.eot$',
+'\.woff$',
+'\.woff2$',
+'\.ttf$',
+'\.bak$',
+'\.bin$',
+'\.min.js$',
+'\.min.css$',
+'\.pdf$',
+'\.jpeg$'
+```
+
+Suggestions are welcome!
+
+## Additional Notes
+
+I use semantic versioning so every breaking change will result in the increase of the major version.
+
+If you encounter any bugs or anything else please open an issue with as many details as possible.
+
+You should use the `-l` option after installing and configuring this tool to see if all files are
+checked.
