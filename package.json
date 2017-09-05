@@ -1,11 +1,17 @@
 {
   "name": "editorconfig-checker.javascript",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "src/index.js",
   "bin": {
     "editorconfig-checker": "./bin/editorconfig-checker"
   },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "src",
+    "bin"
+  ],
   "scripts": {
     "prebuild": "./Build/Scripts/prebuild.sh",
     "build": "./Build/Scripts/build.sh",
