@@ -10,9 +10,6 @@
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
 
-### WIP
-
-
 ## Installation
 
 Installation via npm/yarn is recommended:
@@ -42,17 +39,21 @@ Then you could create a script in your `package.json` like this:
 
 ```json
 "scripts": {
-    "lint:editorconfig": "editorconfig-checker src/*"
+    "lint:editorconfig": "editorconfig-checker src"
 }
 ```
 
-You could also check for single files with explicit call them e.g. `editorconfig-checker src/index.php`
-Shell globbing is possible for example: `editorconfig-checker ./src/EditorconfigChecker/{Cli,Fix}/*`
+Or to check multiple directories you could use it like this:
+
+```json 
+"scripts": {
+    "lint:editorconfig": "editorconfig-checker src someOhterDir anohterDir"
+}
+```
+
+If no directory is given the current working directory will be used.
 
 If you want to filter the files you could do this via the `-e|--exclude` parameter
-
-__CAUTION__ after using this parameter you __HAVE TO__ write a single
-regular expression or string or your files you want to check will be interpreted as the exclude pattern.
 
 If you use a regular expression you should __always__ put single quotes around it
 because the special characters(e.g. `|`, `*`, `.` or whatever) will be interpreted by your shell before if you don't.
@@ -60,41 +61,41 @@ because the special characters(e.g. `|`, `*`, `.` or whatever) will be interpret
 Some examples:
 ```sh
 # will filter all files with json extension
-editorconfig-checker -e '\\.json$' ./*
-editorconfig-checker --exclude '\\.json$' ./*
+editorconfig-checker -e '\\.json$' 
+editorconfig-checker --exclude '\\.json$'
 
 # will only filter all files which has TestFiles in their name
-editorconfig-checker -e TestFiles ./*
-editorconfig-checker --exclude TestFiles ./*
+editorconfig-checker -e TestFiles
+editorconfig-checker --exclude TestFiles 
 
 # will filter all files which has TestFiles in their name and json as extension
-editorconfig-checker -e 'TestFiles|\\.json$' ./*
-editorconfig-checker --exclude 'TestFiles|\\.json$' ./*
+editorconfig-checker -e 'TestFiles|\\.json$'
+editorconfig-checker --exclude 'TestFiles|\\.json$'
 
 # will filter all files which has TestFiles in their name and exclude dotfiles
-editorconfig-checker -d -e TestFiles  ./*
-editorconfig-checker --dotfiles --exclude TestFiles  ./*
+editorconfig-checker -d -e TestFiles 
+editorconfig-checker --dotfiles --exclude TestFiles  
 
 # will filter all files which has TestFiles in their name and exclude dotfiles and will try to fix issues if they occur
-editorconfig-checker -d -e TestFiles  ./*
-editorconfig-checker --dotfiles --exclude TestFiles  ./*
+editorconfig-checker -d -e TestFiles 
+editorconfig-checker --dotfiles --exclude TestFiles 
 
 # will don't use default excludes and filter all files which has TestFiles in their name
-editorconfig-checker -i -d -e TestFiles  ./*
-editorconfig-checker --ignore-defaults --dotfiles --exclude TestFiles  ./*
+editorconfig-checker -i -d -e TestFiles
+editorconfig-checker --ignore-defaults --dotfiles --exclude TestFiles 
 ```
 
 If you just want to filter for one string you don't have to worry and if you want to filter for more strings you could also pass the `-e|--exclude` option more than once like this:
 
 ```sh
-./node_modules/.bin/editorconfig-checker -e node_modules -e myBinary -e someGeneratedFile -e myPicture ./*
-./node_modules/.bin/editorconfig-checker --exclude node_modules --exclude myBinary --exclude someGeneratedFile --exclude myPicture ./*
+./node_modules/.bin/editorconfig-checker -e node_modules -e myBinary -e someGeneratedFile -e myPicture 
+./node_modules/.bin/editorconfig-checker --exclude node_modules --exclude myBinary --exclude someGeneratedFile --exclude myPicture 
 ```
 
 If you installed it manually you would have to do something like this:
 
 ```sh
-<PATH/TO/ROOT/OF/THIS/REPOS>/bin/editorconfig-checker src/*.js
+<PATH/TO/ROOT/OF/THIS/REPOS>/bin/editorconfig-checker src
 ```
 
 The exit value is 0 if no error occurred and 1 to 254 - every error adds 1 to the exit value.
@@ -103,7 +104,7 @@ The exit value is 0 if no error occurred and 1 to 254 - every error adds 1 to th
 Usage output:
 ```
 Usage:
-editorconfig-checker [OPTIONS] <FILE>|<FILEGLOB>
+editorconfig-checker [OPTIONS] <DIRECTORY>
 available options:
 -d, --dotfiles
     use this flag if you want to exclude dotfiles

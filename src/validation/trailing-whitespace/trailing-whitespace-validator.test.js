@@ -4,7 +4,7 @@ test('should return true if trim_trailing_whitespace is set to false and string 
 	const line = 'Hello';
 	const lineNumber = 1;
 	const editorconfig = {
-		trim_trailing_whitespace: false // eslint-disable-line camelcase
+		trim_trailing_whitespace: 'false' // eslint-disable-line camelcase
 	};
 
 	expect(validate(line, lineNumber, editorconfig)).toEqual('');
@@ -14,7 +14,7 @@ test('should return true if trim_trailing_whitespace is set to false and string 
 	const line = 'Hello ';
 	const lineNumber = 1;
 	const editorconfig = {
-		trim_trailing_whitespace: false // eslint-disable-line camelcase
+		trim_trailing_whitespace: 'false' // eslint-disable-line camelcase
 	};
 
 	expect(validate(line, lineNumber, editorconfig)).toEqual('');
@@ -24,7 +24,7 @@ test('should return true if trim_trailing_whitespace is set to false and string 
 	const line = 'Hello\t';
 	const lineNumber = 1;
 	const editorconfig = {
-		trim_trailing_whitespace: false // eslint-disable-line camelcase
+		trim_trailing_whitespace: 'false' // eslint-disable-line camelcase
 	};
 
 	expect(validate(line, lineNumber, editorconfig)).toEqual('');
@@ -34,7 +34,7 @@ test('should return true if trim_trailing_whitespace is set to false and string 
 	const line = 'You will die';
 	const lineNumber = 1;
 	const editorconfig = {
-		trim_trailing_whitespace: true // eslint-disable-line camelcase
+		trim_trailing_whitespace: 'true' // eslint-disable-line camelcase
 	};
 
 	expect(validate(line, lineNumber, editorconfig)).toEqual('');
@@ -44,7 +44,7 @@ test('should return false if trim_trailing_whitespace is set to true and string 
 	const line = 'Hello\t';
 	const lineNumber = 1;
 	const editorconfig = {
-		trim_trailing_whitespace: true // eslint-disable-line camelcase
+		trim_trailing_whitespace: 'true' // eslint-disable-line camelcase
 	};
 
 	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Trailing Whitespace');
@@ -54,7 +54,7 @@ test('should return false if trim_trailing_whitespace is set to true and string 
 	const line = 'Hello ';
 	const lineNumber = 1;
 	const editorconfig = {
-		trim_trailing_whitespace: true // eslint-disable-line camelcase
+		trim_trailing_whitespace: 'true' // eslint-disable-line camelcase
 	};
 
 	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Trailing Whitespace');

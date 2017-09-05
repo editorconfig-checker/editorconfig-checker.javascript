@@ -4,7 +4,8 @@ import validate from './final-newline-validator';
 
 test('should return true for an empty file (lf)', () => {
 	const editorconfig = {
-		end_of_line: 'lf'
+		end_of_line: 'lf',
+		insert_final_newline: 'true'
 	};
 	const fileContent = '';
 
@@ -15,7 +16,8 @@ test('should return true for an empty file (lf)', () => {
 
 test('should return true if final newline is set (lf)', () => {
 	const editorconfig = {
-		end_of_line: 'lf'
+		end_of_line: 'lf',
+		insert_final_newline: 'true'
 	};
 	const fileContent = 'hello\nworld\n';
 
@@ -26,7 +28,8 @@ test('should return true if final newline is set (lf)', () => {
 
 test('should return false if final newline is not set (lf)', () => {
 	const editorconfig = {
-		end_of_line: 'lf'
+		end_of_line: 'lf',
+		insert_final_newline: 'true'
 	};
 	const fileContent = 'hello\nworld';
 
@@ -37,7 +40,8 @@ test('should return false if final newline is not set (lf)', () => {
 
 test('should return true for an empty file (cr)', () => {
 	const editorconfig = {
-		end_of_line: 'cr'
+		end_of_line: 'cr',
+		insert_final_newline: 'true'
 	};
 	const fileContent = '';
 
@@ -48,7 +52,8 @@ test('should return true for an empty file (cr)', () => {
 
 test('should return true if final newline is set (cr)', () => {
 	const editorconfig = {
-		end_of_line: 'cr'
+		end_of_line: 'cr',
+		insert_final_newline: 'true'
 	};
 	const fileContent = 'hello\rworld\r';
 
@@ -59,7 +64,8 @@ test('should return true if final newline is set (cr)', () => {
 
 test('should return false if final newline is not set (cr)', () => {
 	const editorconfig = {
-		end_of_line: 'cr'
+		end_of_line: 'cr',
+		insert_final_newline: 'true'
 	};
 	const fileContent = 'hello\rworld';
 
@@ -70,7 +76,8 @@ test('should return false if final newline is not set (cr)', () => {
 
 test('should return true for an empty file (crlf)', () => {
 	const editorconfig = {
-		end_of_line: 'crlf'
+		end_of_line: 'crlf',
+		insert_final_newline: 'true'
 	};
 	const fileContent = '';
 
@@ -81,7 +88,8 @@ test('should return true for an empty file (crlf)', () => {
 
 test('should return true if final newline is set (crlf)', () => {
 	const editorconfig = {
-		end_of_line: 'crlf'
+		end_of_line: 'crlf',
+		insert_final_newline: 'true'
 	};
 	const fileContent = 'hello\r\nworld\r\n';
 
@@ -92,13 +100,47 @@ test('should return true if final newline is set (crlf)', () => {
 
 test('should return false if final newline is not set (crlf)', () => {
 	const editorconfig = {
-		end_of_line: 'crlf'
+		end_of_line: 'crlf',
+		insert_final_newline: 'true'
 	};
 	const fileContent = 'hello\r\nworld';
 
 	const result = validate(fileContent, editorconfig);
 
 	expect(result).toEqual('Wrong line endings or new final newline');
+});
+
+test('should return true if final newline is not in editorconfig(lf)', () => {
+	const editorconfig = {
+		end_of_line: 'lf'
+	};
+	const fileContent = 'hello\r\nworld';
+
+	const result = validate(fileContent, editorconfig);
+
+	expect(result).toEqual('');
+});
+
+test('should return true if final newline is not in editorconfig(cr)', () => {
+	const editorconfig = {
+		end_of_line: 'cr'
+	};
+	const fileContent = 'hello\r\nworld';
+
+	const result = validate(fileContent, editorconfig);
+
+	expect(result).toEqual('');
+});
+
+test('should return true if final newline is not in editorconfig(crlf)', () => {
+	const editorconfig = {
+		end_of_line: 'crlf'
+	};
+	const fileContent = 'hello\r\nworld';
+
+	const result = validate(fileContent, editorconfig);
+
+	expect(result).toEqual('');
 });
 
 /* eslint-enable camelcase */

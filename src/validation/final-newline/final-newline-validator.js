@@ -1,7 +1,7 @@
 import getEndOfLineChar from '../../utils/line-ending-utils';
 
 const validate = (fileContent, editorconfig) => {
-	if (editorconfig.end_of_line) {
+	if (editorconfig.insert_final_newline === 'true' && editorconfig.end_of_line) {
 		const eolChar = getEndOfLineChar(editorconfig.end_of_line);
 		const fileContentArray = fileContent.split(eolChar);
 		const lastLine = fileContentArray[fileContentArray.length - 1];
