@@ -40,44 +40,54 @@ const filterOptions = {
 	dots: !(args.dots)
 };
 
-const finder = new FindFiles({
-	rootFolder: '.',
-	filterFunction: (filePath, stat) => fileNotEmpty(stat) && filterFiles(filePath, filterOptions)
-});
+if (typeof args._ === 'object' && args._.length === 0) {
+	args._ = ['.'];
+} else if (typeof args._ === 'string' && args._.length === 1) {
+	args._ = [args._];
+}
 
-finder.on('match', filePath => {
-	if (args['list-files']) {
-		info(filePath);
-	}
-	const editorconfig = getEditorconfigForFile(filePath);
-	checkedFiles++;
-	errors += validateFile(filePath, editorconfig);
-});
+args._.forEach((folder, index, folders) => {
+	const finder = new FindFiles({
+		rootFolder: folder,
+		filterFunction: (filePath, stat) => fileNotEmpty(stat) && filterFiles(filePath, filterOptions)
+	});
 
-finder.on('patherror', (err, strPath) => {
-	error(`Error for Path ${strPath} ${err}`);
-});
-
-finder.on('error', err => {
-	error(`Global Error ${err}`);
-});
-
-finder.on('complete', () => {
-	info('all done');
-	if (errors === 0) {
-		success(`sucessfully checked ${checkedFiles} files`);
-	} else {
-		error(`${errors} occured! See log above and fix errors`);
-		if (errors < 254) {
-			process.exit(errors);
-		} else {
-			process.exit(254);
+	finder.on('match', filePath => {
+		if (args['list-files']) {
+			info(filePath);
 		}
-	}
+		const editorconfig = getEditorconfigForFile(filePath);
+		checkedFiles++;
+		errors += validateFile(filePath, editorconfig);
+	});
+
+	finder.on('patherror', (err, strPath) => {
+		error(`Error for Path ${strPath} ${err}`);
+	});
+
+	finder.on('error', err => {
+		error(`Global Error ${err}`);
+	});
+
+	finder.on('complete', () => {
+		if (index === folders.length - 1) {
+			info('all done');
+			if (errors === 0) {
+				success(`sucessfully checked ${checkedFiles} files`);
+			} else {
+				error(`${errors} occured! See log above and fix errors`);
+				if (errors < 254) {
+					process.exit(errors);
+				} else {
+					process.exit(254);
+				}
+			}
+		}
+	});
+
+	finder.startSearch();
 });
 
 if (args.help) {
 	printUsage();
 }
-
-finder.startSearch();
