@@ -25,13 +25,16 @@ const printUsage = () => {
 };
 
 const printErrors = errors => {
+	let printedErrors = 1;
 	for (const err in errors) {
 		if (errors[err].length === 0) {
 			continue;
 		}
 
-		error(err);
+		info(`${printedErrors}) ${err}`);
 		errors[err].forEach(errMsg => error(`\t${errMsg}`));
+		log('');
+		printedErrors++;
 	}
 };
 
@@ -85,14 +88,13 @@ args._.forEach((folder, index, folders) => {
 	finder.on('complete', () => {
 		if (index === folders.length - 1) {
 			const errorCount = Object.keys(errors).reduce((acc, err) => (acc + errors[err].length), 0);
-			info('all done');
 			if (errorCount === 0) {
-				success(`sucessfully checked ${checkedFiles} files`);
+				success(`sucessfully checked ${checkedFiles} files :)`);
 			} else {
 				printErrors(errors);
 				error(`${errorCount} errors occured! See log above and fix errors`);
-				if (errors < 254) {
-					process.exit(errors);
+				if (errorCount < 254) {
+					process.exit(errorCount);
 				} else {
 					process.exit(254);
 				}
