@@ -46,6 +46,9 @@ const finder = new FindFiles({
 });
 
 finder.on('match', filePath => {
+	if (args['list-files']) {
+		info(filePath);
+	}
 	const editorconfig = getEditorconfigForFile(filePath);
 	checkedFiles++;
 	errors += validateFile(filePath, editorconfig);
