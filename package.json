@@ -1,10 +1,10 @@
 {
   "name": "editorconfig-checker.javascript",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "",
   "main": "src/index.js",
   "bin": {
-    "editorconfig-checker": "./bin/editorconfig-checker"
+    "editorconfig-checker": "./dist/index.js"
   },
   "files": [
     "LICENSE",
