@@ -36,6 +36,7 @@
   "dependencies": {
     "iniparser": "^1.0.5",
     "minimatch": "^3.0.4",
+    "minimist": "^1.2.0",
     "node-find-files": "^0.0.4"
   },
   "devDependencies": {
