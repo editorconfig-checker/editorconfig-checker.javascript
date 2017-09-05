@@ -1,18 +1,36 @@
 #!/usr/bin/env node
 
 import FindFiles from 'node-find-files';
+import parseArgs from 'minimist';
 
 import {fileNotEmpty, filterFiles} from './utils/file-utils';
-import {log, success, error} from './logger/logger';
+import {log, info, success, error} from './logger/logger';
 import validateFile from './validation/validation-processor';
 import getEditorconfigForFile from './editorconfig/editorconfig';
+
+const printUsage = () => {
+	log('Usage:');
+	log('editorconfig-checker [OPTIONS] [<FILE>|FILEGLOB>]');
+	log('-d, --dotfiles');
+	log('    use this flag if you want to exclude dotfiles');
+	log('-e <PATTERN>, --exclude <PATTERN>');
+	log('    string or regex to filter files which should not be checked');
+	log('-i, --ignore-defaults');
+	log('    will ignore default excludes, see README for details');
+	log('-h, --help');
+	log('    will print this help text');
+	log('-l, --list-files');
+	log('    will print all files which are checked to stdout');
+};
+
+const args = parseArgs(process.argv.slice(2));
 
 let checkedFiles = 0;
 let errors = 0;
 
 const filterOptions = {
 	regex: '.git|node_modules|coverage|TestFiles|dist|.png|.lock',
-	dots: true
+	dots: !(args.d || args.dots)
 };
 
 const finder = new FindFiles({
@@ -35,7 +53,7 @@ finder.on('error', err => {
 });
 
 finder.on('complete', () => {
-	log('all done');
+	info('all done');
 	if (errors === 0) {
 		success(`sucessfully checked ${checkedFiles} files`);
 	} else {
@@ -47,5 +65,9 @@ finder.on('complete', () => {
 		}
 	}
 });
+
+if (args.h || args.help) {
+	printUsage();
+}
 
 finder.startSearch();
