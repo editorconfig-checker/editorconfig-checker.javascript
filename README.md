@@ -15,10 +15,10 @@
 Installation via npm/yarn is recommended:
 
 ```
-yarn add editorconfig-checker
+yarn add editorconfig-checker.javascript
 ./node_modules/.bin/editorconfig-checker
 
-npm install --save-dev editorconfig-checker
+npm install --save-dev editorconfig-checker.javascript
 ./node_modules/.bin/editorconfig-checker
 
 # or in a npm-script just
