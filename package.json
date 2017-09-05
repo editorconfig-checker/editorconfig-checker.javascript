@@ -10,7 +10,8 @@
     "LICENSE",
     "README.md",
     "src",
-    "bin"
+    "bin",
+    "dist"
   ],
   "scripts": {
     "prebuild": "./Build/Scripts/prebuild.sh",
