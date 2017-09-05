@@ -3,10 +3,11 @@
 import FindFiles from 'node-find-files';
 import parseArgs from 'minimist';
 
-import {fileNotEmpty, filterFiles} from './utils/file-utils';
 import {log, info, success, error} from './logger/logger';
 import validateFile from './validation/validation-processor';
 import getEditorconfigForFile from './editorconfig/editorconfig';
+import {fileNotEmpty, filterFiles} from './utils/file-utils';
+import getExcludeStringFromArgs from './utils/exclude-utils';
 
 const printUsage = () => {
 	log('Usage:');
@@ -23,14 +24,20 @@ const printUsage = () => {
 	log('    will print all files which are checked to stdout');
 };
 
-const args = parseArgs(process.argv.slice(2));
+const parseOptions = {
+	string: ['e', 'exclude'],
+	boolean: ['dotfiles', 'help', 'ignore-defaults', 'list-files'],
+	alias: {dotfiles: 'd', exclude: 'e', help: 'h', 'ignore-defaults': 'i', 'list-files': 'l'}
+};
+
+const args = parseArgs(process.argv.slice(2), parseOptions);
 
 let checkedFiles = 0;
 let errors = 0;
 
 const filterOptions = {
-	regex: '.git|node_modules|coverage|TestFiles|dist|.png|.lock',
-	dots: !(args.d || args.dots)
+	regex: getExcludeStringFromArgs(args),
+	dots: !(args.dots)
 };
 
 const finder = new FindFiles({
@@ -66,7 +73,7 @@ finder.on('complete', () => {
 	}
 });
 
-if (args.h || args.help) {
+if (args.help) {
 	printUsage();
 }
 

@@ -8,5 +8,6 @@ language: node_js
 cache: yarn
 
 script:
+  - yarn build
   - yarn lint
   - yarn test:coverage:publish
