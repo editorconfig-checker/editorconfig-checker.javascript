@@ -9,6 +9,12 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/editorconfig-checker/editorconfig-checker.javascript.svg)](https://greenkeeper.io/)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
 
+## What?
+
+This is a tool to check if your files consider your `.editorconfig`.
+Most tools - like linters for example - only test one filetype and need an extra configuration.
+This tool only needs your editorconfig to check all files.
+
 
 ## Installation
 
