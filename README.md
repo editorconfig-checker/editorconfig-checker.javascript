@@ -21,10 +21,10 @@ This tool only needs your editorconfig to check all files.
 Installation via npm/yarn is recommended:
 
 ```
-yarn add editorconfig-checker.javascript
+yarn add editorconfig-checker
 ./node_modules/.bin/editorconfig-checker
 
-npm install --save-dev editorconfig-checker.javascript
+npm install --save-dev editorconfig-checker
 ./node_modules/.bin/editorconfig-checker
 
 # or in a npm-script just
@@ -35,7 +35,10 @@ Otherwise you could clone the repository and execute the script manually.
 
 ```
 git clone git@github.com:editorconfig-checker/editorconfig-checker.javascript.git
-./editorconfig-checker.javascript/bin/editorconfig-checker
+&& cd editorconfig-checker.javascript
+&& yarn install 
+&& yarn build 
+&& ./editorconfig-checker.javascript/dist/index
 ```
 
 ## Usage
@@ -101,7 +104,7 @@ If you just want to filter for one string you don't have to worry and if you wan
 If you installed it manually you would have to do something like this:
 
 ```sh
-<PATH/TO/ROOT/OF/THIS/REPOS>/bin/editorconfig-checker src
+<PATH/TO/ROOT/OF/THIS/REPOS>/dist/index.js src
 ```
 
 The exit value is 0 if no error occurred and 1 to 254 - every error adds 1 to the exit value.
