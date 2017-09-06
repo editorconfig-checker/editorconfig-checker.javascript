@@ -23,7 +23,6 @@ const validateFile = (filePath, editorconfig) => {
 		lineNumber++;
 		errors.push(validateTab(line, lineNumber, editorconfig));
 		errors.push(validateSpaces(line, lineNumber, editorconfig));
-		errors.push(validateTab(line, lineNumber, editorconfig));
 		errors.push(validateTrailingWhitespace(line, lineNumber, editorconfig));
 	});
 
