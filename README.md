@@ -16,6 +16,10 @@ Most tools - like linters for example - only test one filetype and need an extra
 This tool only needs your editorconfig to check all files.
 
 
+
+![Sample Output](https://raw.githubusercontent.com/editorconfig-checker/editorconfig-checker.javascript/master/Docs/sample.png "Sample output")
+
+
 ## Installation
 
 Installation via npm/yarn is recommended:
