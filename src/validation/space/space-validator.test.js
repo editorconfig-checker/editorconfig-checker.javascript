@@ -85,7 +85,7 @@ test('should return false if text has not the right amount of leftpadding space'
 		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Not the right amount of left-padding spaces');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Not the right amount of left-padding spaces (found 3 expected multiple of 4)');
 });
 
 test('should return false if comment has not the right amount of leftpadding space', () => {
@@ -96,7 +96,7 @@ test('should return false if comment has not the right amount of leftpadding spa
 		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Not the right amount of left-padding spaces');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Not the right amount of left-padding spaces (found 3 expected multiple of 4)');
 });
 
 test('should return false if text has left padding tabs', () => {
@@ -107,7 +107,7 @@ test('should return false if text has left padding tabs', () => {
 		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only spaces expected)');
 });
 
 test('should return false if comment has left padding tabs', () => {
@@ -118,7 +118,7 @@ test('should return false if comment has left padding tabs', () => {
 		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only spaces expected)');
 });
 
 test('should return false if text has left padding tabs', () => {
@@ -129,7 +129,7 @@ test('should return false if text has left padding tabs', () => {
 		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only spaces expected)');
 });
 
 test('should return false if text has left padding tabs', () => {
@@ -140,7 +140,7 @@ test('should return false if text has left padding tabs', () => {
 		indent_size: 4 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only spaces expected)');
 });
 
 test('should return true if no indent_size is given', () => {
@@ -172,7 +172,7 @@ test('should return false string starts with tab and indent_size is 0', () => {
 		indent_size: 0 // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only spaces expected)');
 });
 
 test('should return false if string starts with tab and no indent_size is given', () => {
@@ -182,5 +182,5 @@ test('should return false if string starts with tab and no indent_size is given'
 		indent_style: 'space' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only spaces expected)');
 });

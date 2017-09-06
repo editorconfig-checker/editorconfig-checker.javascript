@@ -27,7 +27,7 @@ test('should return false if text starts after space', () => {
 		indent_style: 'tab' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only tabs expected)');
 });
 
 test('should return true if is comment', () => {
@@ -57,5 +57,5 @@ test('should return false if mixed indentation', () => {
 		indent_style: 'tab' // eslint-disable-line camelcase
 	};
 
-	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation');
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only tabs expected)');
 });

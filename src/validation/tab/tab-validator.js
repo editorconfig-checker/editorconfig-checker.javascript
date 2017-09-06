@@ -3,7 +3,7 @@ const validate = (line, lineNumber, editorconfig) => {
 		// Starts with tab character * (none, one or more)
 		// and everything but whitespace or space and * (block comment)
 		if (!line.match(/^\t*([^\s]+| \*)/)) {
-			return `${lineNumber}: Mixed indentation`;
+			return `${lineNumber}: Mixed indentation (only tabs expected)`;
 		}
 	}
 

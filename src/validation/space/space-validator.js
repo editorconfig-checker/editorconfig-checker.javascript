@@ -4,13 +4,13 @@ const validate = (line, lineNumber, editorconfig) => {
 			if (line.match(/^( *)[\w/]/)) {
 				const indentSize = line.match(/^( *)[\w/*]/)[1].length;
 				if (indentSize % editorconfig.indent_size !== 0 && line[indentSize] !== '*') {
-					return `${lineNumber}: Not the right amount of left-padding spaces`;
+					return `${lineNumber}: Not the right amount of left-padding spaces (found ${indentSize} expected multiple of ${editorconfig.indent_size})`;
 				}
 			}
 		}
 
 		if (!line.match(/^ *[^\s]+/)) {
-			return `${lineNumber}: Mixed indentation`;
+			return `${lineNumber}: Mixed indentation (only spaces expected)`;
 		}
 	}
 
