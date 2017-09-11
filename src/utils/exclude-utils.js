@@ -49,7 +49,7 @@ const getExcludeRegexpFromArgs = args => {
 		.concat.apply([], excludesArray)
 		.join('|');
 
-	return excludeString || '.';
+	return excludeString || '';
 };
 
 export {getExcludePatternFromArgs, getExcludeRegexpFromArgs};

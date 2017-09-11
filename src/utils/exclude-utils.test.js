@@ -4,7 +4,7 @@ test('should return . if no exclude regexp is given and defaults are ignored', (
 	const args = {
 		'ignore-defaults': true
 	};
-	expect(getExcludeRegexpFromArgs(args)).toEqual('.');
+	expect(getExcludeRegexpFromArgs(args)).toEqual('');
 });
 
 test('should give correct regex for excludes', () => {
