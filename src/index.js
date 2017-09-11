@@ -58,8 +58,6 @@ const filterOptions = {
 	dots: !(args.dots)
 };
 
-console.dir(filterOptions);
-
 if (typeof args._ === 'object' && args._.length === 0) {
 	args._ = ['.'];
 } else if (typeof args._ === 'string' && args._.length === 1) {
