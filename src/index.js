@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-import FindFiles from 'node-find-files';
 import parseArgs from 'minimist';
+import glob from 'glob';
+import isValidGlob from 'is-valid-glob';
 
 import {log, info, success, error} from './logger/logger';
 import validateFile from './validation/validation-processor';
 import getEditorconfigForFile from './editorconfig/editorconfig';
-import {fileNotEmpty, filterFiles} from './utils/file-utils';
+import {filterFiles, isFile, isDirectory} from './utils/file-utils';
 import getExcludeStringFromArgs from './utils/exclude-utils';
 
 const printUsage = () => {
@@ -46,6 +47,11 @@ const parseOptions = {
 
 const args = parseArgs(process.argv.slice(2), parseOptions);
 
+if (args.help) {
+	printUsage();
+	process.exit(0);
+}
+
 let checkedFiles = 0;
 let errors = {};
 
@@ -60,51 +66,54 @@ if (typeof args._ === 'object' && args._.length === 0) {
 	args._ = [args._];
 }
 
-args._.forEach((folder, index, folders) => {
-	const finder = new FindFiles({
-		rootFolder: folder,
-		filterFunction: (filePath, stat) => fileNotEmpty(stat) && filterFiles(filePath, filterOptions)
-	});
+const rawFiles = args._.map(folder => {
+	const globOptions = {
+		dot: filterOptions.dots,
+		nodir: true
+	};
 
-	finder.on('match', filePath => {
-		if (args['list-files']) {
-			info(filePath);
-		}
-		const editorconfig = getEditorconfigForFile(filePath);
-		const error = {};
-		error[filePath] = validateFile(filePath, editorconfig);
-		errors = Object.assign({}, errors, error);
-		checkedFiles++;
-	});
+	if (isFile(folder)) {
+		return folder;
+	}
 
-	finder.on('patherror', (err, strPath) => {
-		error(`Error for Path ${strPath} ${err}`);
-	});
+	let globPattern = '';
+	if (isDirectory(folder) || folder === '.' || folder === './') {
+		globPattern = `${folder}/**`;
+	}
 
-	finder.on('error', err => {
-		error(`Global Error ${err}`);
-	});
+	if (globPattern === '' && isValidGlob(folder)) {
+		globPattern = folder;
+	}
 
-	finder.on('complete', () => {
-		if (index === folders.length - 1) {
-			const errorCount = Object.keys(errors).reduce((acc, err) => (acc + errors[err].length), 0);
-			if (errorCount === 0) {
-				success(`sucessfully checked ${checkedFiles} files :)`);
-			} else {
-				printErrors(errors);
-				error(`${errorCount} errors occured! See log above and fix errors`);
-				if (errorCount < 254) {
-					process.exit(errorCount);
-				} else {
-					process.exit(254);
-				}
-			}
-		}
-	});
-
-	finder.startSearch();
+	return glob.sync(globPattern, globOptions);
 });
 
-if (args.help) {
-	printUsage();
+// Flatten array, filter duplicates and filter respecting options
+const files = [].concat.apply([], rawFiles).filter((filePath, index, self) => {
+	return filePath !== '' && self.indexOf(filePath) === index && filterFiles(filePath, filterOptions);
+});
+
+files.forEach(filePath => {
+	if (args['list-files']) {
+		info(filePath);
+	}
+
+	const editorconfig = getEditorconfigForFile(filePath);
+	const error = {};
+	error[filePath] = validateFile(filePath, editorconfig);
+	errors = Object.assign({}, errors, error);
+	checkedFiles++;
+});
+
+const errorCount = Object.keys(errors).reduce((acc, err) => (acc + errors[err].length), 0);
+if (errorCount === 0) {
+	success(`sucessfully checked ${checkedFiles} files :)`);
+} else {
+	printErrors(errors);
+	error(`${errorCount} errors occured! See log above and fix errors`);
+	if (errorCount < 254) {
+		process.exit(errorCount);
+	} else {
+		process.exit(254);
+	}
 }

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {fileExists, fileNotEmpty, filterFiles, editorconfigPath} from './file-utils';
+import {fileExists, fileNotEmpty, filterFiles, editorconfigPath, isDirectory, isFile} from './file-utils';
 
 test('editorconfig exist in project-root', () => {
 	expect(fileExists(editorconfigPath())).toBeTruthy();
@@ -91,4 +91,20 @@ test('fileNotEmpty should return false for Build/TestFiles/emptyFile.js', () => 
 	const stat = fs.statSync('Build/TestFiles/emptyFile.js');
 
 	expect(fileNotEmpty(stat)).toBeFalsy();
+});
+
+test('isDirectory should return true for a directory', () => {
+	expect(isDirectory('Build')).toBeTruthy();
+});
+
+test('isDirectory should return false for a file', () => {
+	expect(isDirectory('package.json')).toBeFalsy();
+});
+
+test('isFile should return true for a file', () => {
+	expect(isFile('package.json')).toBeTruthy();
+});
+
+test('isFile should return false for a folder', () => {
+	expect(isFile('Build')).toBeFalsy();
 });
