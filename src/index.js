@@ -8,7 +8,7 @@ import {log, info, success, error} from './logger/logger';
 import validateFile from './validation/validation-processor';
 import getEditorconfigForFile from './editorconfig/editorconfig';
 import {filterFiles, isFile, isDirectory} from './utils/file-utils';
-import getExcludeStringFromArgs from './utils/exclude-utils';
+import {getExcludeRegexpFromArgs, getExcludePatternFromArgs} from './utils/exclude-utils';
 
 const printUsage = () => {
 	log('Usage:');
@@ -40,7 +40,7 @@ const printErrors = errors => {
 };
 
 const parseOptions = {
-	string: ['e', 'exclude'],
+	string: ['exclude-pattern', 'exclude-regexp'],
 	boolean: ['dotfiles', 'help', 'ignore-defaults', 'list-files'],
 	alias: {dotfiles: 'd', exclude: 'e', help: 'h', 'ignore-defaults': 'i', 'list-files': 'l'}
 };
@@ -52,13 +52,13 @@ if (args.help) {
 	process.exit(0);
 }
 
-let checkedFiles = 0;
-let errors = {};
-
 const filterOptions = {
-	regex: getExcludeStringFromArgs(args),
+	'exclude-pattern': getExcludePatternFromArgs(args),
+	'exclude-regexp': getExcludeRegexpFromArgs(args),
 	dots: !(args.dots)
 };
+
+console.dir(filterOptions);
 
 if (typeof args._ === 'object' && args._.length === 0) {
 	args._ = ['.'];
@@ -69,7 +69,8 @@ if (typeof args._ === 'object' && args._.length === 0) {
 const rawFiles = args._.map(folder => {
 	const globOptions = {
 		dot: filterOptions.dots,
-		nodir: true
+		nodir: true,
+		ignore: filterOptions['exclude-pattern']
 	};
 
 	if (isFile(folder)) {
@@ -90,9 +91,10 @@ const rawFiles = args._.map(folder => {
 
 // Flatten array, filter duplicates and filter respecting options
 const files = [].concat.apply([], rawFiles).filter((filePath, index, self) => {
-	return filePath !== '' && self.indexOf(filePath) === index && filterFiles(filePath, filterOptions);
+	return self.indexOf(filePath) === index && !filterFiles(filePath, filterOptions);
 });
 
+let errors = {};
 files.forEach(filePath => {
 	if (args['list-files']) {
 		info(filePath);
@@ -102,12 +104,11 @@ files.forEach(filePath => {
 	const error = {};
 	error[filePath] = validateFile(filePath, editorconfig);
 	errors = Object.assign({}, errors, error);
-	checkedFiles++;
 });
 
 const errorCount = Object.keys(errors).reduce((acc, err) => (acc + errors[err].length), 0);
 if (errorCount === 0) {
-	success(`sucessfully checked ${checkedFiles} files :)`);
+	success(`sucessfully checked ${files.length} files :)`);
 } else {
 	printErrors(errors);
 	error(`${errorCount} errors occured! See log above and fix errors`);

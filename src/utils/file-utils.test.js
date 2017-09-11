@@ -19,7 +19,7 @@ test('editorconfigPath ends with .editorconfig', () => {
 
 test('filterFiles should return true when not matching file', () => {
 	const filterOptions = {
-		regex: 'notIndex.js$',
+		'exclude-regexp': 'notIndex.js$',
 		dots: true
 	};
 
@@ -37,7 +37,7 @@ test('filterFiles should return false when matching file', () => {
 
 test('filterFiles should return true for dotfile when dotfile option is true', () => {
 	const filterOptions = {
-		regex: 'www',
+		'exclude-regexp': 'www',
 		dots: true
 	};
 
@@ -46,7 +46,7 @@ test('filterFiles should return true for dotfile when dotfile option is true', (
 
 test('filterFiles should return true for dotfile when dotfile option is true and dotfile is in rootdir', () => {
 	const filterOptions = {
-		regex: 'www',
+		'exclude-regexp': 'www',
 		dots: true
 	};
 
