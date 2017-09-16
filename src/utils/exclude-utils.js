@@ -1,10 +1,10 @@
 const getDefaultExcludes = () => {
 	return [
-		'./vendor/**',
-		'./node_modules/**',
-		'./coverage/**',
+		'./**/vendor/**/*',
+		'./**/node_modules/**/*',
+		'./**/coverage/**/*',
+		'./**/.DS_Store/**/*',
 		'./.git/**',
-		'./.DS_Store',
 		'./**/*.gif',
 		'./**/*.png',
 		'./**/*.bmp',

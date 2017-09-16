@@ -23,11 +23,11 @@ test('should include defaults', () => {
 	const expected = [
 		'abc',
 		'def',
-		'./vendor/**',
-		'./node_modules/**',
-		'./coverage/**',
+		'./**/vendor/**/*',
+		'./**/node_modules/**/*',
+		'./**/coverage/**/*',
+		'./**/.DS_Store/**/*',
 		'./.git/**',
-		'./.DS_Store',
 		'./**/*.gif',
 		'./**/*.png',
 		'./**/*.bmp',
@@ -69,11 +69,11 @@ test('should give defaults', () => {
 	};
 
 	const expected = [
-		'./vendor/**',
-		'./node_modules/**',
-		'./coverage/**',
+		'./**/vendor/**/*',
+		'./**/node_modules/**/*',
+		'./**/coverage/**/*',
+		'./**/.DS_Store/**/*',
 		'./.git/**',
-		'./.DS_Store',
 		'./**/*.gif',
 		'./**/*.png',
 		'./**/*.bmp',
