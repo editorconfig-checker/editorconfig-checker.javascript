@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./dist/index.js -e 'dist|TestFiles'
+./dist/index.js --exclude-pattern './dist/**' --exclude-pattern './Build/TestFiles/**' -l
