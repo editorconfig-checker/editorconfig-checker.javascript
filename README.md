@@ -56,7 +56,7 @@ Then you could create a script in your `package.json` like this:
 }
 ```
 
-Or to check multiple directories you could use it like this:
+To check multiple directories you could use it like this:
 
 ```json 
 "scripts": {
@@ -64,9 +64,20 @@ Or to check multiple directories you could use it like this:
 }
 ```
 
-If no directory is given the current working directory will be used.
+You could also use a glob to check your files:
 
-If you want to filter the files you could do this via the `-e|--exclude` parameter
+```json 
+"scripts": {
+    "lint:editorconfig": "editorconfig-checker ./src/{editorconfig,logger}/**/*"
+}
+```
+
+
+If no directory is given the current working directory will be used as root and all files will be checked.
+
+If you want to filter the files you could do this via the `exclude-pattern` or `--exclude-regexp` parameter
+
+**ATTENTION**: `--exclude-pattern` will be way faster especially in bigger projects because it prefilters the files, in contrast `--exclude--regexp` will first collect all files and filter them after.
 
 If you use a regular expression you should __always__ put single quotes around it
 because the special characters(e.g. `|`, `*`, `.` or whatever) will be interpreted by your shell before if you don't.
@@ -74,35 +85,23 @@ because the special characters(e.g. `|`, `*`, `.` or whatever) will be interpret
 Some examples:
 ```sh
 # will filter all files with json extension
-editorconfig-checker -e '\\.json$' 
-editorconfig-checker --exclude '\\.json$'
-
-# will only filter all files which has TestFiles in their name
-editorconfig-checker -e TestFiles
-editorconfig-checker --exclude TestFiles 
+editorconfig-checker --exclude-pattern './**/*.json' 
+editorconfig-checker --exclude-regexp '\\.json$'
 
 # will filter all files which has TestFiles in their name and json as extension
-editorconfig-checker -e 'TestFiles|\\.json$'
-editorconfig-checker --exclude 'TestFiles|\\.json$'
-
-# will filter all files which has TestFiles in their name and exclude dotfiles
-editorconfig-checker -d -e TestFiles 
-editorconfig-checker --dotfiles --exclude TestFiles  
-
-# will filter all files which has TestFiles in their name and exclude dotfiles and will try to fix issues if they occur
-editorconfig-checker -d -e TestFiles 
-editorconfig-checker --dotfiles --exclude TestFiles 
+editorconfig-checker --exclude-pattern './**/*TestFiles*/*' --exclude-pattern './**/*.json'
+editorconfig-checker --exclude-regexp 'TestFiles|\\.json$'
 
 # will don't use default excludes and filter all files which has TestFiles in their name
-editorconfig-checker -i -d -e TestFiles
-editorconfig-checker --ignore-defaults --dotfiles --exclude TestFiles 
+editorconfig-checker -i -d --exclude-pattern './**/*TestFiles*/*'
+editorconfig-checker --ignore-defaults --dotfiles --exclude-regexp 'TestFiles' 
 ```
 
-If you just want to filter for one string you don't have to worry and if you want to filter for more strings you could also pass the `-e|--exclude` option more than once like this:
+If you just want to filter for one string you don't have to worry and if you want to filter for more strings you could also pass the `--exclude-regexp|--exclude-pattern` option more than once like this:
 
 ```sh
-./node_modules/.bin/editorconfig-checker -e node_modules -e myBinary -e someGeneratedFile -e myPicture 
-./node_modules/.bin/editorconfig-checker --exclude node_modules --exclude myBinary --exclude someGeneratedFile --exclude myPicture 
+./node_modules/.bin/editorconfig-checker --exclude-regexp node_modules --exclude-regexp myBinary --exclude-regexp someGeneratedFile --exclude-regexp myPicture 
+./node_modules/.bin/editorconfig-checker --exclude-pattern './node_modules/**' --exclude-pattern './myBinary' --exclude-pattern './dist/someGeneratedFile' --exclude-pattern './pictures/myPicture' 
 ```
 
 If you installed it manually you would have to do something like this:
@@ -121,8 +120,10 @@ editorconfig-checker [OPTIONS] <DIRECTORY>
 available options:
 -d, --dotfiles
     use this flag if you want to exclude dotfiles
--e <PATTERN>, --exclude <PATTERN>
-    string or regex to filter files which should not be checked
+--exclude-pattern <PATTERN>');
+    pattern to filter files which should not be checked');
+--exclude-regexp <REGEXP>');
+    regex to filter files which should not be checked');
 -i, --ignore-defaults
     will ignore default excludes, see README for details
 -h, --help

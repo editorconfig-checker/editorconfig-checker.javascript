@@ -15,8 +15,10 @@ const printUsage = () => {
 	log('editorconfig-checker [OPTIONS] [<FILE>|FILEGLOB>]');
 	log('-d, --dotfiles');
 	log('    use this flag if you want to exclude dotfiles');
-	log('-e <PATTERN>, --exclude <PATTERN>');
-	log('    string or regex to filter files which should not be checked');
+	log('--exclude-pattern <PATTERN>');
+	log('    pattern to filter files which should not be checked');
+	log('--exclude-regexp <REGEXP>');
+	log('    regex to filter files which should not be checked');
 	log('-i, --ignore-defaults');
 	log('    will ignore default excludes, see README for details');
 	log('-h, --help');
@@ -42,7 +44,7 @@ const printErrors = errors => {
 const parseOptions = {
 	string: ['exclude-pattern', 'exclude-regexp'],
 	boolean: ['dotfiles', 'help', 'ignore-defaults', 'list-files'],
-	alias: {dotfiles: 'd', exclude: 'e', help: 'h', 'ignore-defaults': 'i', 'list-files': 'l'}
+	alias: {dotfiles: 'd', help: 'h', 'ignore-defaults': 'i', 'list-files': 'l'}
 };
 
 const args = parseArgs(process.argv.slice(2), parseOptions);
