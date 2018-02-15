@@ -1,13 +1,14 @@
 const getEndOfLineChar = endOfLine => {
+	let eolChar = '';
 	if (endOfLine === 'lf') {
-		return '\n';
+		eolChar = '\n';
 	} else if (endOfLine === 'cr') {
-		return '\r';
+		eolChar = '\r';
 	} else if (endOfLine === 'crlf') {
-		return '\r\n';
+		eolChar = '\r\n';
 	}
 
-	return '';
+	return eolChar;
 };
 
 export default getEndOfLineChar;
