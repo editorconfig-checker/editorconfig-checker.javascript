@@ -21,9 +21,11 @@ const validateFile = (filePath, editorconfig) => {
 
 	fileContentArray.forEach((line, lineNumber) => {
 		lineNumber++;
-		errors.push(validateTab(line, lineNumber, editorconfig));
-		errors.push(validateSpaces(line, lineNumber, editorconfig));
-		errors.push(validateTrailingWhitespace(line, lineNumber, editorconfig));
+		if (!line.endsWith('editorconfig-disable-line')) {
+			errors.push(validateTab(line, lineNumber, editorconfig));
+			errors.push(validateSpaces(line, lineNumber, editorconfig));
+			errors.push(validateTrailingWhitespace(line, lineNumber, editorconfig));
+		}
 	});
 
 	errors.push(validateEndOfLine(fileContent, editorconfig));

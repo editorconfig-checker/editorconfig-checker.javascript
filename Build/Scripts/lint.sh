@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-xo --ignore=Build/TestFiles/ValidationProcessor/*.js && yarn lint:self
+xo --ignore=Build/TestFiles/{ValidationProcessor,DisablingRules}/*.js && yarn lint:self

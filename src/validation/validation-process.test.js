@@ -56,3 +56,14 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 
 	expect(validateFile(filePath, editorconfig).length).toEqual(1);
 });
+
+test(`should return 0 if the false line is disabled`, () => {
+	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable.js`;
+
+	const editorconfig = {
+		end_of_line: 'lf', // eslint-disable-line camelcase
+		indent_style: 'tab' // eslint-disable-line camelcase
+	};
+
+	expect(validateFile(filePath, editorconfig).length).toEqual(0);
+});
