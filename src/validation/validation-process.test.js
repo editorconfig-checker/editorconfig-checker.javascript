@@ -67,3 +67,15 @@ test(`should return 0 if the false line is disabled`, () => {
 
 	expect(validateFile(filePath, editorconfig).length).toEqual(0);
 });
+
+test(`should return 0 if the false line is disabled and inside a HTML comment`, () => {
+	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable.html`;
+
+	const editorconfig = {
+		end_of_line: 'lf', // eslint-disable-line camelcase
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
+	};
+
+	expect(validateFile(filePath, editorconfig).length).toEqual(0);
+});
