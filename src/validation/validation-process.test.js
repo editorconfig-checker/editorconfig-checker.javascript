@@ -56,3 +56,26 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 
 	expect(validateFile(filePath, editorconfig).length).toEqual(1);
 });
+
+test(`should return 0 if the false line is disabled`, () => {
+	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable.js`;
+
+	const editorconfig = {
+		end_of_line: 'lf', // eslint-disable-line camelcase
+		indent_style: 'tab' // eslint-disable-line camelcase
+	};
+
+	expect(validateFile(filePath, editorconfig).length).toEqual(0);
+});
+
+test(`should return 0 if the false line is disabled and inside a HTML comment`, () => {
+	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable.html`;
+
+	const editorconfig = {
+		end_of_line: 'lf', // eslint-disable-line camelcase
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
+	};
+
+	expect(validateFile(filePath, editorconfig).length).toEqual(0);
+});

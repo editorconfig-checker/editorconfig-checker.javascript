@@ -13,6 +13,10 @@ const validateFile = (filePath, editorconfig) => {
 	const fileContent = fs.readFileSync(filePath).toString();
 	let fileContentArray = [];
 
+	const isLineDisabled = line => {
+		return /editorconfig-disable-line/.test(line);
+	};
+
 	if (editorconfig.end_of_line) {
 		fileContentArray = fileContent.split(getEndOfLineChar(editorconfig.end_of_line));
 	} else {
@@ -21,9 +25,11 @@ const validateFile = (filePath, editorconfig) => {
 
 	fileContentArray.forEach((line, lineNumber) => {
 		lineNumber++;
-		errors.push(validateTab(line, lineNumber, editorconfig));
-		errors.push(validateSpaces(line, lineNumber, editorconfig));
-		errors.push(validateTrailingWhitespace(line, lineNumber, editorconfig));
+		if (!isLineDisabled(line)) {
+			errors.push(validateTab(line, lineNumber, editorconfig));
+			errors.push(validateSpaces(line, lineNumber, editorconfig));
+			errors.push(validateTrailingWhitespace(line, lineNumber, editorconfig));
+		}
 	});
 
 	errors.push(validateEndOfLine(fileContent, editorconfig));
