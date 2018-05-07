@@ -65,7 +65,7 @@ const getExcludePatternFromArgs = args => {
 		excludesArray.push(getDefaultExcludes());
 	}
 
-	return [].concat.apply([], excludesArray);
+	return [].concat(...excludesArray);
 };
 
 const getExcludeRegexpFromArgs = args => {
@@ -78,9 +78,7 @@ const getExcludeRegexpFromArgs = args => {
 		excludesArray.push(getDefaultExcludesRegexp());
 	}
 
-	const excludeString = []
-		.concat.apply([], excludesArray)
-		.join('|');
+	const excludeString = [].concat(...excludesArray).join('|');
 
 	return excludeString || '';
 };
