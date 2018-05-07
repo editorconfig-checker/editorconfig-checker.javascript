@@ -90,7 +90,7 @@ const rawFiles = args._.map(folder => {
 });
 
 // Flatten array, filter duplicates and filter respecting options
-const files = [].concat.apply([], rawFiles).filter((filePath, index, self) => {
+const files = [].concat(...rawFiles).filter((filePath, index, self) => {
 	return self.indexOf(filePath) === index && filterFiles(filePath, filterOptions);
 });
 

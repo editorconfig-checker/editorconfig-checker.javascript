@@ -1,20 +1,10 @@
 // Deep merging of objects
 // https://stackoverflow.com/a/34749873/4082431
 
-/**
- * Simple object check.
- * @param item
- * @returns {boolean}
- */
 const isObject = item => {
 	return (item && typeof item === 'object' && !Array.isArray(item));
 };
 
-/**
- * Deep merge two objects.
- * @param target
- * @param ...sources
- */
 const mergeDeep = (target, ...sources) => {
 	if (sources.length === 0) {
 		return target;
