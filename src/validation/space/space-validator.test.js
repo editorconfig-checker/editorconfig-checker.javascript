@@ -22,6 +22,39 @@ test('should return true if line is empty', () => {
 	expect(validate(line, lineNumber, editorconfig)).toEqual('');
 });
 
+test('should return true if line is empty but keep indent with lf', () => {
+	const line = '    \n';
+	const lineNumber = 1;
+	const editorconfig = {
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
+	};
+
+	expect(validate(line, lineNumber, editorconfig)).toEqual('');
+});
+
+test('should return true if line is empty but keep indent with cr', () => {
+	const line = '    \r';
+	const lineNumber = 1;
+	const editorconfig = {
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
+	};
+
+	expect(validate(line, lineNumber, editorconfig)).toEqual('');
+});
+
+test('should return true if line is empty but keep indent with crlf', () => {
+	const line = '    \r\n';
+	const lineNumber = 1;
+	const editorconfig = {
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
+	};
+
+	expect(validate(line, lineNumber, editorconfig)).toEqual('');
+});
+
 test('should return true if text starts directly no matter of indent_style', () => {
 	const line = 'Hello';
 	const lineNumber = 1;
