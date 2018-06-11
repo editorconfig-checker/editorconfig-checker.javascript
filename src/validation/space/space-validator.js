@@ -9,7 +9,7 @@ const validate = (line, lineNumber, editorconfig) => {
 			}
 		}
 
-		if (!line.match(/^ *[^\s]+/)) {
+		if (!line.match(/^ *[\S\r\n]+/)) {
 			return `${lineNumber}: Mixed indentation (only spaces expected)`;
 		}
 	}
