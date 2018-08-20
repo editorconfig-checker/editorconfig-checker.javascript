@@ -135,14 +135,27 @@ available options:
 
 It is possible to disable single lines with placing a comment - or theoretically
 any other string which includes `editorconfig-disable-line` on that line.
-It is planned in future releases to also have the possibility to disable single 
-rules and also blocks of codes.
 
 Example as it is working now:
 
 ```
-    const x = 'this constant is indented false' // editorconfig-disable-line
+    const x = 'this constant is indented false'; // editorconfig-disable-line
 ```
+
+### Disabling files
+
+It is possible to disable files with placing a comment - or theoretically
+any other string which includes `editorconfig-disable-file` on the *first line*.
+
+Example as it is working now:
+
+```
+// editorconfig-disable-file
+    const x = 'this constant is indented false';
+    ...
+    const y = 'everything is indented false';
+```
+
 
 ## Default ignores:
 

@@ -58,7 +58,7 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 });
 
 test(`should return 0 if the false line is disabled`, () => {
-	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable.js`;
+	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable-line.js`;
 
 	const editorconfig = {
 		end_of_line: 'lf', // eslint-disable-line camelcase
@@ -69,7 +69,30 @@ test(`should return 0 if the false line is disabled`, () => {
 });
 
 test(`should return 0 if the false line is disabled and inside a HTML comment`, () => {
-	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable.html`;
+	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable-line.html`;
+
+	const editorconfig = {
+		end_of_line: 'lf', // eslint-disable-line camelcase
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
+	};
+
+	expect(validateFile(filePath, editorconfig).length).toEqual(0);
+});
+
+test(`should return 0 if the file is disabled`, () => {
+	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable-file.js`;
+
+	const editorconfig = {
+		end_of_line: 'lf', // eslint-disable-line camelcase
+		indent_style: 'tab' // eslint-disable-line camelcase
+	};
+
+	expect(validateFile(filePath, editorconfig).length).toEqual(0);
+});
+
+test(`should return 0 if the file is disabled`, () => {
+	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable-file.html`;
 
 	const editorconfig = {
 		end_of_line: 'lf', // eslint-disable-line camelcase

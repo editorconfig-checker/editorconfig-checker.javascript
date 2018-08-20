@@ -17,10 +17,18 @@ const validateFile = (filePath, editorconfig) => {
 		return /editorconfig-disable-line/.test(line);
 	};
 
+	const isFileDisabled = fileContentArray => {
+		return /editorconfig-disable-file/.test(fileContentArray[0]);
+	};
+
 	if (editorconfig.end_of_line) {
 		fileContentArray = fileContent.split(getEndOfLineChar(editorconfig.end_of_line));
 	} else {
 		fileContentArray = fileContent.split('\n');
+	}
+
+	if (isFileDisabled(fileContentArray)) {
+		return [];
 	}
 
 	fileContentArray.forEach((line, lineNumber) => {
