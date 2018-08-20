@@ -13,19 +13,6 @@
     "bin/editorconfig-checker",
     "dist"
   ],
-  "scripts": {
-    "prebuild": "./Build/Scripts/prebuild.sh",
-    "build": "./Build/Scripts/build.sh",
-    "build:watch": "./Build/Scripts/buildWatch.sh",
-    "lint": "./Build/Scripts/lint.sh",
-    "lint:self": "./Build/Scripts/lintSelf.sh",
-    "test": "./Build/Scripts/test.sh",
-    "test:watch": "./Build/Scripts/testWatch.sh",
-    "test:coverage": "./Build/Scripts/testCoverage.sh",
-    "test:coverage:publish": "./Build/Scripts/testCoveragePublish.sh",
-    "watch": "yarn build:watch & yarn test:watch",
-    "prepublish": "./Build/Scripts/prepublish.sh"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/editorconfig-checker/editorconfig-checker.javascript.git"
