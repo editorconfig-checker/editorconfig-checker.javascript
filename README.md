@@ -40,8 +40,7 @@ Otherwise you could clone the repository and execute the script manually.
 ```
 git clone git@github.com:editorconfig-checker/editorconfig-checker.javascript.git
 && cd editorconfig-checker.javascript
-&& yarn install 
-&& yarn build 
+&& make setup 
 && ./editorconfig-checker.javascript/dist/index
 ```
 
