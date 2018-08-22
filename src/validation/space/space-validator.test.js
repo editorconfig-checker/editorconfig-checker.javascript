@@ -217,3 +217,25 @@ test('should return false if string starts with tab and no indent_size is given'
 
 	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Mixed indentation (only spaces expected)');
 });
+
+test('should return false if html has wrong indent_size', () => {
+	const line = '   <hello>';
+	const lineNumber = 1;
+	const editorconfig = {
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
+	};
+
+	expect(validate(line, lineNumber, editorconfig)).toEqual('1: Not the right amount of left-padding spaces (found 3 expected multiple of 4)');
+});
+
+test('should return true if html has correct indent_size', () => {
+	const line = '    <hello>';
+	const lineNumber = 1;
+	const editorconfig = {
+		indent_style: 'space', // eslint-disable-line camelcase
+		indent_size: 4 // eslint-disable-line camelcase
+	};
+
+	expect(validate(line, lineNumber, editorconfig)).toEqual('');
+});

@@ -79,6 +79,7 @@ test('should return true if line is empty but keep indent with crlf', () => {
 
 	expect(validate(line, lineNumber, editorconfig)).toEqual('');
 });
+
 test('should return false if mixed indentation', () => {
 	const line = '	  	Hello';
 	const lineNumber = 1;
