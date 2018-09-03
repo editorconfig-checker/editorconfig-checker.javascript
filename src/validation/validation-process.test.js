@@ -4,13 +4,13 @@ console.error = jest.fn();
 
 const filePath = `${process.cwd()}/src/index.js`;
 
-test(`should return 0 for a valid file`, () => {
+test('should return 0 for a valid file', () => {
 	const editorconfig = {};
 
 	expect(validateFile(filePath, editorconfig).length).toEqual(0);
 });
 
-test(`should return an integer greater 0 for an invalid file`, () => {
+test('should return an integer greater 0 for an invalid file', () => {
 	const editorconfig = {
 		indent_style: 'space' // eslint-disable-line camelcase
 	};
@@ -18,7 +18,7 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 	expect(validateFile(filePath, editorconfig).length).toBeGreaterThan(0);
 });
 
-test(`should return an integer greater 0 for an invalid file`, () => {
+test('should return an integer greater 0 for an invalid file', () => {
 	const editorconfig = {
 		indent_style: 'tab' // eslint-disable-line camelcase
 	};
@@ -26,7 +26,7 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 	expect(validateFile(`${process.cwd()}/.travis.yml`, editorconfig).length).toBeGreaterThan(0);
 });
 
-test(`should return an integer greater 0 for an invalid file`, () => {
+test('should return an integer greater 0 for an invalid file', () => {
 	const filePath = `${process.cwd()}/Build/TestFiles/ValidationProcessor/README.md`;
 
 	const editorconfig = {
@@ -36,7 +36,7 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 	expect(validateFile(filePath, editorconfig).length).toEqual(2);
 });
 
-test(`should return an integer greater 0 for an invalid file`, () => {
+test('should return an integer greater 0 for an invalid file', () => {
 	const filePath = `${process.cwd()}/Build/TestFiles/ValidationProcessor/noFinalNewline.js`;
 
 	const editorconfig = {
@@ -47,7 +47,7 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 	expect(validateFile(filePath, editorconfig).length).toEqual(1);
 });
 
-test(`should return an integer greater 0 for an invalid file`, () => {
+test('should return an integer greater 0 for an invalid file', () => {
 	const filePath = `${process.cwd()}/Build/TestFiles/ValidationProcessor/wrongLineEnding.js`;
 
 	const editorconfig = {
@@ -57,7 +57,7 @@ test(`should return an integer greater 0 for an invalid file`, () => {
 	expect(validateFile(filePath, editorconfig).length).toEqual(1);
 });
 
-test(`should return 0 if the false line is disabled`, () => {
+test('should return 0 if the false line is disabled', () => {
 	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable-line.js`;
 
 	const editorconfig = {
@@ -68,7 +68,7 @@ test(`should return 0 if the false line is disabled`, () => {
 	expect(validateFile(filePath, editorconfig).length).toEqual(0);
 });
 
-test(`should return 0 if the false line is disabled and inside a HTML comment`, () => {
+test('should return 0 if the false line is disabled and inside a HTML comment', () => {
 	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable-line.html`;
 
 	const editorconfig = {
@@ -80,7 +80,7 @@ test(`should return 0 if the false line is disabled and inside a HTML comment`, 
 	expect(validateFile(filePath, editorconfig).length).toEqual(0);
 });
 
-test(`should return 0 if the file is disabled`, () => {
+test('should return 0 if the file is disabled', () => {
 	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable-file.js`;
 
 	const editorconfig = {
@@ -91,7 +91,7 @@ test(`should return 0 if the file is disabled`, () => {
 	expect(validateFile(filePath, editorconfig).length).toEqual(0);
 });
 
-test(`should return 0 if the file is disabled`, () => {
+test('should return 0 if the file is disabled', () => {
 	const filePath = `${process.cwd()}/Build/TestFiles/DisablingRules/disable-file.html`;
 
 	const editorconfig = {

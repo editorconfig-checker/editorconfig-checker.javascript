@@ -3,7 +3,7 @@ import getEditorconfigForFile from './editorconfig';
 const basePath = './Build/TestFiles/Editorconfig/';
 const getEditorconfig = filePath => getEditorconfigForFile(`${basePath}${filePath}`);
 
-test(`should get basic rules`, () => {
+test('should get basic rules', () => {
 	const editorconfig = getEditorconfig('someFile.js');
 
 	const expected = {
@@ -14,7 +14,7 @@ test(`should get basic rules`, () => {
 	expect(editorconfig).toEqual(expected);
 });
 
-test(`should get basic rules`, () => {
+test('should get basic rules', () => {
 	const editorconfig = getEditorconfig('someFile.php');
 
 	const expected = {
@@ -25,7 +25,7 @@ test(`should get basic rules`, () => {
 	expect(editorconfig).toEqual(expected);
 });
 
-test(`should compose rules`, () => {
+test('should compose rules', () => {
 	const editorconfig = getEditorconfig('1/someFile.js');
 
 	const expected = {
@@ -37,7 +37,7 @@ test(`should compose rules`, () => {
 	expect(editorconfig).toEqual(expected);
 });
 
-test(`should get root rules`, () => {
+test('should get root rules', () => {
 	const editorconfig = getEditorconfig('1/someFile.php');
 
 	const expected = {
@@ -48,7 +48,7 @@ test(`should get root rules`, () => {
 	expect(editorconfig).toEqual(expected);
 });
 
-test(`should get root rules`, () => {
+test('should get root rules', () => {
 	const editorconfig = getEditorconfig('2/someFile.php');
 
 	const expected = {
