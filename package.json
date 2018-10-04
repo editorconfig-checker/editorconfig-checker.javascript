@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "bin": {
-    "editorconfig-checker": "./dist/index.js"
+    "editorconfig-checker": "./dist/index.js",
+    "ec": "./dist/index.js"
   },
   "files": [
     "LICENSE",
