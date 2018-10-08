@@ -194,3 +194,11 @@ If you encounter any bugs or anything else please open an issue with as many det
 
 You should use the `-l` option after installing and configuring this tool to see if all files are
 checked.
+
+
+## Support
+
+If you have any questions or just want to chat join #editorconfig-checker on 
+freenode(IRC).
+If you don't have an IRC-client set up you can use the 
+[freenode webchat](https://webchat.freenode.net/?channels=editorconfig-checker).
