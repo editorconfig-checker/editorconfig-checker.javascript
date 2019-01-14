@@ -10,4 +10,4 @@ cache: yarn
 script:
   - make build
   - make lint
-  - make test-coverage-publish
+  # - make test-coverage-publish

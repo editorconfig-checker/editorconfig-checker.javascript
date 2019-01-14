@@ -30,14 +30,7 @@
       "jest"
     ]
   },
-  "dependencies": {
-    "glob": "^7.1.2",
-    "iniparser": "^1.0.5",
-    "is-valid-glob": "^1.0.0",
-    "minimatch": "^3.0.4",
-    "minimist": "^1.2.0",
-    "node-find-files": "^0.0.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/preset-env": "^7.3.1",

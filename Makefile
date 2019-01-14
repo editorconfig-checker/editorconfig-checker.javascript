@@ -30,17 +30,13 @@ info:
 ################################################################################
 
 
-check-requirements:
-	@which yarn &>/dev/null || \
-		(echo yarn is not installed: https://github.com/yarnpkg/yarn && false)
-
 install: install-git-hook
-	yarn install
+	npm install
 
 install-git-hook:
 	cd ./.git/hooks/ && ln -sf ../../Build/GitHooks/pre-commit .
 
-setup: check-requirements install build
+setup: install build
 
 
 ################################################################################
@@ -74,10 +70,10 @@ test-watch:
 
 
 lint: lint-self
-	xo --ignore=Build/TestFiles/**/*.js
+	xo
 
 lint-self: build
-	./dist/index.js --exclude-pattern './dist/**' --exclude-pattern './Build/TestFiles/**' -l
+	./dist/index.js
 
 
 ################################################################################
@@ -95,8 +91,3 @@ clean-node_modules:
 
 clean-dist:
 	rm -Rf dist/
-
-
-# Make ALL targets phony targets
-# (Rebuild every time)
-.PHONY: *
