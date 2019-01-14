@@ -45,10 +45,13 @@ setup: install build
 
 
 build: clean-dist
-	babel src --out-dir dist && chmod +x ./dist/index.js
+	tsc && chmod +x ./dist/index.js
 
 build-watch:
-	babel src --watch --out-dir dist
+	tsc --watch
+
+run: build
+	./dist/index.js
 
 
 ################################################################################
@@ -57,10 +60,10 @@ build-watch:
 
 
 test:
-	jest src
+	# jest src
 
 test-coverage:
-	jest --coverage src
+	# jest --coverage src
 
 test-coverage-publish:
 	$(MAKE) test-coverage && ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
@@ -70,7 +73,7 @@ test-watch:
 
 
 lint: lint-self
-	xo
+	tslint --project tslint.json ./src/**/*.ts
 
 lint-self: build
 	./dist/index.js
