@@ -75,6 +75,9 @@ test-watch:
 lint: lint-self
 	tslint --project tslint.json ./src/**/*.ts
 
+lint-fix:
+	tslint --fix --project tslint.json ./src/**/*.ts
+
 lint-self: build
 	./dist/index.js
 
