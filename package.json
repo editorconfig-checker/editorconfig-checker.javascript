@@ -30,14 +30,18 @@
       "jest"
     ]
   },
+  "scripts": {
+    "postinstall": "./dist/index.js"
+  },
   "dependencies": {
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "tar": "^4.4.8"
   },
   "devDependencies": {
     "@types/node": "^10.12.18",
     "@types/request": "^2.48.1",
     "tslint": "^5.12.1",
-    "tslint-xo": "^0.11.0",
+    "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
   }
 }
