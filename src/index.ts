@@ -5,6 +5,8 @@ import * as fs from "fs";
 import * as tar from "tar";
 import { promisify } from "util";
 
+import * as packageJson from '../package.json';
+
 import {
     binaryPath,
     downloadFile,
@@ -16,14 +18,33 @@ import {
 
 const archiveName: string = getReleaseArchiveNameForCurrentPlatform();
 
-const doStuff = async () => {
+const execute = () => {
+    const ecProcess = spawn(`${binaryPath()}`, process.argv.slice(2));
+
+    ecProcess.stdout.on("data", data => {
+        console.log(`${data}`);
+    });
+
+    ecProcess.stderr.on("data", data => {
+        console.error(`${data}`);
+    });
+
+    ecProcess.on("close", code => {
+        if (code !== 0) {
+            process.exit(code);
+        }
+    });
+};
+
+(async () => {
     if (isFile(binaryPath())) {
         execute();
         return;
     }
 
     const myFile = await downloadFile(
-        downloadUrl("0.0.3", archiveName),
+        // TODO: get version from package.json
+        downloadUrl(packageJson.ecVersion, archiveName),
         "ec.tar.gz"
     );
 
@@ -37,31 +58,7 @@ const doStuff = async () => {
                 execute();
             })
             .catch(e => {
-                // Print error
+                console.error("ERROR:", e);
             });
     });
-};
-
-const execute = () => {
-    const ecProcess = spawn(`${binaryPath()}`);
-
-    ecProcess.stdout.on("data", data => {
-        // tslint-disable
-        console.log(`${data}`);
-        // tslint-enable
-    });
-
-    ecProcess.stderr.on("data", data => {
-        // tslint-disable
-        console.log(`${data}`);
-        // tslint-enable
-    });
-
-    ecProcess.on("close", code => {
-        if (code !== 0) {
-            // process.exit(code)
-        }
-    });
-};
-
-doStuff();
+})();

@@ -45,13 +45,13 @@ setup: install build
 
 
 build: clean-dist
-	tsc && chmod +x ./dist/index.js
+	tsc && chmod +x ./dist/src/index.js
 
 build-watch:
 	tsc --watch
 
 run: build
-	./dist/index.js
+	./dist/src/index.js
 
 
 ################################################################################
@@ -79,7 +79,7 @@ lint-fix:
 	tslint --fix --project tsconfig.json ./src/**/*.ts
 
 lint-self: build
-	./dist/index.js
+	./dist/src/index.js
 
 
 ################################################################################

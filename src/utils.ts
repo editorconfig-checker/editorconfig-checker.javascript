@@ -5,27 +5,37 @@ import * as os from "os";
 import * as request from "request";
 
 export const getReleaseArchiveNameForCurrentPlatform = (): string => {
-    return `${getReleaseNameForCurrentPlatform()}.tar.gz`
+    return `${getReleaseNameForCurrentPlatform()}.tar.gz`;
 };
 
 export const getReleaseNameForCurrentPlatform = (): string => {
-    const arch: string = os.arch();
-    const platform: string = os.platform();
+    const platform: () => string = () => {
+        const currentPlatform = os.platform();
+        if (currentPlatform === "win32") {
+            return "windows";
+        } else {
+            return currentPlatform;
+        }
+    };
 
-    // TODO: get correct archive names
-    switch (arch) {
-        case "smth":
-            return `ec-${platform}-${arch}`;
-            break;
+    const arch: () => string = () => {
+        const currentArch = os.arch();
 
-        default:
-            return `ec-${platform}-amd64`;
-    }
-}
+        if (currentArch === "x32") {
+            return "386";
+        } else if (currentArch === "x64") {
+            return "amd64";
+        }
+
+        return currentArch;
+    };
+
+    return `ec-${platform()}-${arch()}`;
+};
 
 export const binaryPath = (): string => {
-    return `./bin/${getReleaseNameForCurrentPlatform()}`
-}
+    return `${__dirname}/../../bin/${getReleaseNameForCurrentPlatform()}`;
+};
 
 export const isFile = (path: string): boolean => {
     try {
