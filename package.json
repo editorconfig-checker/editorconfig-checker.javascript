@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "glob": "^7.1.2",
-    "glob-fs": "^0.1.7",
     "iniparser": "^1.0.5",
     "is-valid-glob": "^1.0.0",
     "minimatch": "^3.0.4",
