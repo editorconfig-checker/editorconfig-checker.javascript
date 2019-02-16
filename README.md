@@ -46,6 +46,8 @@ git clone git@github.com:editorconfig-checker/editorconfig-checker.javascript.gi
 
 ## Usage
 
+There is an alias from `editorconfig-checker` to `ec` so you can exchange every occurrence of `editorconfig-checker` with `ec`.
+
 If you installed it via npm you have a binary in your `node_modules/.bin` folder called `editorconfig-checker`.
 Then you could create a script in your `package.json` like this:
 
