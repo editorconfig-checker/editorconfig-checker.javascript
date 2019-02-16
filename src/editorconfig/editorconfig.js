@@ -16,6 +16,7 @@ const getEditorconfigForFile = filePath => {
 		if (fileExists(editorconfigPath)) {
 			editorconfig = mergeDeep({}, iniparser.parseSync(editorconfigPath), editorconfig);
 		}
+
 		currentPath = path.dirname(currentPath);
 	} while (currentPath.includes(rootDir) && !editorconfig.root);
 
