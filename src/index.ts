@@ -5,21 +5,21 @@ import * as fs from "fs";
 import * as tar from "tar";
 import { promisify } from "util";
 
-import * as packageJson from '../package.json';
-
 import {
+    binary,
     binaryPath,
     downloadFile,
     downloadUrl,
+    ecRootDir,
     getReleaseArchiveNameForCurrentPlatform,
     isFile,
     removeFile
 } from "./utils";
 
-const archiveName: string = getReleaseArchiveNameForCurrentPlatform();
+const CORE_VERSION = "1.0.0"
 
 const execute = () => {
-    const ecProcess = spawn(`${binaryPath()}`, process.argv.slice(2));
+    const ecProcess = spawn(`${binary()}`, process.argv.slice(2));
 
     ecProcess.stdout.on("data", data => {
         console.log(`${data}`);
@@ -37,24 +37,27 @@ const execute = () => {
 };
 
 (async () => {
-    if (isFile(binaryPath())) {
+    if (isFile(binary())) {
         execute();
         return;
     }
 
+    const tarFilePath = `${ecRootDir()}/ec.tar.gz`;
+
     const myFile = await downloadFile(
-        // TODO: get version from package.json
-        downloadUrl(packageJson.ecVersion, archiveName),
-        "ec.tar.gz"
+        downloadUrl(CORE_VERSION, getReleaseArchiveNameForCurrentPlatform()),
+        tarFilePath
     );
 
     myFile.once("close", () => {
         tar.x({
-            file: `ec.tar.gz`,
+            C: ecRootDir(),
+            cwd: ecRootDir(),
+            file: tarFilePath,
             strict: true
         })
             .then(_ => {
-                removeFile("ec.tar.gz");
+                removeFile(tarFilePath);
                 execute();
             })
             .catch(e => {

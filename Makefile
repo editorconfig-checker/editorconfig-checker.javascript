@@ -6,6 +6,8 @@
 # Add node_modules binaries to $PATH
 export PATH := ./node_modules/.bin:$(PATH)
 
+BIN_FILE = "./dist/index.js"
+
 
 .DEFAULT:
 info:
@@ -45,13 +47,14 @@ setup: install build
 
 
 build: clean-dist
-	tsc && chmod +x ./dist/src/index.js
+	tsc && \
+	chmod +x $(BIN_FILE)
 
 build-watch:
 	tsc --watch
 
 run: build
-	./dist/src/index.js
+	$(BIN_FILE)
 
 
 ################################################################################
@@ -79,7 +82,7 @@ lint-fix:
 	tslint --fix --project tsconfig.json ./src/**/*.ts
 
 lint-self: build
-	./dist/src/index.js
+	$(BIN_FILE)
 
 
 ################################################################################

@@ -33,8 +33,16 @@ export const getReleaseNameForCurrentPlatform = (): string => {
     return `ec-${platform()}-${arch()}`;
 };
 
+export const ecRootDir = (): string => {
+    return `${__dirname}/..`;
+};
+
 export const binaryPath = (): string => {
-    return `${__dirname}/../../bin/${getReleaseNameForCurrentPlatform()}`;
+    return `${ecRootDir()}/bin`;
+};
+
+export const binary = (): string => {
+    return `${binaryPath()}/${getReleaseNameForCurrentPlatform()}`;
 };
 
 export const isFile = (path: string): boolean => {

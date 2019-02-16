@@ -11,9 +11,7 @@
   "files": [
     "LICENSE",
     "README.md",
-    "src",
-    "bin/editorconfig-checker",
-    "dist"
+    "dist/**/**/*.js"
   ],
   "repository": {
     "type": "git",
