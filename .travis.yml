@@ -10,5 +10,4 @@ cache: npm
 script:
   - make build
   - make lint
-  - make run
   # - make test-coverage-publish

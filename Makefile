@@ -69,13 +69,13 @@ test-coverage:
 	# jest --coverage src
 
 test-coverage-publish:
-	$(MAKE) test-coverage && ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
+	# $(MAKE) test-coverage && ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
 
 test-watch:
-	jest --watch src
+	# jest --watch src
 
 
-lint:
+lint: lint-self
 	tslint --project tsconfig.json ./src/**/*.ts
 
 lint-fix:
@@ -90,13 +90,11 @@ lint-self: build
 ################################################################################
 
 
-publish: build
+publish: clean install build lint test
 	npm publish
 
-clean: clean-node_modules clean-dist
-
-clean-node_modules:
-	rm -Rf node_modules
+clean:
+	rm -Rf ./{dist,node_modules,bin}
 
 clean-dist:
-	rm -Rf dist/
+	rm -Rf ./dist

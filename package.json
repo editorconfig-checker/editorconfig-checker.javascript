@@ -1,12 +1,11 @@
 {
   "name": "editorconfig-checker",
   "version": "2.0.0",
-  "ecVersion": "1.0.0",
-  "description": "",
+  "description": "A tool to verify that your files are in harmony with your .editorconfig",
   "main": "src/index.js",
   "bin": {
-    "editorconfig-checker": "./dist/src/index.js",
-    "ec": "./dist/src/index.js"
+    "editorconfig-checker": "./dist/index.js",
+    "ec": "./dist/index.js"
   },
   "files": [
     "LICENSE",
@@ -17,8 +16,12 @@
     "type": "git",
     "url": "git+https://github.com/editorconfig-checker/editorconfig-checker.javascript.git"
   },
-  "keywords": [],
-  "author": "Max Strübing <mxstrbng@gmail.com> (https://github.com/mstruebing)",
+  "keywords": [
+    "lint",
+    "linting",
+    "clean-code"
+  ],
+  "author": "Max Strübing <mxstrbng@gmail.com> (https://github.com/mstruebing) (https://twitter.com/mxstrbng)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/editorconfig-checker/editorconfig-checker.javascript/issues"
