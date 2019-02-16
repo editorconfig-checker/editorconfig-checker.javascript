@@ -1,4 +1,4 @@
-import validateFile from './validation-processor'; // eslint-disable-line no-unused-vars
+import validateFile from './validation-processor';
 
 console.error = jest.fn();
 
