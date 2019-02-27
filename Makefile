@@ -6,6 +6,8 @@
 # Add node_modules binaries to $PATH
 export PATH := ./node_modules/.bin:$(PATH)
 
+BIN_FILE = "./dist/index.js"
+
 
 .DEFAULT:
 info:
@@ -30,17 +32,13 @@ info:
 ################################################################################
 
 
-check-requirements:
-	@which yarn &>/dev/null || \
-		(echo yarn is not installed: https://github.com/yarnpkg/yarn && false)
-
 install: install-git-hook
-	yarn install
+	npm install
 
 install-git-hook:
 	cd ./.git/hooks/ && ln -sf ../../Build/GitHooks/pre-commit .
 
-setup: check-requirements install build
+setup: install build
 
 
 ################################################################################
@@ -49,10 +47,14 @@ setup: check-requirements install build
 
 
 build: clean-dist
-	babel src --out-dir dist && chmod +x ./dist/index.js
+	tsc && \
+	chmod +x $(BIN_FILE)
 
 build-watch:
-	babel src --watch --out-dir dist
+	tsc --watch
+
+run: build
+	$(BIN_FILE)
 
 
 ################################################################################
@@ -61,23 +63,31 @@ build-watch:
 
 
 test:
-	jest src
+	# jest src
 
 test-coverage:
-	jest --coverage src
+	# jest --coverage src
 
 test-coverage-publish:
-	$(MAKE) test-coverage && ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
+	# $(MAKE) test-coverage && ./node_modules/coveralls/bin/coveralls.js < ./coverage/lcov.info
 
 test-watch:
-	jest --watch src
+	# jest --watch src
 
 
-lint: lint-self
-	xo --ignore=Build/TestFiles/**/*.js
+lint: lint-prettier lint-ts lint-self
+
+lint-ts:
+	tslint --project tsconfig.json ./src/**/*.ts
+
+lint-fix:
+	tslint --fix --project tsconfig.json ./src/**/*.ts
+
+lint-prettier:
+	prettier --check ./src/**/*
 
 lint-self: build
-	./dist/index.js --exclude-pattern './dist/**' --exclude-pattern './Build/TestFiles/**' -l
+	$(BIN_FILE)
 
 
 ################################################################################
@@ -85,18 +95,11 @@ lint-self: build
 ################################################################################
 
 
-publish: build
+publish: clean install build lint test
 	npm publish
 
-clean: clean-node_modules clean-dist
-
-clean-node_modules:
-	rm -Rf node_modules
+clean:
+	rm -Rf ./{dist,node_modules,bin}
 
 clean-dist:
-	rm -Rf dist/
-
-
-# Make ALL targets phony targets
-# (Rebuild every time)
-.PHONY: *
+	rm -Rf ./dist

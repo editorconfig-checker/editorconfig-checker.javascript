@@ -5,9 +5,9 @@ notifications:
 
 language: node_js
 
-cache: yarn
+cache: npm
 
 script:
   - make build
   - make lint
-  - make test-coverage-publish
+  # - make test-coverage-publish

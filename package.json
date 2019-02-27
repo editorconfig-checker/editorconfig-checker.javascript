@@ -1,7 +1,7 @@
 {
   "name": "editorconfig-checker",
-  "version": "1.4.0",
-  "description": "",
+  "version": "2.0.1",
+  "description": "A tool to verify that your files are in harmony with your .editorconfig",
   "main": "src/index.js",
   "bin": {
     "editorconfig-checker": "./dist/index.js",
@@ -10,16 +10,18 @@
   "files": [
     "LICENSE",
     "README.md",
-    "src",
-    "bin/editorconfig-checker",
-    "dist"
+    "dist/**/**/*.js"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/editorconfig-checker/editorconfig-checker.javascript.git"
   },
-  "keywords": [],
-  "author": "Max Strübing <mxstrbng@gmail.com> (https://github.com/mstruebing)",
+  "keywords": [
+    "lint",
+    "linting",
+    "clean-code"
+  ],
+  "author": "Max Strübing <mxstrbng@gmail.com> (https://github.com/mstruebing) (https://twitter.com/mxstrbng)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/editorconfig-checker/editorconfig-checker.javascript/issues"
@@ -30,19 +32,19 @@
       "jest"
     ]
   },
+  "scripts": {
+    "prepublish": "make build"
+  },
   "dependencies": {
-    "glob": "^7.1.2",
-    "iniparser": "^1.0.5",
-    "is-valid-glob": "^1.0.0",
-    "minimatch": "^3.0.4",
-    "minimist": "^1.2.0",
-    "node-find-files": "^0.0.4"
+    "request": "^2.88.0",
+    "tar": "^4.4.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/preset-env": "^7.3.1",
-    "coveralls": "^3.0.0",
-    "jest": "^24.1.0",
-    "xo": "^0.24.0"
+    "@types/node": "^10.12.18",
+    "@types/request": "^2.48.1",
+    "prettier": "^1.16.4",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.2"
   }
 }
