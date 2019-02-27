@@ -75,11 +75,16 @@ test-watch:
 	# jest --watch src
 
 
-lint: lint-self
+lint: lint-prettier lint-ts lint-self
+
+lint-ts:
 	tslint --project tsconfig.json ./src/**/*.ts
 
 lint-fix:
 	tslint --fix --project tsconfig.json ./src/**/*.ts
+
+lint-prettier:
+	prettier --check ./src/**/*
 
 lint-self: build
 	$(BIN_FILE)
