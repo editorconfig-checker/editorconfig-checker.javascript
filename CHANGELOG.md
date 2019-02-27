@@ -1,3 +1,7 @@
+# [2.0.0] - 2019-02-27
+## BREAKING
+- use [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker) as core and only have a typescript wrapper.
+
 # [1.4.0] - 2019-02-16
 ## Added
 - alias from `editorconfig-checker` to `ec`
