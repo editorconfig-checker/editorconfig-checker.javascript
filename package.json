@@ -40,7 +40,7 @@
     "tar": "^4.4.8"
   },
   "devDependencies": {
-    "@types/node": "^10.12.18",
+    "@types/node": "^11.9.6",
     "@types/request": "^2.48.1",
     "prettier": "^1.16.4",
     "tslint": "^5.12.1",
