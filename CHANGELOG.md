@@ -1,3 +1,17 @@
+# Changelog
+
+## Unreleased
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+# [2.0.2] - 2019-03-01
+## Fixed
+- Updated core for windows compatibility see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.1.1
+
 # [2.0.1] - 2019-02-27
 ## BREAKING
 - use [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker) as core and only have a typescript wrapper.

@@ -16,7 +16,7 @@ import {
     removeFile
 } from "./utils";
 
-const CORE_VERSION = "1.1.0";
+const CORE_VERSION = "1.1.1";
 
 const execute = () => {
     const ecProcess = spawn(`${binary()}`, process.argv.slice(2));
