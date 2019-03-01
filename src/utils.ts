@@ -8,28 +8,28 @@ export const getReleaseArchiveNameForCurrentPlatform = (): string => {
     return `${getReleaseNameForCurrentPlatform()}.tar.gz`;
 };
 
+export const platform: () => string = () => {
+    const currentPlatform = os.platform();
+
+    if (currentPlatform === "win32") {
+        return "windows";
+    } else {
+        return currentPlatform;
+    }
+};
+
+export const arch: () => string = () => {
+    const currentArch = os.arch();
+
+    if (currentArch === "x32") {
+        return "386";
+    } else if (currentArch === "x64") {
+        return "amd64";
+    }
+
+    return currentArch;
+};
 export const getReleaseNameForCurrentPlatform = (): string => {
-    const platform: () => string = () => {
-        const currentPlatform = os.platform();
-        if (currentPlatform === "win32") {
-            return "windows";
-        } else {
-            return currentPlatform;
-        }
-    };
-
-    const arch: () => string = () => {
-        const currentArch = os.arch();
-
-        if (currentArch === "x32") {
-            return "386";
-        } else if (currentArch === "x64") {
-            return "amd64";
-        }
-
-        return currentArch;
-    };
-
     return `ec-${platform()}-${arch()}`;
 };
 
@@ -42,7 +42,9 @@ export const binaryPath = (): string => {
 };
 
 export const binary = (): string => {
-    return `${binaryPath()}/${getReleaseNameForCurrentPlatform()}`;
+    return `${binaryPath()}/${getReleaseNameForCurrentPlatform()}${
+        platform() === "windows" ? ".exe" : ""
+    }`;
 };
 
 export const isFile = (path: string): boolean => {
