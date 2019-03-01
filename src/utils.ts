@@ -29,8 +29,11 @@ export const arch: () => string = () => {
 
     return currentArch;
 };
+
 export const getReleaseNameForCurrentPlatform = (): string => {
-    return `ec-${platform()}-${arch()}`;
+    return `ec-${platform()}-${arch()}${
+        platform() === "windows" ? ".exe" : ""
+    }`;
 };
 
 export const ecRootDir = (): string => {
@@ -42,9 +45,7 @@ export const binaryPath = (): string => {
 };
 
 export const binary = (): string => {
-    return `${binaryPath()}/${getReleaseNameForCurrentPlatform()}${
-        platform() === "windows" ? ".exe" : ""
-    }`;
+    return `${binaryPath()}/${getReleaseNameForCurrentPlatform()}`;
 };
 
 export const isFile = (path: string): boolean => {

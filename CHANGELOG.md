@@ -8,7 +8,11 @@
 ### Fixed
 ### Security
 
-# [2.0.3] - 2019-03-01
+# [2.0.5] - 2019-03-01
+## Fixed
+- Use `.exe` binary for windows again
+
+# [2.0.4] - 2019-03-01
 ## Fixed
 - Use `.exe` binary for windows
 
