@@ -1,13 +1,10 @@
 #!/usr/bin/env node
 
 import { spawn } from "child_process";
-import * as fs from "fs";
 import * as tar from "tar";
-import { promisify } from "util";
 
 import {
     binary,
-    binaryPath,
     downloadFile,
     downloadUrl,
     ecRootDir,
