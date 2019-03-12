@@ -7,6 +7,8 @@
 [![devDependencies](https://david-dm.org/editorconfig-checker/editorconfig-checker.javascript/dev-status.svg)](https://david-dm.org/editorconfig-checker/editorconfig-checker.javascript?type=dev&view=list)
 [![Greenkeeper badge](https://badges.greenkeeper.io/editorconfig-checker/editorconfig-checker.javascript.svg)](https://greenkeeper.io/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/editorconfig-checker/editorconfig-checker.javascript.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/editorconfig-checker/editorconfig-checker.javascript/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/editorconfig-checker/editorconfig-checker.javascript.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/editorconfig-checker/editorconfig-checker.javascript/context:javascript)
 
 ## What?
 
