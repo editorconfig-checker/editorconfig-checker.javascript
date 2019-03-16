@@ -33,7 +33,7 @@
     ]
   },
   "scripts": {
-    "prepublish": "make build"
+    "prepare": "make build"
   },
   "dependencies": {
     "request": "^2.88.0",
