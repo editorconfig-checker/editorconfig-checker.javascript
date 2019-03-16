@@ -6,6 +6,7 @@
 ### Deprecated
 ### Removed
 ### Fixed
+* exchange deprecated `prepublish` script with `prepare`
 ### Security
 
 
