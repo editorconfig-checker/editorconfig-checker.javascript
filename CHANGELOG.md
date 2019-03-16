@@ -8,6 +8,11 @@
 ### Fixed
 ### Security
 
+
+# [2.0.6] - 2019-03-16
+## Fixed
+- use `CGO_ENABLED=0` to let Go binary run on alpine
+
 # [2.0.5] - 2019-03-01
 ## Fixed
 - Use `.exe` binary for windows again
