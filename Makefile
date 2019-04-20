@@ -132,7 +132,7 @@ _current_version:
 	@echo the current core version is: $(CURRENT_CORE_VERSION)
 	@echo the current self version is: $(CURRENT_SELF_VERSION)
 
-_do_release: clean test build run _tag_version _publish
+_do_release: clean test build run _tag_version publish
 
 _tag_version:
 	@read -p "Enter core version to release: " core_version && \
@@ -141,7 +141,3 @@ _tag_version:
 	sed -i "s/\"version\":.*\"/version\": \"$${self_version}\"/" ./package.json && \
 	git add . && git commit -m "chore(release): $${version}" && git tag "$${version}" && \
 	git push origin master && git push origin master --tags
-
-
-_publish:
-	npm publish
