@@ -111,7 +111,7 @@ clean-dist:
 	rm -Rf ./dist
 
 
-release: _is_master_branch _git_branch_is_up_to_date _current_version _do_release
+release: _is_master_branch _git_branch_is_up_to_date _do_release
 	echo Release done. Go to Github and create a release.
 
 _is_master_branch:
@@ -134,7 +134,7 @@ _current_version:
 
 _do_release: clean install test build run _tag_version publish
 
-_tag_version:
+_tag_version: _current_version
 	@read -p "Enter core version to release: " core_version && \
 	read -p "Enter self version to release: " self_version && \
 	sed -i "s/const CORE_VERSION = \".*\";/const CORE_VERSION = \"$${core_version}\";/" ./src/index.ts && \
