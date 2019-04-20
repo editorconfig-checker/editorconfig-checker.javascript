@@ -2,13 +2,19 @@
 
 ## Unreleased
 ### Added
-* better release process through `make release`
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
-* exchange deprecated `prepublish` script with `prepare`
 ### Security
+
+
+# [2.0.7] - 2019-04-20
+### Added
+* better release process through `make release`
+### Fixed
+* exchange deprecated `prepublish` script with `prepare`
+* insert_final_newline behavior according to specification (https://github.com/editorconfig-checker/editorconfig-checker/pull/56)
 
 
 # [2.0.6] - 2019-03-16
