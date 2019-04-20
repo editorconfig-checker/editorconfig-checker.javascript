@@ -2,6 +2,7 @@
 
 ## Unreleased
 ### Added
+* better release process through `make release`
 ### Changed
 ### Deprecated
 ### Removed
