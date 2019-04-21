@@ -8,6 +8,9 @@
 ### Fixed
 ### Security
 ### Misc
+
+## [2.0.8] - 2019-04-21
+### Misc
 * Add some not needed folders/files to `.npmignore` to make the release smaller
 * Adjust `.nvmrc` to reflect current `@types/node` version
 
