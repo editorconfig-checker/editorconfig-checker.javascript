@@ -7,9 +7,14 @@
 ### Removed
 ### Fixed
 ### Security
+### Misc
+
+[x.x.x] - xxxx-xx-xx
+### Misc
+* Adjust `.nvmrc` to reflect current `@types/node` version
 
 
-# [2.0.7] - 2019-04-20
+## [2.0.7] - 2019-04-20
 ### Added
 * better release process through `make release`
 ### Fixed
@@ -17,27 +22,27 @@
 * insert_final_newline behavior according to specification (https://github.com/editorconfig-checker/editorconfig-checker/pull/56)
 
 
-# [2.0.6] - 2019-03-16
+## [2.0.6] - 2019-03-16
 ## Fixed
 - use `CGO_ENABLED=0` to let Go binary run on alpine
 
-# [2.0.5] - 2019-03-01
+## [2.0.5] - 2019-03-01
 ## Fixed
 - Use `.exe` binary for windows again
 
-# [2.0.4] - 2019-03-01
+## [2.0.4] - 2019-03-01
 ## Fixed
 - Use `.exe` binary for windows
 
-# [2.0.2] - 2019-03-01
+## [2.0.2] - 2019-03-01
 ## Fixed
 - Updated core for windows compatibility see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.1.1
 
-# [2.0.1] - 2019-02-27
+## [2.0.1] - 2019-02-27
 ## BREAKING
 - use [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker) as core and only have a typescript wrapper.
 
-# [1.4.0] - 2019-02-16
+## [1.4.0] - 2019-02-16
 ## Added
 - alias from `editorconfig-checker` to `ec`
 
