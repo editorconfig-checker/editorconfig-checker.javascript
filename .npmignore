@@ -1,2 +1,13 @@
 src
 bin
+.babelrc
+.editorconfig
+.eslintrc
+.nvmrc
+.travis.yml
+Makefile
+tags
+tsconfig.json
+tslint.json
+Build
+Docs
