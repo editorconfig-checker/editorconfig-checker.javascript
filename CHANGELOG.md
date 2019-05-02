@@ -9,6 +9,10 @@
 ### Security
 ### Misc
 
+
+## [2.1.0] - 2019-05-02
+see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.2.0
+
 ## [2.0.8] - 2019-04-21
 ### Misc
 * Add some not needed folders/files to `.npmignore` to make the release smaller
