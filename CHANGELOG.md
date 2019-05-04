@@ -8,6 +8,7 @@
 ### Fixed
 ### Security
 ### Misc
+* update to node v12
 
 
 ## [2.1.0] - 2019-05-02
