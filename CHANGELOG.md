@@ -11,6 +11,9 @@
 * update to node v12
 
 
+## [2.1.1] - 2019-07-06
+see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.2.1
+
 ## [2.1.0] - 2019-05-02
 see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.2.0
 
