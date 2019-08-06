@@ -8,8 +8,12 @@
 ### Fixed
 ### Security
 ### Misc
-* update to node v12
 
+
+## [2.2.0] - 2019-08-06
+see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.3.0
+### Misc
+* update to node v12
 
 ## [2.1.1] - 2019-07-06
 see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.2.1
