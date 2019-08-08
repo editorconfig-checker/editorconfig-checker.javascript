@@ -8,6 +8,7 @@
 ### Fixed
 ### Security
 ### Misc
+* update some minor versions
 
 
 ## [2.2.0] - 2019-08-06
