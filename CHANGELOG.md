@@ -8,8 +8,13 @@
 ### Fixed
 ### Security
 ### Misc
-* update some minor versions
 
+## [3.0.0] - 2019-08-18
+!!!BREAKING
+see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.0
+
+### Misc
+* update some minor versions
 
 ## [2.2.0] - 2019-08-06
 see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.3.0
