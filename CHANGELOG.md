@@ -9,6 +9,9 @@
 ### Security
 ### Misc
 
+## [3.0.2] - 2019-08-19
+see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.2
+
 ## [3.0.1] - 2019-08-18
 see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.1
 
