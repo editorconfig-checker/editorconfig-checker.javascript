@@ -13,7 +13,7 @@ import {
     removeFile
 } from "./utils";
 
-const CORE_VERSION = "2.0.1";
+const CORE_VERSION = "2.0.2";
 
 const execute = () => {
     const ecProcess = spawn(`${binary()}`, process.argv.slice(2));
