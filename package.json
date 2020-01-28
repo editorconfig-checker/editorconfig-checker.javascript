@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "request": "^2.88.0",
-    "tar": "^5.0.2"
+    "tar": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^13.1.1",
