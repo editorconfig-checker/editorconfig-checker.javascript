@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as os from "os";
-import * as request from "request";
+import fetch from "node-fetch";
 
 export const getReleaseArchiveNameForCurrentPlatform = (): string => {
     return `${getReleaseNameForCurrentPlatform()}.tar.gz`;
@@ -64,22 +64,15 @@ export const downloadUrl = (version: string, archiveName: string): string => {
     return `${releaseUrl}/${version}/${archiveName}`;
 };
 
-export const downloadFile = (url: string, dest: string): fs.WriteStream => {
+export const downloadFile = (
+    url: string,
+    dest: string
+): Promise<fs.WriteStream> => {
     if (isFile(dest)) {
         fs.unlinkSync(dest);
     }
 
-    const requestWithUserAgent: request.RequestAPI<
-        request.Request,
-        request.CoreOptions,
-        request.RequiredUriUrl
-    > = request.defaults({
-        headers: {
-            "User-Agent": "editorconfig-checker"
-        }
-    });
-
-    return requestWithUserAgent.get(url).pipe(fs.createWriteStream(dest));
+    return fetch(url).then(res => res.body.pipe(fs.createWriteStream(dest)));
 };
 
 export const removeFile = (path: string): void => {

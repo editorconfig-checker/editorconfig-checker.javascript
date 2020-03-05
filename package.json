@@ -36,12 +36,12 @@
     "prepare": "make build"
   },
   "dependencies": {
-    "request": "^2.88.0",
+    "node-fetch": "^2.6.0",
     "tar": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^13.1.1",
-    "@types/request": "^2.48.2",
+    "@types/node-fetch": "^2.5.5",
     "prettier": "^1.18.2",
     "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
