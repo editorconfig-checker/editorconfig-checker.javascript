@@ -7,8 +7,10 @@
 ### Removed
 ### Fixed
 ### Security
-* Exchange deprecated `request`-package with `node-fetch` [#141](https://github.com/editorconfig-checker/editorconfig-checker.javascript/pull/141) ([@mstruebing](https://github.com/mstruebing))
 ### Misc
+
+## [3.0.4] - 2020-03-05
+* Exchange deprecated `request`-package with `node-fetch` [#141](https://github.com/editorconfig-checker/editorconfig-checker.javascript/pull/141) ([@mstruebing](https://github.com/mstruebing))
 
 ## [3.0.3] - 2019-08-19
 see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.3
