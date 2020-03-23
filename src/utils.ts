@@ -72,7 +72,7 @@ export const downloadFile = (
         fs.unlinkSync(dest);
     }
 
-    return fetch(url).then(res => res.body.pipe(fs.createWriteStream(dest)));
+    return fetch(url).then((res) => res.body.pipe(fs.createWriteStream(dest)));
 };
 
 export const removeFile = (path: string): void => {

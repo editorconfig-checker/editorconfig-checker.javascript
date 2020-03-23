@@ -10,7 +10,7 @@ import {
     ecRootDir,
     getReleaseArchiveNameForCurrentPlatform,
     isFile,
-    removeFile
+    removeFile,
 } from "./utils";
 
 const CORE_VERSION = "2.0.3";
@@ -18,15 +18,15 @@ const CORE_VERSION = "2.0.3";
 const execute = () => {
     const ecProcess = spawn(`${binary()}`, process.argv.slice(2));
 
-    ecProcess.stdout.on("data", data => {
+    ecProcess.stdout.on("data", (data) => {
         console.log(`${data}`);
     });
 
-    ecProcess.stderr.on("data", data => {
+    ecProcess.stderr.on("data", (data) => {
         console.error(`${data}`);
     });
 
-    ecProcess.on("close", code => {
+    ecProcess.on("close", (code) => {
         if (code !== 0) {
             process.exit(code);
         }
@@ -51,13 +51,13 @@ const execute = () => {
             C: ecRootDir(),
             cwd: ecRootDir(),
             file: tarFilePath,
-            strict: true
+            strict: true,
         })
-            .then(_ => {
+            .then((_) => {
                 removeFile(tarFilePath);
                 execute();
             })
-            .catch(e => {
+            .catch((e) => {
                 console.error("ERROR:", e);
             });
     });
