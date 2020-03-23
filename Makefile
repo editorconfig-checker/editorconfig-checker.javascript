@@ -87,6 +87,7 @@ lint-ts:
 	tslint --project tsconfig.json ./src/**/*.ts
 
 lint-fix:
+	prettier --write src
 	tslint --fix --project tsconfig.json ./src/**/*.ts
 
 lint-prettier:
