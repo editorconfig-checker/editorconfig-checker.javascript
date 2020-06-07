@@ -1,6 +1,6 @@
 {
   "name": "editorconfig-checker",
-  "version": "3.0.5",
+  "version": "3.1.0",
   "description": "A tool to verify that your files are in harmony with your .editorconfig",
   "main": "src/index.js",
   "bin": {
