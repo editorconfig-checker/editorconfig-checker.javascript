@@ -61,4 +61,7 @@ const execute = () => {
                 console.error("ERROR:", e);
             });
     });
-})();
+})().catch((e) => {
+    console.error("ERROR:", e);
+    process.exit(1);
+});
