@@ -4,7 +4,8 @@
       "lib": ["es6", "ES2015"],
       "target": "es5",
       "outDir": "dist",
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "esModuleInterop": true
   }
 }
 

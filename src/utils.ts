@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as os from "os";
 import fetch from "node-fetch";
+import { HttpsProxyAgent } from "https-proxy-agent";
 
 export const getReleaseArchiveNameForCurrentPlatform = (): string => {
     return `${getReleaseNameForCurrentPlatform()}.tar.gz`;
@@ -71,8 +72,11 @@ export const downloadFile = (
     if (isFile(dest)) {
         fs.unlinkSync(dest);
     }
+    const proxy = process.env.https_proxy || process.env.http_proxy || "";
 
-    return fetch(url).then((res) => res.body.pipe(fs.createWriteStream(dest)));
+    return fetch(url, {
+        agent: proxy ? (new HttpsProxyAgent(proxy) as any) : null,
+    }).then((res) => res.body.pipe(fs.createWriteStream(dest)));
 };
 
 export const removeFile = (path: string): void => {
