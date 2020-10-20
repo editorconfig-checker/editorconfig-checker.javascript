@@ -16,6 +16,10 @@
 
 ### Misc
 
+## [3.3.0] - 2020-10-20
+
+see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.2.0
+
 ## [3.2.0] - 2020-09-11
 
 - add proxy option and throw error if download fails [#203](https://github.com/editorconfig-checker/editorconfig-checker.javascript/pull/203) ([@bufferoverflow](https://github.com/bufferoverflow))
