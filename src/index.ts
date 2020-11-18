@@ -4,6 +4,7 @@ import { spawn } from "child_process";
 import * as tar from "tar";
 import fs from "fs";
 import util from "util";
+import rimraf from "rimraf";
 
 import {
     binary,
@@ -22,7 +23,10 @@ const mkdir = util.promisify(fs.mkdir);
 const rename = util.promisify(fs.rename);
 
 const execute = (version: string) => {
-    const ecProcess = spawn(`${binary(version)}`, process.argv.slice(2));
+    const ecProcess = spawn(
+        `${binary(version)}`,
+        process.argv.slice(2).filter((i) => i !== "--reload" && i !== "--clean")
+    );
 
     ecProcess.stdout.on("data", (data) => {
         console.log(`${data}`);
@@ -40,11 +44,23 @@ const execute = (version: string) => {
 };
 
 (async () => {
-    // TODO: force reload
+    if (process.argv.includes("--help")) {
+        console.log("wrapper specific arguments: ");
+        console.log("\t--reload\tredownloads the binary");
+        console.log("\t--clean\tdeletes all cached files");
+    }
     // TODO: autocheck for new version
-    // TODO: skip autocheck for now version
+    // TODO: skip autocheck for new version
     const versions = await getAvailableVersions();
     let version = await getVersionFromConfigFile();
+
+    const reload = process.argv.includes("--reload");
+    const clean = process.argv.includes("--clean");
+
+    if (clean) {
+        rimraf.sync(`${ecRootDir()}/bin`);
+        return;
+    }
 
     if (!versions.includes(version)) {
         if (typeof version === "undefined") {
@@ -56,7 +72,7 @@ const execute = (version: string) => {
         }
     }
 
-    if (isFile(binary(version))) {
+    if (!reload && isFile(binary(version))) {
         execute(version);
         return;
     }
@@ -77,7 +93,9 @@ const execute = (version: string) => {
         })
             .then(async (_) => {
                 removeFile(tarFilePath);
-                await mkdir(`${ecRootDir()}/bin/${version}`);
+                await mkdir(`${ecRootDir()}/bin/${version}`, {
+                    recursive: true,
+                });
                 await rename(
                     `${ecRootDir()}/bin/${getReleaseNameForCurrentPlatform()}`,
                     binary(version)
