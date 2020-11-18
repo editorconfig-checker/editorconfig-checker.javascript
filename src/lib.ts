@@ -115,3 +115,11 @@ export const getVersionFromConfigFile = async (): Promise<string> => {
 
     return config.Version;
 };
+
+export const getSkipUpdateCheckFromConfigFile = async (): Promise<boolean> => {
+    const config = JSON.parse(
+        (await readFile(`${process.cwd()}/.ecrc`)).toString()
+    );
+
+    return config.SkipUpdateCheck;
+};

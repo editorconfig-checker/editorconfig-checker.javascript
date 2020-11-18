@@ -17,15 +17,18 @@ import {
     getAvailableVersions,
     getVersionFromConfigFile,
     getReleaseNameForCurrentPlatform,
+    getSkipUpdateCheckFromConfigFile,
 } from "./lib";
 
 const mkdir = util.promisify(fs.mkdir);
 const rename = util.promisify(fs.rename);
 
+const FLAGS = ["--reload", "--clean", "--skip-update-check"];
+
 const execute = (version: string) => {
     const ecProcess = spawn(
         `${binary(version)}`,
-        process.argv.slice(2).filter((i) => i !== "--reload" && i !== "--clean")
+        process.argv.slice(2).filter((i) => !FLAGS.includes(i))
     );
 
     ecProcess.stdout.on("data", (data) => {
@@ -49,13 +52,16 @@ const execute = (version: string) => {
         console.log("\t--reload\tredownloads the binary");
         console.log("\t--clean\tdeletes all cached files");
     }
-    // TODO: autocheck for new version
-    // TODO: skip autocheck for new version
+
     const versions = await getAvailableVersions();
+    const latestVersion = versions[versions.length - 1];
     let version = await getVersionFromConfigFile();
 
     const reload = process.argv.includes("--reload");
     const clean = process.argv.includes("--clean");
+    const skipUpdateCheck =
+        process.argv.includes("--skip-update-check") ||
+        (await getSkipUpdateCheckFromConfigFile());
 
     if (clean) {
         rimraf.sync(`${ecRootDir()}/bin`);
@@ -64,12 +70,16 @@ const execute = (version: string) => {
 
     if (!versions.includes(version)) {
         if (typeof version === "undefined") {
-            // get newest version
-            version = versions[versions.length - 1];
+            version = latestVersion;
         } else {
             console.log(`No version ${version} available`);
             return;
         }
+    }
+
+    if (!skipUpdateCheck && latestVersion !== version) {
+        console.warn(`There is a new version available: ${latestVersion}`);
+        console.warn(`You are using: ${version}`);
     }
 
     if (!reload && isFile(binary(version))) {
