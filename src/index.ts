@@ -2,6 +2,8 @@
 
 import { spawn } from "child_process";
 import * as tar from "tar";
+import fs from "fs";
+import util from "util";
 
 import {
     binary,
@@ -11,12 +13,16 @@ import {
     getReleaseArchiveNameForCurrentPlatform,
     isFile,
     removeFile,
-} from "./utils";
+    getAvailableVersions,
+    getVersionFromConfigFile,
+    getReleaseNameForCurrentPlatform,
+} from "./lib";
 
-const CORE_VERSION = "2.2.0";
+const mkdir = util.promisify(fs.mkdir);
+const rename = util.promisify(fs.rename);
 
-const execute = () => {
-    const ecProcess = spawn(`${binary()}`, process.argv.slice(2));
+const execute = (version: string) => {
+    const ecProcess = spawn(`${binary(version)}`, process.argv.slice(2));
 
     ecProcess.stdout.on("data", (data) => {
         console.log(`${data}`);
@@ -34,15 +40,31 @@ const execute = () => {
 };
 
 (async () => {
-    if (isFile(binary())) {
-        execute();
+    // TODO: force reload
+    // TODO: autocheck for new version
+    // TODO: skip autocheck for now version
+    const versions = await getAvailableVersions();
+    let version = await getVersionFromConfigFile();
+
+    if (!versions.includes(version)) {
+        if (typeof version === "undefined") {
+            // get newest version
+            version = versions[versions.length - 1];
+        } else {
+            console.log(`No version ${version} available`);
+            return;
+        }
+    }
+
+    if (isFile(binary(version))) {
+        execute(version);
         return;
     }
 
     const tarFilePath = `${ecRootDir()}/ec.tar.gz`;
 
     const myFile = await downloadFile(
-        downloadUrl(CORE_VERSION, getReleaseArchiveNameForCurrentPlatform()),
+        downloadUrl(version, getReleaseArchiveNameForCurrentPlatform()),
         tarFilePath
     );
 
@@ -53,9 +75,14 @@ const execute = () => {
             file: tarFilePath,
             strict: true,
         })
-            .then((_) => {
+            .then(async (_) => {
                 removeFile(tarFilePath);
-                execute();
+                await mkdir(`${ecRootDir()}/bin/${version}`);
+                await rename(
+                    `${ecRootDir()}/bin/${getReleaseNameForCurrentPlatform()}`,
+                    binary(version)
+                );
+                execute(version);
             })
             .catch((e) => {
                 console.error("ERROR:", e);
