@@ -15,9 +15,8 @@ import {
     isFile,
     removeFile,
     getAvailableVersions,
-    getVersionFromConfigFile,
+    getConfig,
     getReleaseNameForCurrentPlatform,
-    getSkipUpdateCheckFromConfigFile,
 } from "./lib";
 
 const mkdir = util.promisify(fs.mkdir);
@@ -50,18 +49,19 @@ const execute = (version: string) => {
     if (process.argv.includes("--help")) {
         console.log("wrapper specific arguments: ");
         console.log("\t--reload\tredownloads the binary");
+        console.log("\t--skip-update-check\tdon't check for new versions");
         console.log("\t--clean\tdeletes all cached files");
     }
 
     const versions = await getAvailableVersions();
     const latestVersion = versions[versions.length - 1];
-    let version = await getVersionFromConfigFile();
+    const config = await getConfig();
+    let version = config.Version;
 
     const reload = process.argv.includes("--reload");
     const clean = process.argv.includes("--clean");
     const skipUpdateCheck =
-        process.argv.includes("--skip-update-check") ||
-        (await getSkipUpdateCheckFromConfigFile());
+        process.argv.includes("--skip-update-check") || config.SkipUpdateCheck;
 
     if (clean) {
         rimraf.sync(`${ecRootDir()}/bin`);

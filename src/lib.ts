@@ -6,6 +6,11 @@ import util from "util";
 
 const readFile = util.promisify(fs.readFile);
 
+type Config = {
+    SkipUpdateCheck?: boolean;
+    Version?: string;
+};
+
 export const getReleaseArchiveNameForCurrentPlatform = (): string => {
     return `${getReleaseNameForCurrentPlatform()}.tar.gz`;
 };
@@ -108,18 +113,14 @@ export const getAvailableVersions = async (): Promise<string[]> => {
     return versions;
 };
 
-export const getVersionFromConfigFile = async (): Promise<string> => {
-    const config = JSON.parse(
-        (await readFile(`${process.cwd()}/.ecrc`)).toString()
-    );
+export const getConfig = async (): Promise<Config> => {
+    try {
+        const config = JSON.parse(
+            (await readFile(`${process.cwd()}/.ecrc`)).toString()
+        );
 
-    return config.Version;
-};
-
-export const getSkipUpdateCheckFromConfigFile = async (): Promise<boolean> => {
-    const config = JSON.parse(
-        (await readFile(`${process.cwd()}/.ecrc`)).toString()
-    );
-
-    return config.SkipUpdateCheck;
+        return config;
+    } catch (_) {
+        return {};
+    }
 };
