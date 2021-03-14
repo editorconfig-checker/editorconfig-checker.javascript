@@ -10,7 +10,6 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/editorconfig-checker/editorconfig-checker.javascript.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/editorconfig-checker/editorconfig-checker.javascript/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/editorconfig-checker/editorconfig-checker.javascript.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/editorconfig-checker/editorconfig-checker.javascript/context:javascript)
 
-
 <a href="https://www.buymeacoffee.com/mstruebing" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 ## What?
@@ -23,7 +22,7 @@ This tool only needs your editorconfig to check all files.
 
 ## Important
 
-This is only a wrapper for the core [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker). 
+This is only a wrapper for the core [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker).
 You should have a look at this repository to know how this tool can be used and what possibilities/caveats are there.
 This version can be used in the same way as the core as every argument is simply passed down to it.
 
@@ -67,17 +66,26 @@ Then you could create a script in your `package.json` like this:
 Usage output:
 
 ```
+wrapper specific arguments:
+        --reload        redownloads the binary
+        --skip-update-check     don't check for new versions
+        --clean deletes all cached files
 USAGE:
+
   -config string
         config
   -debug
         print debugging information
   -disable-end-of-line
         disables the trailing whitespace check
+  -disable-indent-size
+        disables only the indent-size check
   -disable-indentation
         disables the indentation check
   -disable-insert-final-newline
         disables the final newline check
+  -disable-max-line-length
+        disables only the max-line-length check
   -disable-trim-trailing-whitespace
         disables the trailing whitespace check
   -dry-run

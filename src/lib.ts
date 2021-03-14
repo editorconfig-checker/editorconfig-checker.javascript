@@ -2,6 +2,14 @@ import * as fs from "fs";
 import * as os from "os";
 import fetch from "node-fetch";
 import { HttpsProxyAgent } from "https-proxy-agent";
+import util from "util";
+
+const readFile = util.promisify(fs.readFile);
+
+type Config = {
+    SkipUpdateCheck?: boolean;
+    Version?: string;
+};
 
 export const getReleaseArchiveNameForCurrentPlatform = (): string => {
     return `${getReleaseNameForCurrentPlatform()}.tar.gz`;
@@ -43,8 +51,8 @@ export const binaryPath = (): string => {
     return `${ecRootDir()}/bin`;
 };
 
-export const binary = (): string => {
-    return `${binaryPath()}/${getReleaseNameForCurrentPlatform()}`;
+export const binary = (version: string): string => {
+    return `${binaryPath()}/${version}/${getReleaseNameForCurrentPlatform()}`;
 };
 
 export const isFile = (path: string): boolean => {
@@ -65,7 +73,7 @@ export const downloadUrl = (version: string, archiveName: string): string => {
     return `${releaseUrl}/${version}/${archiveName}`;
 };
 
-export const downloadFile = (
+export const downloadFile = async (
     url: string,
     dest: string
 ): Promise<fs.WriteStream> => {
@@ -83,4 +91,36 @@ export const removeFile = (path: string): void => {
     fs.unlinkSync(path);
 
     return;
+};
+
+export const getAvailableVersions = async (): Promise<string[]> => {
+    const proxy = process.env.https_proxy || process.env.http_proxy || "";
+
+    const response = await fetch(
+        "https://api.github.com/repos/editorconfig-checker/editorconfig-checker/git/refs/tags",
+        {
+            agent: proxy ? (new HttpsProxyAgent(proxy) as any) : null,
+        }
+    );
+
+    const buffer = await response.buffer();
+    const json = JSON.parse(buffer.toString());
+
+    const versions = json
+        .map((i) => i.ref.substring("refs/tags/".length))
+        .sort();
+
+    return versions;
+};
+
+export const getConfig = async (): Promise<Config> => {
+    try {
+        const config = JSON.parse(
+            (await readFile(`${process.cwd()}/.ecrc`)).toString()
+        );
+
+        return config;
+    } catch (_) {
+        return {};
+    }
 };
