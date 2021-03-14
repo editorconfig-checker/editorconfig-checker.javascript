@@ -16,6 +16,14 @@
 
 ### Misc
 
+## [4.0.0] - 2021-03-14
+
+### Breaking
+
+- Use config file to get core specific version [#222](https://github.com/editorconfig-checker/editorconfig-checker.javascript/pull/222)
+
+### Misc
+
 - Switch to Github Actions [#228](https://github.com/editorconfig-checker/editorconfig-checker.javascript/pull/228) ([@mstruebing](https://github.com/mstruebing))
 
 ## [3.3.0] - 2020-10-20

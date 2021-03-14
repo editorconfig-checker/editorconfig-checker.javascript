@@ -53,20 +53,30 @@ const execute = (version: string) => {
         console.log("\t--clean\tdeletes all cached files");
     }
 
-    const versions = await getAvailableVersions();
-    const latestVersion = versions[versions.length - 1];
-    const config = await getConfig();
-    let version = config.Version;
-
-    const reload = process.argv.includes("--reload");
     const clean = process.argv.includes("--clean");
-    const skipUpdateCheck =
-        process.argv.includes("--skip-update-check") || config.SkipUpdateCheck;
 
     if (clean) {
         rimraf.sync(`${ecRootDir()}/bin`);
         return;
     }
+
+    const reload = process.argv.includes("--reload");
+    const config = await getConfig();
+    let version = config.Version;
+
+    if (!reload && isFile(binary(version))) {
+        execute(version);
+        return;
+    }
+
+    const versions = await getAvailableVersions();
+    const latestVersion = versions.reduce(
+        (acc, curr) => (acc > curr ? acc : curr),
+        ""
+    );
+
+    const skipUpdateCheck =
+        process.argv.includes("--skip-update-check") || config.SkipUpdateCheck;
 
     if (!versions.includes(version)) {
         if (typeof version === "undefined") {
@@ -80,11 +90,6 @@ const execute = (version: string) => {
     if (!skipUpdateCheck && latestVersion !== version) {
         console.warn(`There is a new version available: ${latestVersion}`);
         console.warn(`You are using: ${version}`);
-    }
-
-    if (!reload && isFile(binary(version))) {
-        execute(version);
-        return;
     }
 
     const tarFilePath = `${ecRootDir()}/ec.tar.gz`;
