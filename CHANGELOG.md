@@ -18,6 +18,10 @@
 
 - Switch to Github Actions [#228](https://github.com/editorconfig-checker/editorconfig-checker.javascript/pull/228) ([@mstruebing](https://github.com/mstruebing))
 
+## [4.0.1] - 2021-03-16
+
+- Rollback own package manager configuration via version in config file
+
 ## [3.3.0] - 2020-10-20
 
 see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.2.0
