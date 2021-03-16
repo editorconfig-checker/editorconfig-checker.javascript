@@ -2,9 +2,6 @@
 
 import { spawn } from "child_process";
 import * as tar from "tar";
-import fs from "fs";
-import util from "util";
-import rimraf from "rimraf";
 
 import {
     binary,
@@ -14,21 +11,12 @@ import {
     getReleaseArchiveNameForCurrentPlatform,
     isFile,
     removeFile,
-    getAvailableVersions,
-    getConfig,
-    getReleaseNameForCurrentPlatform,
-} from "./lib";
+} from "./utils";
 
-const mkdir = util.promisify(fs.mkdir);
-const rename = util.promisify(fs.rename);
+const CORE_VERSION = "2.2.0";
 
-const FLAGS = ["--reload", "--clean", "--skip-update-check"];
-
-const execute = (version: string) => {
-    const ecProcess = spawn(
-        `${binary(version)}`,
-        process.argv.slice(2).filter((i) => !FLAGS.includes(i))
-    );
+const execute = () => {
+    const ecProcess = spawn(`${binary()}`, process.argv.slice(2));
 
     ecProcess.stdout.on("data", (data) => {
         console.log(`${data}`);
@@ -46,56 +34,15 @@ const execute = (version: string) => {
 };
 
 (async () => {
-    if (process.argv.includes("--help")) {
-        console.log("wrapper specific arguments: ");
-        console.log("\t--reload\tredownloads the binary");
-        console.log("\t--skip-update-check\tdon't check for new versions");
-        console.log("\t--clean\tdeletes all cached files");
-    }
-
-    const clean = process.argv.includes("--clean");
-
-    if (clean) {
-        rimraf.sync(`${ecRootDir()}/bin`);
+    if (isFile(binary())) {
+        execute();
         return;
-    }
-
-    const reload = process.argv.includes("--reload");
-    const config = await getConfig();
-    let version = config.Version;
-
-    if (!reload && isFile(binary(version))) {
-        execute(version);
-        return;
-    }
-
-    const versions = await getAvailableVersions();
-    const latestVersion = versions.reduce(
-        (acc, curr) => (acc > curr ? acc : curr),
-        ""
-    );
-
-    const skipUpdateCheck =
-        process.argv.includes("--skip-update-check") || config.SkipUpdateCheck;
-
-    if (!versions.includes(version)) {
-        if (typeof version === "undefined") {
-            version = latestVersion;
-        } else {
-            console.log(`No version ${version} available`);
-            return;
-        }
-    }
-
-    if (!skipUpdateCheck && latestVersion !== version) {
-        console.warn(`There is a new version available: ${latestVersion}`);
-        console.warn(`You are using: ${version}`);
     }
 
     const tarFilePath = `${ecRootDir()}/ec.tar.gz`;
 
     const myFile = await downloadFile(
-        downloadUrl(version, getReleaseArchiveNameForCurrentPlatform()),
+        downloadUrl(CORE_VERSION, getReleaseArchiveNameForCurrentPlatform()),
         tarFilePath
     );
 
@@ -106,16 +53,9 @@ const execute = (version: string) => {
             file: tarFilePath,
             strict: true,
         })
-            .then(async (_) => {
+            .then((_) => {
                 removeFile(tarFilePath);
-                await mkdir(`${ecRootDir()}/bin/${version}`, {
-                    recursive: true,
-                });
-                await rename(
-                    `${ecRootDir()}/bin/${getReleaseNameForCurrentPlatform()}`,
-                    binary(version)
-                );
-                execute(version);
+                execute();
             })
             .catch((e) => {
                 console.error("ERROR:", e);
