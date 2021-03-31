@@ -16,6 +16,12 @@
 
 ### Misc
 
+## [4.0.2] - 2021-03-31
+
+- Update Core to 2.3.5
+
+### Misc
+
 - Switch to Github Actions [#228](https://github.com/editorconfig-checker/editorconfig-checker.javascript/pull/228) ([@mstruebing](https://github.com/mstruebing))
 
 ## [4.0.1] - 2021-03-16
