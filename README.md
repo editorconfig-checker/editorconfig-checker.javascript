@@ -1,6 +1,6 @@
 # editorconfig-checker
 
-![Logo](https://raw.githubusercontent.com/editorconfig-checker/editorconfig-checker.javascript/master/Docs/logo.png "Logo")
+![Logo](https://raw.githubusercontent.com/editorconfig-checker/editorconfig-checker.javascript/master/Docs/logo.png 'Logo')
 
 [![Build Status](https://travis-ci.org/editorconfig-checker/editorconfig-checker.javascript.svg?branch=master)](https://travis-ci.org/editorconfig-checker/editorconfig-checker.javascript)
 [![Greenkeeper badge](https://badges.greenkeeper.io/editorconfig-checker/editorconfig-checker.javascript.svg)](https://greenkeeper.io/)
@@ -16,36 +16,35 @@ This is a tool to check if your files consider your `.editorconfig`.
 Most tools - like linters for example - only test one filetype and need an extra configuration.
 This tool only needs your editorconfig to check all files.
 
-![Sample Output](https://raw.githubusercontent.com/editorconfig-checker/editorconfig-checker.javascript/master/Docs/sample.png "Sample output")
+![Sample Output](output 'Sample output')
+
+[output]: https://raw.githubusercontent.com/editorconfig-checker/editorconfig-checker.javascript/master/docs/sample.png
 
 ## Important
 
-This is only a wrapper for the core [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker).
+This is only a wrapper for the core [editorconfig-checker][checker].
 You should have a look at this repository to know how this tool can be used and what possibilities/caveats are there.
 This version can be used in the same way as the core as every argument is simply passed down to it.
+
+[checker]: https://github.com/editorconfig-checker/editorconfig-checker
 
 ## Installation
 
 Installation via npm/yarn is recommended:
 
 ```shell
-yarn add --dev editorconfig-checker
-./node_modules/.bin/editorconfig-checker
-
-npm install --save-dev editorconfig-checker
-./node_modules/.bin/editorconfig-checker
-
-# or in a npm-script just
-editorconfig-checker
+yarn editorconfig-checker
+npx editorconfig-checker
 ```
 
 Otherwise you could clone the repository and execute the script manually.
 
 ```shell
-git clone git@github.com:editorconfig-checker/editorconfig-checker.javascript.git
-&& cd editorconfig-checker.javascript
-&& make setup
-&& ./editorconfig-checker.javascript/dist/index
+git clone https://github.com/editorconfig-checker/editorconfig-checker.javascript
+cd editorconfig-checker.javascript
+npm install
+npm start
+npm test
 ```
 
 ## Usage
@@ -57,7 +56,7 @@ Then you could create a script in your `package.json` like this:
 
 ```json
 "scripts": {
-    "lint:editorconfig": "editorconfig-checker"
+  "lint:editorconfig": "editorconfig-checker"
 }
 ```
 
@@ -99,7 +98,7 @@ USAGE:
 
 ## Support
 
-If you have any questions or just want to chat join #editorconfig-checker on
-freenode(IRC).
-If you don't have an IRC-client set up you can use the
-[freenode webchat](https://webchat.freenode.net/?channels=editorconfig-checker).
+If you have any questions or just want to chat join #editorconfig-checker on freenode(IRC).
+If you don't have an IRC-client set up you can use the [freenode webchat][wechat].
+
+[wechat]: https://webchat.freenode.net/?channels=editorconfig-checker
