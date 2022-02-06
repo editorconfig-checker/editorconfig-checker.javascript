@@ -3,13 +3,10 @@
 ![Logo](https://raw.githubusercontent.com/editorconfig-checker/editorconfig-checker.javascript/master/Docs/logo.png "Logo")
 
 [![Build Status](https://travis-ci.org/editorconfig-checker/editorconfig-checker.javascript.svg?branch=master)](https://travis-ci.org/editorconfig-checker/editorconfig-checker.javascript)
-[![dependencies](https://david-dm.org/editorconfig-checker/editorconfig-checker.javascript/status.svg)](https://david-dm.org/editorconfig-checker/editorconfig-checker.javascript?view=list)
-[![devDependencies](https://david-dm.org/editorconfig-checker/editorconfig-checker.javascript/dev-status.svg)](https://david-dm.org/editorconfig-checker/editorconfig-checker.javascript?type=dev&view=list)
 [![Greenkeeper badge](https://badges.greenkeeper.io/editorconfig-checker/editorconfig-checker.javascript.svg)](https://greenkeeper.io/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/editorconfig-checker/editorconfig-checker.javascript.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/editorconfig-checker/editorconfig-checker.javascript/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/editorconfig-checker/editorconfig-checker.javascript.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/editorconfig-checker/editorconfig-checker.javascript/context:javascript)
-
 
 <a href="https://www.buymeacoffee.com/mstruebing" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
@@ -23,7 +20,7 @@ This tool only needs your editorconfig to check all files.
 
 ## Important
 
-This is only a wrapper for the core [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker). 
+This is only a wrapper for the core [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker).
 You should have a look at this repository to know how this tool can be used and what possibilities/caveats are there.
 This version can be used in the same way as the core as every argument is simply passed down to it.
 
@@ -31,7 +28,7 @@ This version can be used in the same way as the core as every argument is simply
 
 Installation via npm/yarn is recommended:
 
-```
+```shell
 yarn add --dev editorconfig-checker
 ./node_modules/.bin/editorconfig-checker
 
@@ -44,7 +41,7 @@ editorconfig-checker
 
 Otherwise you could clone the repository and execute the script manually.
 
-```
+```shell
 git clone git@github.com:editorconfig-checker/editorconfig-checker.javascript.git
 && cd editorconfig-checker.javascript
 && make setup
@@ -66,7 +63,7 @@ Then you could create a script in your `package.json` like this:
 
 Usage output:
 
-```
+```plain
 USAGE:
   -config string
         config
