@@ -1,5 +1,3 @@
-node_modules
-dist
-coverage
-bin
-ec.tar.gz
+/node_modules
+/dist
+/bin

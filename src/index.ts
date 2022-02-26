@@ -1,67 +1,37 @@
 #!/usr/bin/env node
+import fs from 'fs/promises'
+import path from 'path'
+import { binPath } from './constants'
+import { spawnSync } from 'child_process'
+import { downloadBinary, findRelease } from './release'
 
-import { spawn } from "child_process";
-import * as tar from "tar";
+async function main() {
+  if (!(await isReady())) {
+    const [name, assets] = await findRelease(process.env.EC_VERSION ?? 'latest')
+    console.info(`Downloading v${name}`)
+    await downloadBinary(assets.browser_download_url)
+  }
+  await execute()
+}
 
-import {
-    binary,
-    downloadFile,
-    downloadUrl,
-    ecRootDir,
-    getReleaseArchiveNameForCurrentPlatform,
-    isFile,
-    removeFile,
-} from "./utils";
+main().catch(console.error)
 
-const CORE_VERSION = "2.3.5";
+async function execute() {
+  const [name] = await fs.readdir(binPath)
+  const program = path.join(binPath, name)
+  await fs.chmod(program, 0o755)
+  const { status } = spawnSync(program, process.argv.slice(2), {
+    stdio: 'inherit',
+    env: process.env,
+  })
+  process.exit(status ?? 0)
+}
 
-const execute = () => {
-    const ecProcess = spawn(`${binary()}`, process.argv.slice(2));
-
-    ecProcess.stdout.on("data", (data) => {
-        console.log(`${data}`);
-    });
-
-    ecProcess.stderr.on("data", (data) => {
-        console.error(`${data}`);
-    });
-
-    ecProcess.on("close", (code) => {
-        if (code !== 0) {
-            process.exit(code);
-        }
-    });
-};
-
-(async () => {
-    if (isFile(binary())) {
-        execute();
-        return;
-    }
-
-    const tarFilePath = `${ecRootDir()}/ec.tar.gz`;
-
-    const myFile = await downloadFile(
-        downloadUrl(CORE_VERSION, getReleaseArchiveNameForCurrentPlatform()),
-        tarFilePath
-    );
-
-    myFile.once("close", () => {
-        tar.x({
-            C: ecRootDir(),
-            cwd: ecRootDir(),
-            file: tarFilePath,
-            strict: true,
-        })
-            .then((_) => {
-                removeFile(tarFilePath);
-                execute();
-            })
-            .catch((e) => {
-                console.error("ERROR:", e);
-            });
-    });
-})().catch((e) => {
-    console.error("ERROR:", e);
-    process.exit(1);
-});
+async function isReady() {
+  try {
+    await fs.stat(binPath)
+    return true
+  } catch {
+    return false
+  }
+}

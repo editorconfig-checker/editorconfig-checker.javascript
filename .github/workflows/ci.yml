@@ -4,20 +4,10 @@ on: [push]
 
 jobs:
   build_and_lint:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
+      - uses: actions/setup-node@v2
       - run: npm ci
-      - run: make build
-      - run: make lint
+      - run: npx start
+      - run: npm run lint
