@@ -4,11 +4,9 @@ import fetch from 'node-fetch'
 import os from 'os'
 import { extract } from 'tar'
 import tmp from 'tmp-promise'
-import { cwd } from './constants'
+import { COMBINED_PATH, NAME } from './constants'
 
 const octokit = new Octokit()
-
-const NAME = 'editorconfig-checker'
 
 export async function findRelease(version: string) {
   const release = await getRelease(version)
@@ -26,7 +24,7 @@ export async function downloadBinary(url: string) {
   const response = await fetch(url)
   const tmpfile = await tmp.file()
   await writeFile(tmpfile.path, await response.buffer())
-  await extract({ file: tmpfile.path, cwd, strict: true })
+  await extract({ file: tmpfile.path, cwd: COMBINED_PATH, strict: true })
   await tmpfile.cleanup()
 }
 
