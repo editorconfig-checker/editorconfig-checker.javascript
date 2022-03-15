@@ -10,6 +10,10 @@
   "repository": "https://github.com/editorconfig-checker/editorconfig-checker.javascript",
   "license": "MIT",
   "author": "Max Strübing <mxstrbng@gmail.com> (https://github.com/mstruebing) (https://twitter.com/mxstrbng)",
+  "funding": {
+    "type": "buymeacoffee",
+    "url": "https://www.buymeacoffee.com/mstruebing"
+  },
   "bin": {
     "ec": "./dist/index.js",
     "editorconfig-checker": "./dist/index.js"
