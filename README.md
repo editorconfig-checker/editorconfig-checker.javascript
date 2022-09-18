@@ -1,6 +1,6 @@
 # editorconfig-checker
 
-![Logo](https://raw.githubusercontent.com/editorconfig-checker/editorconfig-checker.javascript/master/Docs/logo.png 'Logo')
+![Logo](docs/logo.png)
 
 [![Build Status](https://travis-ci.org/editorconfig-checker/editorconfig-checker.javascript.svg?branch=master)](https://travis-ci.org/editorconfig-checker/editorconfig-checker.javascript)
 [![Greenkeeper badge](https://badges.greenkeeper.io/editorconfig-checker/editorconfig-checker.javascript.svg)](https://greenkeeper.io/)
@@ -12,29 +12,25 @@
 
 ## What?
 
-This is a tool to check if your files consider your `.editorconfig`.
-Most tools - like linters for example - only test one filetype and need an extra configuration.
-This tool only needs your editorconfig to check all files.
+This is a tool to check if your files consider your `.editorconfig` rules.
+Most tools—like linters, for example—only test one filetype and need an extra configuration.
+This tool only needs your `.editorconfig` to check all files.
 
-![Sample Output](output 'Sample output')
-
-[output]: https://raw.githubusercontent.com/editorconfig-checker/editorconfig-checker.javascript/master/docs/sample.png
+![Example Screenshot](docs/screenshot.png)
 
 ## Important
 
-This is only a wrapper for the core [editorconfig-checker][checker].
+This is only a wrapper for the core [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker).
 You should have a look at this repository to know how this tool can be used and what possibilities/caveats are there.
 This version can be used in the same way as the core as every argument is simply passed down to it.
-
-[checker]: https://github.com/editorconfig-checker/editorconfig-checker
 
 ## Installation
 
 Installation via npm/yarn is recommended:
 
 ```shell
-yarn editorconfig-checker
-npx editorconfig-checker
+npm install --save-dev editorconfig-checker
+yarn add --dev editorconfig-checker
 ```
 
 Otherwise you could clone the repository and execute the script manually.
@@ -62,7 +58,7 @@ Then you could create a script in your `package.json` like this:
 
 Usage output:
 
-```plain
+```
 USAGE:
   -config string
         config
@@ -70,6 +66,8 @@ USAGE:
         print debugging information
   -disable-end-of-line
         disables the trailing whitespace check
+  -disable-indent-size
+        disables only the indent-size check
   -disable-indentation
         disables the indentation check
   -disable-insert-final-newline
@@ -98,7 +96,5 @@ USAGE:
 
 ## Support
 
-If you have any questions or just want to chat join #editorconfig-checker on freenode(IRC).
-If you don't have an IRC-client set up you can use the [freenode webchat][wechat].
-
-[wechat]: https://webchat.freenode.net/?channels=editorconfig-checker
+If you have any questions, suggestions or just want to chat join #editorconfig-checker on freenode(IRC).
+If you don't have an IRC-client set up you can use the [freenode webchat](https://webchat.freenode.net/?channels=editorconfig-checker).
