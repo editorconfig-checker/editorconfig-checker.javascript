@@ -37,7 +37,7 @@
     "@typescript-eslint/parser": "^5.10.2",
     "@vercel/ncc": "^0.33.1",
     "eslint-config-prettier": "^8.3.0",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^3.3.0",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "tar": "^6.1.11",
