@@ -3,6 +3,7 @@ import { writeFile } from 'fs/promises'
 import fetch from 'node-fetch'
 import os from 'os'
 import { extract } from 'tar'
+import * as tar from 'tar'
 import tmp from 'tmp-promise'
 import { COMBINED_PATH, NAME } from './constants'
 

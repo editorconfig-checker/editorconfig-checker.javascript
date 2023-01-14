@@ -17,8 +17,8 @@ async function main() {
 main().catch(console.error)
 
 async function execute() {
-  const [name] = await fs.readdir(COMBINED_PATH)
-  const program = path.join(COMBINED_PATH, name)
+  const [name] = await fs.readdir(path.join(COMBINED_PATH, 'bin'))
+  const program = path.join(COMBINED_PATH, 'bin', name)
   await fs.chmod(program, 0o755)
   const { status } = spawnSync(program, process.argv.slice(2), {
     stdio: 'inherit',
