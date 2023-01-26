@@ -7,9 +7,15 @@ import { downloadBinary, findRelease } from './release'
 
 async function main() {
   if (!(await isReady())) {
-    const [name, assets] = await findRelease(VERSION)
-    console.info(`Downloading v${name}`)
-    await downloadBinary(assets.browser_download_url)
+    try {
+      const [name, assets] = await findRelease(VERSION)
+      console.info(`Downloading v${name}`)
+      await downloadBinary(assets.browser_download_url)
+    } catch(e) {
+      console.error(`Failed to download binary:\n${e}`)
+      await fs.rm(COMBINED_PATH, { recursive: true })
+      process.exit(1)
+    }
   }
   await execute()
 }

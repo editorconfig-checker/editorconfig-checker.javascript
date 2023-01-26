@@ -1,5 +1,6 @@
 import { Octokit } from '@octokit/rest'
 import { writeFile } from 'fs/promises'
+import ProxyAgent  from 'proxy-agent'
 import fetch from 'node-fetch'
 import os from 'os'
 import { extract } from 'tar'
@@ -7,7 +8,8 @@ import * as tar from 'tar'
 import tmp from 'tmp-promise'
 import { COMBINED_PATH, NAME } from './constants'
 
-const octokit = new Octokit()
+const proxyAgent = new ProxyAgent()
+const octokit = new Octokit({ request: { agent: proxyAgent }})
 
 export async function findRelease(version: string) {
   const release = await getRelease(version)
@@ -22,7 +24,7 @@ export async function findRelease(version: string) {
 }
 
 export async function downloadBinary(url: string) {
-  const response = await fetch(url)
+  const response = await fetch(url, { agent: proxyAgent })
   const tmpfile = await tmp.file()
   await writeFile(tmpfile.path, await response.buffer())
   await extract({ file: tmpfile.path, cwd: COMBINED_PATH, strict: true })
