@@ -1,6 +1,6 @@
 {
   "name": "editorconfig-checker",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "A tool to verify that your files are in harmony with your .editorconfig",
   "keywords": [
     "lint",
