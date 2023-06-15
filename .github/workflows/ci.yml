@@ -1,13 +1,13 @@
 name: ci
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build_and_lint:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v23
+      - uses: actions/setup-node@v3
       - run: npm ci
       - run: npm start
       - run: npm run lint
