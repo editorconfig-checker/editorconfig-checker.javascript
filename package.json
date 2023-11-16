@@ -24,7 +24,7 @@
   "scripts": {
     "lint": "eslint . --fix",
     "prepublishOnly": "npm start",
-    "start": "rimraf dist && ncc build src/index.ts",
+    "start": "rimraf dist && ncc build src/index.ts --minify",
     "test": "tsx src"
   },
   "devDependencies": {
