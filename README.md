@@ -2,11 +2,10 @@
 
 ![Logo](docs/logo.png)
 
-[![Build Status](https://travis-ci.org/editorconfig-checker/editorconfig-checker.javascript.svg?branch=master)](https://travis-ci.org/editorconfig-checker/editorconfig-checker.javascript)
-[![Greenkeeper badge](https://badges.greenkeeper.io/editorconfig-checker/editorconfig-checker.javascript.svg)](https://greenkeeper.io/)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/editorconfig-checker/editorconfig-checker.javascript.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/editorconfig-checker/editorconfig-checker.javascript/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/editorconfig-checker/editorconfig-checker.javascript.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/editorconfig-checker/editorconfig-checker.javascript/context:javascript)
+[![npm](https://img.shields.io/npm/v/editorconfig-checker.svg)](https://www.npmjs.com/package/editorconfig-checker)
+[![Build Status](https://github.com/editorconfig-checker/editorconfig-checker.javascript/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/editorconfig-checker/editorconfig-checker.javascript/actions/workflows/ci.yml)
+![[Conventionnal Commits](https://conventionalcommits.org)](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)
+[![Semantic Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 <a href="https://www.buymeacoffee.com/mstruebing" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
@@ -58,7 +57,7 @@ Then you could create a script in your `package.json` like this:
 
 Usage output:
 
-```
+```txt
 USAGE:
   -config string
         config
