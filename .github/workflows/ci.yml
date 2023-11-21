@@ -15,5 +15,6 @@ jobs:
 
       - run: npm ci
       - run: npm start
-      - run: npm run lint
+      - run: npm run lint:commit -- --to "${{ github.sha }}"
+      - run: npm run lint:eslint
       - run: npm run test
