@@ -30,7 +30,8 @@
     "lint:commit": "commitlint",
     "prepublishOnly": "npm start",
     "start": "rimraf dist && ncc build src/index.ts --minify",
-    "test": "tsx src"
+    "test": "tsx src",
+    "release": "semantic-release"
   },
   "devDependencies": {
     "@commitlint/cli": "18.4.3",
