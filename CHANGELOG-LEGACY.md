@@ -1,20 +1,6 @@
-# Changelog
+# Changelog Legacy
 
-## Unreleased
-
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
-
-### Misc
+For v5 and above, see [GitHub releases](https://github.com/editorconfig-checker/editorconfig-checker.javascript/releases).
 
 ## [4.0.2] - 2021-03-31
 
@@ -30,7 +16,7 @@
 
 ## [3.3.0] - 2020-10-20
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.2.0
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.2.0>
 
 ## [3.2.0] - 2020-09-11
 
@@ -38,11 +24,11 @@ see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2
 
 ## [3.1.0] - 2020-06-07
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.1.0
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.1.0>
 
 ## [3.0.5] - 2020-05-18
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.4
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.4>
 
 ## [3.0.4] - 2020-03-05
 
@@ -50,20 +36,20 @@ see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2
 
 ## [3.0.3] - 2019-08-19
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.3
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.3>
 
 ## [3.0.2] - 2019-08-19
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.2
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.2>
 
 ## [3.0.1] - 2019-08-18
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.1
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.1>
 
 ## [3.0.0] - 2019-08-18
 
 !!!BREAKING
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.0
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2.0.0>
 
 ### Misc
 
@@ -71,7 +57,7 @@ see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/2
 
 ## [2.2.0] - 2019-08-06
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.3.0
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.3.0>
 
 ### Misc
 
@@ -79,11 +65,11 @@ see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1
 
 ## [2.1.1] - 2019-07-06
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.2.1
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.2.1>
 
 ## [2.1.0] - 2019-05-02
 
-see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.2.0
+see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.2.0>
 
 ## [2.0.8] - 2019-04-21
 
@@ -101,7 +87,7 @@ see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1
 ### Fixed
 
 - exchange deprecated `prepublish` script with `prepare`
-- insert_final_newline behavior according to specification (https://github.com/editorconfig-checker/editorconfig-checker/pull/56)
+- insert_final_newline behavior according to specification (<https://github.com/editorconfig-checker/editorconfig-checker/pull/56>)
 
 ## [2.0.6] - 2019-03-16
 
@@ -125,7 +111,7 @@ see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1
 
 ## Fixed
 
-- Updated core for windows compatibility see: https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.1.1
+- Updated core for windows compatibility see: <https://github.com/editorconfig-checker/editorconfig-checker/releases/tag/1.1.1>
 
 ## [2.0.1] - 2019-02-27
 

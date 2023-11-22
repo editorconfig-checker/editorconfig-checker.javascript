@@ -1,6 +1,6 @@
 {
   "name": "editorconfig-checker",
-  "version": "5.1.2",
+  "version": "0.0.0-development",
   "description": "A tool to verify that your files are in harmony with your .editorconfig",
   "keywords": [
     "lint",
@@ -18,16 +18,23 @@
     "ec": "./dist/index.js",
     "editorconfig-checker": "./dist/index.js"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "lint": "eslint . --fix",
+    "lint:eslint": "eslint . --max-warnings 0 --report-unused-disable-directives --ignore-path .gitignore",
+    "lint:commit": "commitlint",
     "prepublishOnly": "npm start",
     "start": "rimraf dist && ncc build src/index.ts --minify",
     "test": "tsx src"
   },
   "devDependencies": {
+    "@commitlint/cli": "18.4.3",
+    "@commitlint/config-conventional": "18.4.3",
     "@octokit/rest": "19.0.13",
     "@types/node": "20.9.0",
     "@types/tar": "6.1.9",
@@ -42,6 +49,7 @@
     "prettier": "3.1.0",
     "proxy-agent": "6.3.1",
     "rimraf": "5.0.5",
+    "semantic-release": "22.0.8",
     "tar": "6.2.0",
     "tmp-promise": "3.0.3",
     "tsx": "4.1.2",
