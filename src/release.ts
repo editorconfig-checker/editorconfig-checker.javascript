@@ -1,14 +1,13 @@
 import { Octokit } from '@octokit/rest'
 import { writeFile } from 'fs/promises'
-import { ProxyAgent } from 'proxy-agent'
-import fetch from 'node-fetch'
+import { getProxyForUrl } from 'proxy-from-env'
+import { fetch, ProxyAgent } from 'undici'
 import os from 'os'
 import { extract } from 'tar'
 import tmp from 'tmp-promise'
 import { COMBINED_PATH, NAME } from './constants'
 
-const proxyAgent = new ProxyAgent()
-const octokit = new Octokit({ request: { agent: proxyAgent } })
+const octokit = new Octokit({ request: { fetch: proxiedFetch } })
 
 export async function findRelease(version: string) {
   const release = await getRelease(version)
@@ -23,12 +22,28 @@ export async function findRelease(version: string) {
 }
 
 export async function downloadBinary(url: string) {
-  const response = await fetch(url, { agent: proxyAgent })
+  const response = await proxiedFetch(url)
   const tmpfile = await tmp.file()
   await writeFile(tmpfile.path, Buffer.from(await response.arrayBuffer()))
   await extract({ file: tmpfile.path, cwd: COMBINED_PATH, strict: true })
   await tmpfile.cleanup()
 }
+
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+export async function proxiedFetch(url: string, opts: any = {}) {
+  const proxy = getProxyForUrl(url)
+  if (!proxy) {
+    return fetch(url, { ...opts })
+  }
+
+  const proxyAgent = new ProxyAgent({
+    uri: getProxyForUrl(url),
+    keepAliveTimeout: 10,
+    keepAliveMaxTimeout: 10,
+  });
+
+  return fetch(url, { ...opts, dispatcher: proxyAgent })
+};
 
 function getRelease(version: string) {
   const { getLatestRelease, getReleaseByTag } = octokit.rest.repos

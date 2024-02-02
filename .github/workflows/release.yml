@@ -25,7 +25,7 @@ jobs:
 
       - run: 'npm ci'
 
-      - run: 'npm run start'
+      - run: 'npm run build'
 
       - name: 'Verify the integrity of provenance attestations and registry signatures for installed dependencies'
         run: 'npm audit signatures'

@@ -18,7 +18,8 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-      - run: npm start
+      - run: npm run build
       - run: npm run lint:commit -- --to "${{ github.sha }}"
       - run: npm run lint:eslint
       - run: npm run test
+      - run: npm run start
