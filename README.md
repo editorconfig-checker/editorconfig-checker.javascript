@@ -38,8 +38,9 @@ Otherwise you could clone the repository and execute the script manually.
 git clone https://github.com/editorconfig-checker/editorconfig-checker.javascript
 cd editorconfig-checker.javascript
 npm install
-npm start
+npm run build
 npm test
+npm start
 ```
 
 ## Usage

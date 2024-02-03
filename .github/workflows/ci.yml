@@ -15,10 +15,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
+          cache: "npm"
 
       - run: npm ci
-      - run: npm start
+      - run: npm run build
       - run: npm run lint:commit -- --to "${{ github.sha }}"
       - run: npm run lint:eslint
+      - run: npm run lint:prettier
       - run: npm run test
+      - run: npm run start
