@@ -2,6 +2,7 @@ import { Octokit } from '@octokit/rest'
 import { writeFile } from 'fs/promises'
 import { getProxyForUrl } from 'proxy-from-env'
 import { fetch, ProxyAgent } from 'undici'
+import type { RequestInit } from 'undici'
 import os from 'os'
 import { extract } from 'tar'
 import tmp from 'tmp-promise'
@@ -29,8 +30,7 @@ export async function downloadBinary(url: string) {
   await tmpfile.cleanup()
 }
 
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any
-export async function proxiedFetch(url: string, opts: any = {}) {
+export async function proxiedFetch(url: string, opts: RequestInit = {}) {
   const proxy = getProxyForUrl(url)
   if (!proxy) {
     return fetch(url, { ...opts })
@@ -40,10 +40,10 @@ export async function proxiedFetch(url: string, opts: any = {}) {
     uri: getProxyForUrl(url),
     keepAliveTimeout: 10,
     keepAliveMaxTimeout: 10,
-  });
+  })
 
   return fetch(url, { ...opts, dispatcher: proxyAgent })
-};
+}
 
 function getRelease(version: string) {
   const { getLatestRelease, getReleaseByTag } = octokit.rest.repos
