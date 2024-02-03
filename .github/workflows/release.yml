@@ -1,4 +1,4 @@
-name: 'Release'
+name: "Release"
 
 on:
   push:
@@ -6,32 +6,32 @@ on:
 
 jobs:
   release:
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
     permissions:
-      contents: 'write'
-      issues: 'write'
-      pull-requests: 'write'
-      id-token: 'write'
+      contents: "write"
+      issues: "write"
+      pull-requests: "write"
+      id-token: "write"
     steps:
-      - uses: 'actions/checkout@v4'
+      - uses: "actions/checkout@v4"
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: 'actions/setup-node@v4'
+      - uses: "actions/setup-node@v4"
         with:
           node-version: 18
-          cache: 'npm'
+          cache: "npm"
 
-      - run: 'npm ci'
+      - run: "npm ci"
 
-      - run: 'npm run build'
+      - run: "npm run build"
 
-      - name: 'Verify the integrity of provenance attestations and registry signatures for installed dependencies'
-        run: 'npm audit signatures'
+      - name: "Verify the integrity of provenance attestations and registry signatures for installed dependencies"
+        run: "npm audit signatures"
 
-      - name: 'Release'
-        run: 'npm run release'
+      - name: "Release"
+        run: "npm run release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,12 +1,12 @@
-import { Octokit } from '@octokit/rest'
-import { writeFile } from 'fs/promises'
-import { getProxyForUrl } from 'proxy-from-env'
-import { fetch, ProxyAgent } from 'undici'
-import type { RequestInit } from 'undici'
-import os from 'os'
-import { extract } from 'tar'
-import tmp from 'tmp-promise'
-import { COMBINED_PATH, NAME } from './constants'
+import { Octokit } from "@octokit/rest"
+import { writeFile } from "fs/promises"
+import { getProxyForUrl } from "proxy-from-env"
+import { fetch, ProxyAgent } from "undici"
+import type { RequestInit } from "undici"
+import os from "os"
+import { extract } from "tar"
+import tmp from "tmp-promise"
+import { COMBINED_PATH, NAME } from "./constants"
 
 const octokit = new Octokit({ request: { fetch: proxiedFetch } })
 
@@ -14,7 +14,7 @@ export async function findRelease(version: string) {
   const release = await getRelease(version)
   const releasePrefix = getAssetPrefix()
   const matchedAsset = release.data.assets.find(({ name }) => {
-    return name.startsWith(releasePrefix) && name.endsWith('.tar.gz')
+    return name.startsWith(releasePrefix) && name.endsWith(".tar.gz")
   })
   if (!matchedAsset) {
     throw new Error(`The binary '${releasePrefix}*' not found`)
@@ -47,7 +47,7 @@ export async function proxiedFetch(url: string, opts: RequestInit = {}) {
 
 function getRelease(version: string) {
   const { getLatestRelease, getReleaseByTag } = octokit.rest.repos
-  if (version === 'latest') {
+  if (version === "latest") {
     return getLatestRelease({ owner: NAME, repo: NAME })
   }
   return getReleaseByTag({ owner: NAME, repo: NAME, tag: version })
@@ -55,14 +55,14 @@ function getRelease(version: string) {
 
 function getAssetPrefix() {
   let platform: string = os.platform()
-  if (platform === 'win32') {
-    platform = 'windows'
+  if (platform === "win32") {
+    platform = "windows"
   }
   let arch: string = os.arch()
-  if (arch === 'x32') {
-    arch = '386'
-  } else if (arch === 'x64') {
-    arch = 'amd64'
+  if (arch === "x32") {
+    arch = "386"
+  } else if (arch === "x64") {
+    arch = "amd64"
   }
   return `ec-${platform}-${arch}`
 }
