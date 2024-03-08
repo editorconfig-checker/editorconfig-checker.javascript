@@ -9,7 +9,7 @@ async function main() {
   if (!(await isReady())) {
     try {
       const [name, assets] = await findRelease(VERSION)
-      console.info(`Downloading v${name}`)
+      console.info(`Downloading ${name}`)
       await downloadBinary(assets.browser_download_url)
     } catch (e) {
       console.error(`Failed to download binary:\n${e}`)
