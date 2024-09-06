@@ -64,5 +64,5 @@ function getAssetPrefix() {
   } else if (arch === "x64") {
     arch = "amd64"
   }
-  return `ec-${platform}-${arch}`
+  return `editorconfig-checker-${platform}-${arch}`
 }
