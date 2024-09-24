@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import fs from "fs/promises"
-import path from "path"
+import fs from "node:fs/promises"
+import path from "node:path"
+import { spawnSync } from "node:child_process"
+
 import { COMBINED_PATH, VERSION } from "./constants"
-import { spawnSync } from "child_process"
 import { downloadBinary, findRelease } from "./release"
 
 async function main() {

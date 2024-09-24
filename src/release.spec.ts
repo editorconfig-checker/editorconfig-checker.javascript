@@ -8,9 +8,12 @@
  * See link above for additional attribution.
  */
 
-import { ProxyServer, createProxy } from "proxy"
 import { type AddressInfo } from "node:net"
 import { Server, createServer } from "node:http"
+import { describe, it, beforeEach, afterEach } from "node:test"
+import assert from "node:assert/strict"
+
+import { ProxyServer, createProxy } from "proxy"
 import { proxiedFetch } from "./release"
 
 const oldEnv = process.env
@@ -54,7 +57,7 @@ describe("proxiedFetch", () => {
     process.env.http_proxy = proxyUrl
 
     await proxiedFetch(serverUrl)
-    expect(proxyConnectionEstablished).toBeTruthy()
+    assert.equal(proxyConnectionEstablished, true)
   })
 
   it("should not use ProxyAgent without proxy environment", async () => {
@@ -62,7 +65,7 @@ describe("proxiedFetch", () => {
     delete process.env.HTTP_PROXY
 
     await proxiedFetch(serverUrl)
-    expect(proxyConnectionEstablished).toBeFalsy()
+    assert.equal(proxyConnectionEstablished, false)
   })
 
   it("should not use ProxyAgent with http_proxy and matching no_proxy", async () => {
@@ -70,7 +73,7 @@ describe("proxiedFetch", () => {
     process.env.no_proxy = "localhost"
 
     await proxiedFetch(serverUrl)
-    expect(proxyConnectionEstablished).toBeFalsy()
+    assert.equal(proxyConnectionEstablished, false)
   })
 
   it("should use ProxyAgent with http_proxy and mismatching no_proxy", async () => {
@@ -78,6 +81,6 @@ describe("proxiedFetch", () => {
     process.env.no_proxy = "example.com"
 
     await proxiedFetch(serverUrl)
-    expect(proxyConnectionEstablished).toBeTruthy()
+    assert.equal(proxyConnectionEstablished, true)
   })
 })

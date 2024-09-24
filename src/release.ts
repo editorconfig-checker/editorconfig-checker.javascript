@@ -1,9 +1,10 @@
+import { writeFile } from "node:fs/promises"
+import os from "node:os"
+
 import { Octokit } from "@octokit/rest"
-import { writeFile } from "fs/promises"
 import { getProxyForUrl } from "proxy-from-env"
 import { fetch, ProxyAgent } from "undici"
 import type { RequestInit } from "undici"
-import os from "os"
 import { extract } from "tar"
 import tmp from "tmp-promise"
 import { COMBINED_PATH, NAME } from "./constants"

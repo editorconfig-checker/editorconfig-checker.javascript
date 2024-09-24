@@ -4,7 +4,7 @@ on:
   push:
     branches: [master]
   pull_request:
-    branches: [master]
+    branches: [master, beta]
 
 jobs:
   build_and_lint:
@@ -14,12 +14,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 22
           cache: "npm"
 
       - run: npm ci
       - run: npm run build
       - run: npm run lint:commit -- --to "${{ github.sha }}"
+      - run: npm run lint:typescript
       - run: npm run lint:eslint
       - run: npm run lint:prettier
       - run: npm run test
