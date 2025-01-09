@@ -8,7 +8,11 @@ on:
 
 jobs:
   build_and_lint:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
 
@@ -19,9 +23,18 @@ jobs:
 
       - run: npm ci
       - run: npm run build
+
       - run: npm run lint:commit -- --to "${{ github.sha }}"
+        if: ${{ runner.os == 'Linux' }}
+
       - run: npm run lint:typescript
+        if: ${{ runner.os == 'Linux' }}
+
       - run: npm run lint:eslint
+        if: ${{ runner.os == 'Linux' }}
+
       - run: npm run lint:prettier
+        if: ${{ runner.os == 'Linux' }}
+
       - run: npm run test
       - run: npm run start

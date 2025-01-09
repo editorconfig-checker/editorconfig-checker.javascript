@@ -7,6 +7,7 @@ import { fetch, ProxyAgent } from "undici"
 import type { RequestInit } from "undici"
 import { extract } from "tar"
 import tmp from "tmp-promise"
+import admzip from "adm-zip"
 import { COMBINED_PATH, NAME } from "./constants"
 
 const octokit = new Octokit({ request: { fetch: proxiedFetch } })
@@ -15,7 +16,10 @@ export async function findRelease(version: string) {
   const release = await getRelease(version)
   const releasePrefix = getAssetPrefix()
   const matchedAsset = release.data.assets.find(({ name }) => {
-    return name.startsWith(releasePrefix) && name.endsWith(".tar.gz")
+    return (
+      name.startsWith(releasePrefix) &&
+      (name.endsWith(".tar.gz") || name.endsWith(".zip"))
+    )
   })
   if (!matchedAsset) {
     throw new Error(`The binary '${releasePrefix}*' not found`)
@@ -27,7 +31,14 @@ export async function downloadBinary(url: string) {
   const response = await proxiedFetch(url)
   const tmpfile = await tmp.file()
   await writeFile(tmpfile.path, Buffer.from(await response.arrayBuffer()))
-  await extract({ file: tmpfile.path, cwd: COMBINED_PATH, strict: true })
+
+  if (url.endsWith(".zip")) {
+    const zip = new admzip(tmpfile.path)
+    zip.extractAllTo(COMBINED_PATH, true)
+  } else {
+    await extract({ file: tmpfile.path, cwd: COMBINED_PATH, strict: true })
+  }
+
   await tmpfile.cleanup()
 }
 
