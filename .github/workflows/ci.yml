@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [master, beta]
 
+permissions:
+  contents: read
+
 jobs:
   build_and_lint:
     runs-on: ${{ matrix.os }}
@@ -13,6 +16,9 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
+    env:
+      # octokit tries to use GITHUB_TOKEN opportunistically, so providing the token should increase our rate limits
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
 
