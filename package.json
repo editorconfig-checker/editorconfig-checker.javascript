@@ -15,7 +15,6 @@
     "url": "https://www.buymeacoffee.com/mstruebing"
   },
   "bin": {
-    "ec": "./dist/index.js",
     "editorconfig-checker": "./dist/index.js"
   },
   "publishConfig": {
