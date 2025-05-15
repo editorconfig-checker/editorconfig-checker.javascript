@@ -61,6 +61,6 @@
     "tmp-promise": "3.0.3",
     "typescript": "5.5.4",
     "tsx": "4.19.1",
-    "undici": "6.21.1"
+    "undici": "6.21.2"
   }
 }
