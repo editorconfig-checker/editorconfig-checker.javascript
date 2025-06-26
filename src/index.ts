@@ -9,9 +9,9 @@ import { downloadBinary, findRelease } from "./release"
 async function main() {
   if (!(await isReady())) {
     try {
-      const [name, assets] = await findRelease(VERSION)
+      const [name, asset_id, asset_filetype] = await findRelease(VERSION)
       console.info(`Downloading ${name}`)
-      await downloadBinary(assets.browser_download_url)
+      await downloadBinary(asset_id, asset_filetype)
     } catch (e) {
       console.error(`Failed to download binary:\n${e}`)
       await fs.rm(COMBINED_PATH, { recursive: true })
