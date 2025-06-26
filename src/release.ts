@@ -1,7 +1,8 @@
-import { writeFile } from "node:fs/promises"
 import os from "node:os"
 
 import { Octokit } from "@octokit/rest"
+import { createWriteStream } from "node:fs"
+import { pipeline } from "node:stream/promises"
 import { getProxyForUrl } from "proxy-from-env"
 import { fetch, ProxyAgent } from "undici"
 import type { RequestInit } from "undici"
@@ -24,15 +25,33 @@ export async function findRelease(version: string) {
   if (!matchedAsset) {
     throw new Error(`The binary '${releasePrefix}*' not found`)
   }
-  return [release.data.name, matchedAsset] as const
+  return [
+    release.data.name,
+    matchedAsset.id,
+    matchedAsset.name.endsWith(".zip") ? "zip" : "tar",
+  ] as const
 }
 
-export async function downloadBinary(url: string) {
-  const response = await proxiedFetch(url)
+export async function downloadBinary(assetId: number, assetFiletype: string) {
+  // downloading the asset is copied from https://github.com/octokit/rest.js/issues/12#issuecomment-1916023479
+  const asset = await octokit.repos.getReleaseAsset({
+    owner: NAME,
+    repo: NAME,
+    asset_id: assetId,
+    headers: {
+      accept: "application/octet-stream",
+    },
+    request: {
+      parseSuccessResponseBody: false, // required to access response as stream
+    },
+  })
   const tmpfile = await tmp.file()
-  await writeFile(tmpfile.path, Buffer.from(await response.arrayBuffer()))
 
-  if (url.endsWith(".zip")) {
+  const assetStream = asset.data as unknown as NodeJS.ReadableStream
+  const outputFile = createWriteStream(tmpfile.path)
+  await pipeline(assetStream, outputFile)
+
+  if (assetFiletype === ".zip") {
     const zip = new admzip(tmpfile.path)
     zip.extractAllTo(COMBINED_PATH, true)
   } else {
