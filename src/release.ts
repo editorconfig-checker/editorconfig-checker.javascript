@@ -32,12 +32,12 @@ export async function findRelease(version: string) {
   ] as const
 }
 
-export async function downloadBinary(asset_id: number, asset_filetype: string) {
+export async function downloadBinary(assetId: number, assetFiletype: string) {
   // downloading the asset is copied from https://github.com/octokit/rest.js/issues/12#issuecomment-1916023479
   const asset = await octokit.repos.getReleaseAsset({
     owner: NAME,
     repo: NAME,
-    asset_id: asset_id,
+    asset_id: assetId,
     headers: {
       accept: "application/octet-stream",
     },
@@ -51,7 +51,7 @@ export async function downloadBinary(asset_id: number, asset_filetype: string) {
   const outputFile = createWriteStream(tmpfile.path)
   await pipeline(assetStream, outputFile)
 
-  if (asset_filetype === ".zip") {
+  if (assetFiletype === ".zip") {
     const zip = new admzip(tmpfile.path)
     zip.extractAllTo(COMBINED_PATH, true)
   } else {
