@@ -11,7 +11,10 @@ import tmp from "tmp-promise"
 import admzip from "adm-zip"
 import { COMBINED_PATH, NAME } from "./constants"
 
-const octokit = new Octokit({ request: { fetch: proxiedFetch } })
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+  request: { fetch: proxiedFetch },
+})
 
 export async function findRelease(version: string) {
   const release = await getRelease(version)
