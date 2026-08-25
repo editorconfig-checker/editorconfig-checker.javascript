@@ -60,25 +60,44 @@ Usage output:
 
 ```txt
 USAGE:
+  editorconfig-checker [OPTIONS] [FILE...]
+
+With no FILE arguments, all files tracked by git are checked. When one or
+more FILE arguments are given, only those files are checked (the configured
+exclude patterns still apply).
+
+OPTIONS:
+  -color
+        enables printing color
   -config string
         config
+  -cpuprofile string
+        write cpu profile to file
   -debug
         print debugging information
+  -disable-charset
+        disables only the charset check
   -disable-end-of-line
-        disables the trailing whitespace check
+        disables the end-of-line check
   -disable-indent-size
         disables only the indent-size check
   -disable-indentation
         disables the indentation check
   -disable-insert-final-newline
         disables the final newline check
+  -disable-max-line-length
+        disables only the max-line-length check
   -disable-trim-trailing-whitespace
         disables the trailing whitespace check
   -dry-run
         show which files would be checked
   -exclude string
-        a regex which files should be excluded from checking - needs to be a valid regular expression
-  -h    print the help
+        a regex which files should be excluded from checking - needs to be a valid regular expression. Combine patterns with | (pipe): -exclude "vendor|testdata"
+  -f value
+        specify the output format: default, codeclimate, gcc, github-actions (default default)
+  -format value
+        specify the output format: default, codeclimate, gcc, github-actions (default default)
+  -h  print the help
   -help
         print the help
   -ignore-defaults
@@ -86,8 +105,8 @@ USAGE:
   -init
         creates an initial configuration
   -no-color
-        dont print colors
-  -v    print debugging information
+        disables printing color
+  -v  print debugging information
   -verbose
         print debugging information
   -version
