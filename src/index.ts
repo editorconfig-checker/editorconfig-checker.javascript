@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises"
-import path from "node:path"
 import { spawnSync } from "node:child_process"
 
 import { COMBINED_PATH, VERSION } from "./constants"
+import { findProgram } from "./program"
 import { downloadBinary, findRelease } from "./release"
 
 async function main() {
@@ -24,8 +24,7 @@ async function main() {
 main().catch(console.error)
 
 async function execute() {
-  const [name] = await fs.readdir(path.join(COMBINED_PATH, "bin"))
-  const program = path.join(COMBINED_PATH, "bin", name)
+  const program = await findProgram(COMBINED_PATH, process.platform)
   await fs.chmod(program, 0o755)
   const { status } = spawnSync(program, process.argv.slice(2), {
     stdio: "inherit",
