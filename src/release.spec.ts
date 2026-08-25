@@ -36,9 +36,11 @@ describe("proxiedFetch", () => {
     serverUrl = `http://localhost:${(server.address() as AddressInfo).port}`
     proxyUrl = `http://localhost:${(proxyServer.address() as AddressInfo).port}`
 
-    proxyServer.on("connect", () => {
+    const markProxyConnectionEstablished = () => {
       proxyConnectionEstablished = true
-    })
+    }
+    proxyServer.on("connect", markProxyConnectionEstablished)
+    proxyServer.on("request", markProxyConnectionEstablished)
 
     server.on("request", (request, response) => {
       response.writeHead(200)
