@@ -3,9 +3,10 @@ import os from "node:os"
 import { Octokit } from "@octokit/rest"
 import { createWriteStream } from "node:fs"
 import { pipeline } from "node:stream/promises"
-import { getProxyForUrl } from "proxy-from-env"
-import { fetch, ProxyAgent } from "undici"
-import type { RequestInit } from "undici"
+import http from "node:http"
+import https from "node:https"
+import type { IncomingMessage } from "node:http"
+import { Readable } from "node:stream"
 import { extract } from "tar"
 import tmp from "tmp-promise"
 import admzip from "adm-zip"
@@ -64,19 +65,40 @@ export async function downloadBinary(assetId: number, assetFiletype: string) {
   await tmpfile.cleanup()
 }
 
-export async function proxiedFetch(url: string, opts: RequestInit = {}) {
-  const proxy = getProxyForUrl(url)
-  if (!proxy) {
-    return fetch(url, { ...opts })
+export async function proxiedFetch(url: string, init: RequestInit = {}) {
+  const headers = new Headers(init.headers)
+  let target = new URL(url)
+  let response = await request(target, init.method, headers)
+  for (
+    let redirects = 0;
+    redirects < 5 && response.headers.location;
+    redirects++
+  ) {
+    response.resume()
+    const next = new URL(response.headers.location, target)
+    if (next.origin !== target.origin) {
+      headers.delete("authorization")
+    }
+    target = next
+    response = await request(target, init.method, headers)
   }
+  const hasBody = response.statusCode !== 204 && response.statusCode !== 304
+  return new Response(
+    hasBody ? (Readable.toWeb(response) as ReadableStream) : null,
+    {
+      status: response.statusCode,
+      headers: response.headers as Record<string, string>,
+    },
+  )
+}
 
-  const proxyAgent = new ProxyAgent({
-    uri: getProxyForUrl(url),
-    keepAliveTimeout: 10,
-    keepAliveMaxTimeout: 10,
+function request(target: URL, method = "GET", headers: Headers) {
+  const client = target.protocol === "https:" ? https : http
+  const agent = new client.Agent({ proxyEnv: process.env })
+  const options = { method, headers: Object.fromEntries(headers), agent }
+  return new Promise<IncomingMessage>((resolve, reject) => {
+    client.request(target, options, resolve).once("error", reject).end()
   })
-
-  return fetch(url, { ...opts, dispatcher: proxyAgent })
 }
 
 function getRelease(version: string) {

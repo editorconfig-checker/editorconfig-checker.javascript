@@ -36,11 +36,9 @@ describe("proxiedFetch", () => {
     serverUrl = `http://localhost:${(server.address() as AddressInfo).port}`
     proxyUrl = `http://localhost:${(proxyServer.address() as AddressInfo).port}`
 
-    const markProxyConnectionEstablished = () => {
+    proxyServer.on("request", () => {
       proxyConnectionEstablished = true
-    }
-    proxyServer.on("connect", markProxyConnectionEstablished)
-    proxyServer.on("request", markProxyConnectionEstablished)
+    })
 
     server.on("request", (request, response) => {
       response.writeHead(200)
@@ -55,14 +53,14 @@ describe("proxiedFetch", () => {
     process.env = oldEnv
   })
 
-  it("should use ProxyAgent when http_proxy present", async () => {
+  it("should use proxy when http_proxy present", async () => {
     process.env.http_proxy = proxyUrl
 
     await proxiedFetch(serverUrl)
     assert.equal(proxyConnectionEstablished, true)
   })
 
-  it("should not use ProxyAgent without proxy environment", async () => {
+  it("should not use proxy without proxy environment", async () => {
     delete process.env.http_proxy
     delete process.env.HTTP_PROXY
 
@@ -70,7 +68,7 @@ describe("proxiedFetch", () => {
     assert.equal(proxyConnectionEstablished, false)
   })
 
-  it("should not use ProxyAgent with http_proxy and matching no_proxy", async () => {
+  it("should not use proxy with http_proxy and matching no_proxy", async () => {
     process.env.http_proxy = proxyUrl
     process.env.no_proxy = "localhost"
 
@@ -78,7 +76,7 @@ describe("proxiedFetch", () => {
     assert.equal(proxyConnectionEstablished, false)
   })
 
-  it("should use ProxyAgent with http_proxy and mismatching no_proxy", async () => {
+  it("should use proxy with http_proxy and mismatching no_proxy", async () => {
     process.env.http_proxy = proxyUrl
     process.env.no_proxy = "example.com"
 
