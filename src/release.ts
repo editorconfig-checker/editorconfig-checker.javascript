@@ -3,18 +3,12 @@ import os from "node:os"
 import { Octokit } from "@octokit/rest"
 import { createWriteStream } from "node:fs"
 import { pipeline } from "node:stream/promises"
-import { getProxyForUrl } from "proxy-from-env"
-import { fetch, ProxyAgent } from "undici"
-import type { RequestInit } from "undici"
 import { extract } from "tar"
 import tmp from "tmp-promise"
 import admzip from "adm-zip"
 import { COMBINED_PATH, NAME } from "./constants"
 
-const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
-  request: { fetch: proxiedFetch },
-})
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 
 export async function findRelease(version: string) {
   const release = await getRelease(version)
@@ -60,21 +54,6 @@ export async function downloadBinary(assetId: number, assetFiletype: string) {
   }
 
   await tmpfile.cleanup()
-}
-
-export async function proxiedFetch(url: string, opts: RequestInit = {}) {
-  const proxy = getProxyForUrl(url)
-  if (!proxy) {
-    return fetch(url, { ...opts })
-  }
-
-  const proxyAgent = new ProxyAgent({
-    uri: getProxyForUrl(url),
-    keepAliveTimeout: 10,
-    keepAliveMaxTimeout: 10,
-  })
-
-  return fetch(url, { ...opts, dispatcher: proxyAgent })
 }
 
 function getRelease(version: string) {

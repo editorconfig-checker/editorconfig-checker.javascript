@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises"
 import { spawnSync } from "node:child_process"
+import http from "node:http"
 
 import { COMBINED_PATH, VERSION } from "./constants"
 import { findProgram } from "./program"
 import { downloadBinary, findRelease } from "./release"
 
 async function main() {
+  http.setGlobalProxyFromEnv(process.env)
   if (!(await isReady())) {
     try {
       const [name, assetId, assetFiletype] = await findRelease(VERSION)
