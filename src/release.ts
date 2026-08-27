@@ -12,15 +12,13 @@ const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
 
 export async function findRelease(version: string) {
   const release = await getRelease(version)
-  const releasePrefix = getAssetPrefix()
-  const matchedAsset = release.data.assets.find(({ name }) => {
-    return (
-      name.startsWith(releasePrefix) &&
-      (name.endsWith(".tar.gz") || name.endsWith(".zip"))
-    )
-  })
+  const assetPrefixes = getAssetPrefixes(os.platform(), os.arch())
+  const matchedAsset = findFirstMatchingAsset(
+    release.data.assets,
+    assetPrefixes,
+  )
   if (!matchedAsset) {
-    throw new Error(`The binary '${releasePrefix}*' not found`)
+    throw new Error(`The binary '${assetPrefixes.join("*' or '")}*' not found`)
   }
   return [
     release.data.name,
@@ -48,7 +46,7 @@ export async function downloadBinary(assetId: number, assetFiletype: string) {
   const outputFile = createWriteStream(tmpfile.path)
   await pipeline(assetStream, outputFile)
 
-  if (assetFiletype === ".zip") {
+  if (assetFiletype === "zip") {
     const zip = new admzip(tmpfile.path)
     zip.extractAllTo(COMBINED_PATH, true)
   } else {
@@ -66,16 +64,37 @@ function getRelease(version: string) {
   return getReleaseByTag({ owner: NAME, repo: NAME, tag: version })
 }
 
-function getAssetPrefix() {
-  let platform: string = os.platform()
+export function findFirstMatchingAsset<Asset extends { name: string }>(
+  assets: ReadonlyArray<Asset>,
+  assetPrefixes: string[],
+) {
+  for (const assetPrefix of assetPrefixes) {
+    const matchedAsset = assets.find(({ name }) => {
+      return (
+        name.startsWith(assetPrefix) &&
+        (name.endsWith(".tar.gz") || name.endsWith(".zip"))
+      )
+    })
+    if (matchedAsset) {
+      return matchedAsset
+    }
+  }
+  return undefined
+}
+
+export function getAssetPrefixes(platform: string, arch: string) {
   if (platform === "win32") {
     platform = "windows"
   }
-  let arch: string = os.arch()
   if (arch === "x32") {
     arch = "386"
   } else if (arch === "x64") {
     arch = "amd64"
   }
-  return `ec-${platform}-${arch}`
+  const currentAssetPrefixes = [`${NAME}-${platform}-${arch}`]
+  if (platform === "darwin") {
+    currentAssetPrefixes.push(`${NAME}-darwin-all`)
+  }
+  const legacyAssetPrefix = `ec-${platform}-${arch}`
+  return [...currentAssetPrefixes, legacyAssetPrefix]
 }
