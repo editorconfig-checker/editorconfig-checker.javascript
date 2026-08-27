@@ -48,6 +48,7 @@
     "@types/node": "26.3.0",
     "@vercel/ncc": "0.45.0",
     "adm-zip": "0.6.0",
+    "conventional-changelog-conventionalcommits": "9.3.1",
     "eslint": "10.9.1",
     "prettier": "3.9.6",
     "proxy": "4.1.0",
